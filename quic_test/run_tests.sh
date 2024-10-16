@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 helpFunction()
@@ -16,6 +17,7 @@ helpFunction()
    echo -e "Example usage:"
    echo -e "$0 -r 10 -l 1% -p 25% -d 20ms -j 5ms -n 10 -s 100 -i 1 -q 1"
    echo -e "$0 -r 10 -l 0 -p 0 -d 20ms -j 5ms -n 10 -s 100 -i 1 -q 0"
+   echo -e "$0 -r 1 -l 0 -p 0 -d 20ms -j 5ms -n 1 -s 100 -i 1 -q 0"
    exit 1 # Exit script after printing help
 }
 
@@ -87,17 +89,48 @@ x=1
 while [ $x -le $runs ]
 do
     # Adjust the port according to the QUIC client (usually 4433 or specified by the implementation)
-    sudo tcpdump -U -i $veth port 14567 -w ./results/quic/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos.pcap &
-    sleep 5
+    #sudo tcpdump -U -i $veth port 14567 -w ./results/quic/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos.pcap &
+    #sleep 5
 
+   #sudo tcpdump -U -i $veth -w ./results/quic/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos-test.pcap &
+    #sleep 5
+    
     #Futura implmentação que pretendo:
     #docker run --network=mqtt-tests_emqx-bridge -it quic_client_test -b broker.emqx.io -p 4433 -n $number_of_packets -s $size_of_packets -i $msg_interval
       
     #sudo docker run --network=quic_test_emqx-bridge quic_client_test  ./quic_client pub 'mqtt-tcp://emqx:14567' $qos topic hello
-    sudo docker run --network=quic_test_emqx-bridge quic_client_test  ./quic_client pub 'mqtt-tcp://emqx:14567' $qos topic $size_of_packets $number_of_packets  $msg_interval
+    ## Correto para o teste de conexão, com SSLKEYLOGFILE, 
+    #sudo docker run --network=quic_test_emqx-bridge \
+    # -e SSLKEYLOGFILE="/tmp/SSLKEYLOGFILE" \
+   # --mount 'type=bind,source=/home/dae/quic_protocol/quic_test/quic_test,destination=/tmp/SSLKEYLOGFILE' \
+   # quic_mqtt  ./quic_client pub 'mqtt-tcp://emqx:14567' $qos topic $size_of_packets $number_of_packets  $msg_interval
+   
+   
+   #Corrrer infinitamente para debug
+      sudo docker run --network=quic_test_emqx-bridge \
+     -e SSLKEYLOGFILE="/tmp/SSLKEYLOGFILE" \
+      --mount 'type=bind,source=/home/dae/quic_protocol/quic_test/quic_test,destination=/tmp/SSLKEYLOGFILE' \
+      quic_mqtt tail -f /dev/null
+
+   # ./NanoSDK/demo/quic_mqtt/build/quic_client pub 'mqtt-tcp://emqx:14567' 0 topic 100 100  10
+   # sudo rm -r /NanoSDK/build 
+   #mkdir /NanoSDK/build
+   # cd /NanoSDK/build
+   # cmake -DENABLE_LOG=ON  -DCMAKE_BUILD_TYPE=Debug .. 
+   # sudo make
+   # sudo make install
+    
+    #sudo docker run --network=quic_test_emqx-bridge \
+     #-e SSLKEYLOGFILE="/tmp/SSLKEYLOGFILE" \
+     #quic_mqtt  ./quic_client pub 'mqtt-tcp://emqx:14567' $qos topic $size_of_packets $number_of_packets  $msg_interval
+  
+sleep 5000000000
+#   sudo docker run --rm --network="quic_test_emqx-bridge" \
+#    -e SSLKEYLOGFILE="/tmp/sslkeylogfile.log" \
+#    quic_mqtt ./quic_client pub "mqtt-tcp://emqx:14567" "$QOS" topico ola
 
     pid=$(ps -e | pgrep tcpdump)  
-    sleep 5
+    #sleep 500
     sudo kill -2 $pid
     x=$(( $x + 1 ))
 done
