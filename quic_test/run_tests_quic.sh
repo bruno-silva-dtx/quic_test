@@ -113,7 +113,7 @@ for (( x=1; x<=$runs; x++ )); do
       "
    # ./scripts/log_wrapper.sh  ./send_msg_quic.sh 0 topic 100 10 10
 
-      sleep 10
+      sleep 15
 
       docker exec quic_test bash -c "
             cd /root/NanoSDK/extern/msquic && \
