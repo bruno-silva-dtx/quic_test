@@ -85,6 +85,16 @@ sudo docker run -d --name quic_test --network=quic_test_emqx-bridge quic_mqtt ta
 
 docker cp send_msg_quic.sh quic_test:/root/NanoSDK/extern/msquic
 
+      docker exec quic_test bash -c "
+         pwsh ./scripts/build.ps1 -Config Debug -DisableLogs $false -UpdateClog $true -Arch x64 -Platform linux -Tls openssl && \
+         pwsh ./scripts/prepare-machine.ps1 -ForTest -Tls openssl -Force -InitSubmodules
+         mkdir -p build && \
+         cd build && \
+         cmake -D QUIC_ENABLE_LOGGING=ON -D QUIC_LOGGING_TYPE=stdout .. && \
+         make && \
+         make install   
+      "
+
 
 
 # Run the tests
@@ -95,19 +105,49 @@ for (( x=1; x<=$runs; x++ )); do
 
       docker exec quic_test bash -c "
          apt install sudo -y && \
-         sudo apt-get install -y build-essential git pkg-config autoconf automake libtool -y && \
-         sudo apt-get install -y liblttng-ust-dev libbabeltrace-dev liburcu-dev -y && \
-         sudo apt-get install lttng-tools lttng-modules-dkms lttng-ust lttng-tools -y && \
+         apt full-upgrade -y && \
+         apt autoremove -y && \
+         sudo apt-get install -y \
+            lttng-tools \
+            lttng-modules-dkms \
+            lttng-ust \
+            liblttng-ust-dev \
+            babeltrace2 \
+            libssl-dev \
+            libnng-dev \
+            pkg-config \
+            git \
+            curl \
+            wget \
+            python3-pip \
+            build-essential \
+            pkg-config \
+            autoconf \
+            automake \
+            libtool \
+            libbabeltrace-dev \
+            liburcu-dev \
+            dotnet-runtime-6.0 \
+            dotnet-sdk-6.0 \
+            dotnet-host && \
+         cd /root/NanoSDK/extern/msquic && \
+         git submodule update --init submodules/clog && \
+         dotnet build submodules/clog/src/clog2text/clog2text_lttng/ -c Release
+      "
+
+         sleep 10
+      
+      docker exec quic_test bash -c "
          cd /root/NanoSDK/extern/msquic && \
          chmod +x scripts/log_wrapper.sh  && \
          chmod +x send_msg_quic.sh && \
          ./scripts/log_wrapper.sh ./send_msg_quic.sh 0 topic $size_of_packets $number_of_packets $msg_interval > log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log 
          "  
-
-        sleep 10 
+      #  apt install --no-install-recommends -y dotnet-runtime-6.0 dotnet-sdk-6.0 dotnet-host && \
+        sleep 10
       docker exec quic_test bash -c " 
+         cd /root/NanoSDK/extern/msquic && \
          echo 'Correu o send_msg_quic.sh' && \
-         apt install --no-install-recommends -y dotnet-runtime-6.0 dotnet-sdk-6.0 dotnet-host && \
          git submodule update --init submodules/clog && \
          dotnet build submodules/clog/src/clog2text/clog2text_lttng/ -c Release
       "
@@ -137,7 +177,7 @@ for (( x=1; x<=$runs; x++ )); do
       docker cp quic_test:/root/NanoSDK/extern/msquic/log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log ./results/quic/
       docker cp quic_test:/root/NanoSDK/extern/msquic/log_msquic_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log ./results/quic/
    
-    sleep 1
+    sleep 1000
     # Clean up inside the container
     docker exec quic_test bash -c "
       cd /root/NanoSDK/extern/msquic && \
