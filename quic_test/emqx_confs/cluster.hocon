@@ -1,0 +1,3 @@
+topic_metrics = [
+  {topic = topic}
+]

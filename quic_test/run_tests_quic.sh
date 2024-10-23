@@ -54,6 +54,8 @@ fi
 # Start Docker environment
 docker compose up -d
 container_id=$(docker compose ps -q)
+docker compose -f mqtt-receive.yml up -d
+container_receive=$(docker compose -f mqtt-receive.yml ps -q)
 sleep 10
 
 # Setup network conditions
@@ -81,19 +83,22 @@ sudo tc qdisc list
 mkdir -p ./results/quic
 
 
+sudo docker  run  -d
+
 sudo docker run -d --name quic_test --network=quic_test_emqx-bridge quic_mqtt tail -f /dev/null
 
+
 docker cp send_msg_quic.sh quic_test:/root/NanoSDK/extern/msquic
+docker cp quic_api.c quic_test:/root/NanoSDK/src/supplemental/quic
 
       docker exec quic_test bash -c "
-         pwsh ./scripts/build.ps1 -Config Debug -DisableLogs $false -UpdateClog $true -Arch x64 -Platform linux -Tls openssl && \
-         pwsh ./scripts/prepare-machine.ps1 -ForTest -Tls openssl -Force -InitSubmodules
-         mkdir -p build && \
-         cd build && \
-         cmake -D QUIC_ENABLE_LOGGING=ON -D QUIC_LOGGING_TYPE=stdout .. && \
-         make && \
-         make install   
+         cd /root/NanoSDK/extern/msquic 
+         pwsh ./scripts/build.ps1 -Config Debug -DisableLogs $false -UpdateClog $true -Arch x64 -Platform linux -Tls openssl 
+         pwsh ./scripts/prepare-machine.ps1 -ForTest -Tls openssl -Force -InitSubmodules 
       "
+      sleep 5
+      docker exec quic_test bash -c 'cd /root/NanoSDK/extern/msquic && rm -rf build && mkdir -p build && cd build && cmake -D QUIC_ENABLE_LOGGING=ON -D QUIC_LOGGING_TYPE=stdout .. && make && make install && cd /root/NanoSDK/demo/quic_mqtt && rm -rf build && mkdir -p build && cd build && cmake -D QUIC_ENABLE_LOGGING=ON -D QUIC_LOGGING_TYPE=stdout .. && make && make install && cd /root/NanoSDK/demo/quic_mqtt && rm -rf build && mkdir -p build && cd build && cmake .. && make && make install'
+      
 
 
 
@@ -130,12 +135,12 @@ for (( x=1; x<=$runs; x++ )); do
             dotnet-runtime-6.0 \
             dotnet-sdk-6.0 \
             dotnet-host && \
-         cd /root/NanoSDK/extern/msquic && \
-         git submodule update --init submodules/clog && \
-         dotnet build submodules/clog/src/clog2text/clog2text_lttng/ -c Release
+            cd /root/NanoSDK/extern/msquic && \
+            git submodule update --init submodules/clog && \
+            dotnet build submodules/clog/src/clog2text/clog2text_lttng/ -c Release
       "
 
-         sleep 10
+      sleep 10
       
       docker exec quic_test bash -c "
          cd /root/NanoSDK/extern/msquic && \
@@ -166,18 +171,17 @@ for (( x=1; x<=$runs; x++ )); do
 
 
        docker exec quic_test bash -c "
+            cd /root/NanoSDK/extern/msquic && \
             cp /root/NanoSDK/extern/msquic/src/manifest/clog.sidecar /root/NanoSDK/extern/msquic && \
             chmod +x /root/NanoSDK/extern/msquic/submodules/clog/src/clog2text/clog2text_lttng/bin/Release/net6.0/clog2text_lttng && \
-            ./submodules/clog/src/clog2text/clog2text_lttng/bin/Release/net6.0/clog2text_lttng -i quic.babel.txt -s clog.sidecar -o quic.log --showTimestamp --showCpuInfo && \
-            mv quic.babel.txt log_msquic_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log
+            submodules/clog/src/clog2text/clog2text_lttng/bin/Release/net6.0/clog2text_lttng -i quic.babel.txt -s clog.sidecar -o log_msquic_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log --showTimestamp --showCpuInfo 
          "
       sleep 5
 
     # Copy logs to host
-      docker cp quic_test:/root/NanoSDK/extern/msquic/log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log ./results/quic/
+      docker cp quic_test:/root/NanoSDK/extern/msquic/ log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log  ./results/quic/
       docker cp quic_test:/root/NanoSDK/extern/msquic/log_msquic_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log ./results/quic/
-   
-    sleep 1000
+
     # Clean up inside the container
     docker exec quic_test bash -c "
       cd /root/NanoSDK/extern/msquic && \
@@ -200,5 +204,7 @@ sudo tc qdisc del dev "$veth" handle ffff: ingress
 sudo modprobe -r ifb
 
 # Clean up docker
+docker stop quic_test quic_test_receiver
+docker rm quic_test quic_test_receiver
 docker compose down
 docker system prune -f

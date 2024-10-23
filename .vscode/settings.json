@@ -73,7 +73,8 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "string.h": "c",
-        "nng_impl.h": "c"
+        "nng_impl.h": "c",
+        "pthread.h": "c"
     },
     "cmake.sourceDirectory": "/home/dae/quic_protocol/quic_test/NanoSDK"
 }

@@ -1,0 +1,14 @@
+version: '3'
+services:
+  mqtt-receiver:
+    image: quic_test
+    container_name: quic_test_receiver
+    user: root
+    networks:
+      emqx-bridge:
+        aliases:
+          - broker.emqx.io
+    command: ["demo/quic_mqtt/build/quic_client","sub" ,"mqtt-tcp://emqx:14567","0","topic"]
+networks:
+  emqx-bridge:
+    driver: bridge
