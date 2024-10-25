@@ -192,7 +192,7 @@ sendmsg_func(void *arg)
 }
 
 int
-client(int type, const char *url, const char *qos, const char *topic, const char *data, char* msg_intervalo)
+client(int type, const char *url, const char *qos, const char *topic, const char *data, char* msg_intervalo, char* n_runs)
 {
 	nng_socket  sock;
 	int         rv, sz, q;
@@ -240,23 +240,26 @@ client(int type, const char *url, const char *qos, const char *topic, const char
 	case SUB:
 		msg = mqtt_msg_compose(SUB, q, (char *)topic, NULL);
 		nng_sendmsg(*g_sock, msg, NNG_FLAG_ALLOC);
-
+		for (;;)
+			nng_msleep(1000);
 		break;
 	case PUB:
-		msg = mqtt_msg_compose(PUB, q, (char *)topic, (char *)data);
-		nng_sendmsg(*g_sock, msg, NNG_FLAG_ALLOC);
-
-#if defined(NNG_SUPP_SQLITE)
-		nng_thread *thr;
-		nng_thread_create(&thr, sendmsg_func, &sock);
-#endif
-
+		for(int i = 0; i < atoi(n_runs); i++) {
+			msg = mqtt_msg_compose(PUB, q, (char *)topic, (char *)data);
+			nng_sendmsg(*g_sock, msg, NNG_FLAG_ALLOC);
+			#if defined(NNG_SUPP_SQLITE)
+					nng_thread *thr;
+					nng_thread_create(&thr, sendmsg_func, &sock);
+			#endif	
+			nng_msleep(atoi(msg_intervalo));
+		}
 		break;
 	default:
 		printf("Unknown command.\n");
 	}
-
 	nng_msleep(atoi(msg_intervalo));
+
+
 
 	nng_close(sock);
 	fprintf(stderr, "Done.\n");
@@ -298,22 +301,20 @@ main(int argc, char **argv)
 	fprintf(stderr, "Dentro do for.\n");
 
 
-	for(int i = 0; i <atoi(argv[6]) ;i = i+1){
 		
-		const char* payload = create_payload(atoi(argv[5]));
 		if (0 == strncmp(argv[1], "conn", 4)) {
-			client(CONN, argv[2], NULL, NULL, NULL, argv[7]);
+			client(CONN, argv[2], NULL, NULL, NULL,NULL,NULL);
 		}
 		else if (0 == strncmp(argv[1], "sub", 3) ) {
-			client(SUB, argv[2], argv[3], argv[4], NULL,argv[7]);
+			client(SUB, argv[2], argv[3], argv[4], NULL,NULL,NULL);
 		}
 		else if (0 == strncmp(argv[1], "pub", 3) ) {
-			client(PUB, argv[2], argv[3], argv[4],payload,argv[7]);
+			const char* payload = create_payload(atoi(argv[5]));
+			client(PUB, argv[2], argv[3], argv[4],payload,argv[7],argv[6]);
 		}
 		else {
 			goto error;
 		}
-	}
 
 	return 0;
 

@@ -85,24 +85,16 @@ mkdir -p ./results/quic
 
 sudo docker  run  -d
 
-sudo docker run -d --name quic_test --network=quic_test_emqx-bridge quic_mqtt tail -f /dev/null
+sudo docker run -d --name quic_test --network=quic_test_emqx-bridge quic_test tail -f /dev/null
 
 
 docker cp send_msg_quic.sh quic_test:/root/NanoSDK/extern/msquic
 docker cp quic_api.c quic_test:/root/NanoSDK/src/supplemental/quic
 
-      docker exec quic_test bash -c "
-         cd /root/NanoSDK/extern/msquic 
-         pwsh ./scripts/build.ps1 -Config Debug -DisableLogs $false -UpdateClog $true -Arch x64 -Platform linux -Tls openssl 
-         pwsh ./scripts/prepare-machine.ps1 -ForTest -Tls openssl -Force -InitSubmodules 
-      "
-      sleep 5
-      docker exec quic_test bash -c 'cd /root/NanoSDK/extern/msquic && rm -rf build && mkdir -p build && cd build && cmake -D QUIC_ENABLE_LOGGING=ON -D QUIC_LOGGING_TYPE=stdout .. && make && make install && cd /root/NanoSDK/demo/quic_mqtt && rm -rf build && mkdir -p build && cd build && cmake -D QUIC_ENABLE_LOGGING=ON -D QUIC_LOGGING_TYPE=stdout .. && make && make install && cd /root/NanoSDK/demo/quic_mqtt && rm -rf build && mkdir -p build && cd build && cmake .. && make && make install'
-      
+      #sleep 5
+#docker exec quic_test bash -c 'cd /root/NanoSDK/extern/msquic && rm -rf build && mkdir -p build && cd build && cmake -D QUIC_ENABLE_LOGGING=ON -D QUIC_LOGGING_TYPE=stdout .. && make && make install && cd /root/NanoSDK/demo/quic_mqtt && rm -rf build && mkdir -p build && cd build && cmake -D QUIC_ENABLE_LOGGING=ON -D QUIC_LOGGING_TYPE=stdout .. && make && make install && cd /root/NanoSDK/demo/quic_mqtt && rm -rf build && mkdir -p build && cd build && cmake .. && make && make install'
+   
 
-
-
-# Run the tests
 for (( x=1; x<=$runs; x++ )); do
 
       echo "Correndo teste $x"
@@ -110,34 +102,7 @@ for (( x=1; x<=$runs; x++ )); do
       docker exec quic_test bash -c "
          apt install sudo -y && \
          apt full-upgrade -y && \
-         apt autoremove -y && \
-         sudo apt-get install -y \
-            sudo \
-            lttng-tools \
-            lttng-modules-dkms \
-            lttng-ust \
-            liblttng-ust-dev \
-            babeltrace2 \
-            libssl-dev \
-            libnng-dev \
-            pkg-config \
-            git \
-            curl \
-            wget \
-            python3-pip \
-            build-essential \
-            pkg-config \
-            autoconf \
-            automake \
-            libtool \
-            libbabeltrace-dev \
-            liburcu-dev \
-            dotnet-runtime-6.0 \
-            dotnet-sdk-6.0 \
-            dotnet-host && \
-            cd /root/NanoSDK/extern/msquic && \
-            git submodule update --init submodules/clog && \
-            dotnet build submodules/clog/src/clog2text/clog2text_lttng/ -c Release
+         apt autoremove
       "
 
       sleep 10
@@ -148,7 +113,7 @@ for (( x=1; x<=$runs; x++ )); do
          chmod +x send_msg_quic.sh && \
          ./scripts/log_wrapper.sh ./send_msg_quic.sh 0 topic $size_of_packets $number_of_packets $msg_interval > log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log 
          "  
-      #  ./scripts/log_wrapper.sh  ./send_msg_quic.sh 0 topic 100 10 10
+      #   lttng destroy -a  && ./scripts/log_wrapper.sh  ./send_msg_quic.sh 0 topic 100 10 10   && babeltrace --names all ./msquic_lttng*/* > quic.babel.txt %% cat quic.babel.txt
         sleep 10
       docker exec quic_test bash -c " 
          cd /root/NanoSDK/extern/msquic && \
@@ -162,7 +127,6 @@ for (( x=1; x<=$runs; x++ )); do
 
       docker exec quic_test bash -c "
             cd /root/NanoSDK/extern/msquic && \
-            echo 'babeltrace --names all ./msquic_lttng*/* > quic.babel.txt' && \
             apt update && \
             dotnet build submodules/clog/src/clog2text/clog2text_lttng/ -c Release && \
             babeltrace --names all ./msquic_lttng*/* > quic.babel.txt

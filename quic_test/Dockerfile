@@ -42,7 +42,7 @@ RUN apt-get update && \
     ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
 
 # Instale o powershell
-RUN wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb && \
+RUN wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb && \
     dpkg -i packages-microsoft-prod.deb && \
     apt-get update && \
     add-apt-repository universe && \
@@ -66,6 +66,9 @@ git submodule update --init --recursive
 RUN cd /root/NanoSDK/extern/msquic && \
     git submodule update --init submodules/clog && \
     dotnet build submodules/clog/src/clog2text/clog2text_lttng/ -c Release
+
+# Prepare the machine for the test
+RUN pwsh ./root/NanoSDK/extern/msquic/scripts/prepare-machine.ps1 -ForTest -Tls openssl -Force -InitSubmodules
 
 # Contruir o msquic
 RUN cd /root/NanoSDK/extern/msquic && \
@@ -94,6 +97,8 @@ RUN cd /root/NanoSDK && \
 # Copiar e contruir o quic_client
 COPY quic_mqtt /root/quic_mqtt 
 
+
+# Contruir o quic_client
 RUN cd /root/quic_mqtt && \
     mkdir build && \
     cd build && \
