@@ -105,7 +105,6 @@ docker cp quic_api.c quic_test:/root/NanoSDK/src/supplemental/quic
 # Run the tests
 for (( x=1; x<=$runs; x++ )); do
 
-
       echo "Correndo teste $x"
 
       docker exec quic_test bash -c "
@@ -113,6 +112,7 @@ for (( x=1; x<=$runs; x++ )); do
          apt full-upgrade -y && \
          apt autoremove -y && \
          sudo apt-get install -y \
+            sudo \
             lttng-tools \
             lttng-modules-dkms \
             lttng-ust \
@@ -148,7 +148,7 @@ for (( x=1; x<=$runs; x++ )); do
          chmod +x send_msg_quic.sh && \
          ./scripts/log_wrapper.sh ./send_msg_quic.sh 0 topic $size_of_packets $number_of_packets $msg_interval > log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log 
          "  
-      #  apt install --no-install-recommends -y dotnet-runtime-6.0 dotnet-sdk-6.0 dotnet-host && \
+      #  ./scripts/log_wrapper.sh  ./send_msg_quic.sh 0 topic 100 10 10
         sleep 10
       docker exec quic_test bash -c " 
          cd /root/NanoSDK/extern/msquic && \
@@ -181,6 +181,7 @@ for (( x=1; x<=$runs; x++ )); do
     # Copy logs to host
       docker cp quic_test:/root/NanoSDK/extern/msquic/ log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log  ./results/quic/
       docker cp quic_test:/root/NanoSDK/extern/msquic/log_msquic_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log ./results/quic/
+      
 
     # Clean up inside the container
     docker exec quic_test bash -c "

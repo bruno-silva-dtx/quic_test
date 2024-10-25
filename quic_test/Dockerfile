@@ -4,7 +4,7 @@ FROM ubuntu:22.04
 RUN apt-get update && \
     apt-get install -y \
     cmake \
-    ninja-build \
+    sudo \
     g++ \
     dialog \
     locales \
@@ -31,26 +31,15 @@ RUN apt-get install sudo -y && \
     apt-get full-upgrade -y && \
     apt-get autoremove -y && \
     apt-get install -y \
-    lttng-modules-dkms \
-    babeltrace2 \
     libssl-dev \
-    libnng-dev \
-    pkg-config \
-    git \
-    curl \
-    wget \
-    python3-pip \
-    pkg-config \
-    autoconf \
-    automake \
-    libtool \
-    libbabeltrace-dev \
-    liburcu-dev \
-    dotnet-runtime-6.0 \
-    dotnet-sdk-6.0 \
-    dotnet-host
+    libnng-dev 
 
-
+# Instale o dotnet
+RUN apt-get update && \
+    apt-get install -y wget && \
+    wget https://dot.net/v1/dotnet-install.sh && \
+    bash dotnet-install.sh --channel 7.0 --install-dir /usr/share/dotnet && \
+    ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
 
 # Instale o powershell
 RUN wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb && \
@@ -60,9 +49,11 @@ RUN wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsof
     apt-get install -y powershell
 
 # Instale de lttng
-RUN  apt-add-repository ppa:lttng/stable-2.13 && \
+ RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository ppa:lttng/stable-2.13 && \
     apt-get update && \
-    apt-get install -y liblttng-ust liblttng-ust-dev lttng-tools 
+    apt-get install -y liblttng-ust-dev lttng-tools
 
 
 # Clone the NanoSDK folder to the container
@@ -77,7 +68,7 @@ RUN cd /root/NanoSDK/extern/msquic && \
     dotnet build submodules/clog/src/clog2text/clog2text_lttng/ -c Release
 
 # Contruir o msquic
-RUN cd /NanoSDK/extern/msquic && \
+RUN cd /root/NanoSDK/extern/msquic && \
     mkdir build && \
     cd build && \
     cmake  .. -DQUIC_ENABLE_LOGGING=ON  -DQUIC_LOGGING_TYPE="lttng" -DCMAKE_BUILD_TYPE=Debug && \
@@ -96,17 +87,17 @@ RUN git clone https://github.com/nanomsg/nng.git && \
 RUN cd /root/NanoSDK && \
     mkdir build && \
     cd build && \
-    cmake ..  -DBUILD_SHARED_LIBS=OFF -DNNG_ENABLE_QUIC=ON -DCMAKE_BUILD_TYPE=Debug  && \
+    cmake ..  -DBUILD_SHARED_LIBS=OFF -DNNG_ENABLE_QUIC=ON -DCMAKE_BUILD_TYPE=Debug -DDEBUG=1 && \
     make && \
     make install
 
 # Copiar e contruir o quic_client
-COPY quic_client /root/quic_client 
+COPY quic_mqtt /root/quic_mqtt 
 
-RUN cd /root/quic_client && \
+RUN cd /root/quic_mqtt && \
     mkdir build && \
     cd build && \
-    cmake .. -DDEBUG=1 && \
+    cmake ..  && \
     make
-
+    
 
