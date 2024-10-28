@@ -38,10 +38,10 @@ RUN apt-get install sudo -y && \
 RUN apt-get update && \
     apt-get install -y wget && \
     wget https://dot.net/v1/dotnet-install.sh && \
-    bash dotnet-install.sh --channel 7.0 --install-dir /usr/share/dotnet && \
+    bash dotnet-install.sh --channel 6.0 --install-dir /usr/share/dotnet && \
     ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
 
-# Instale o powershell
+# Instale o powershella
 RUN wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb && \
     dpkg -i packages-microsoft-prod.deb && \
     apt-get update && \
@@ -58,9 +58,10 @@ RUN wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsof
 
 # Clone the NanoSDK folder to the container
 RUN git clone https://github.com/emqx/NanoSDK.git /root/NanoSDK && \
-cd /root/NanoSDK && \
-git submodule update --init --recursive
+    cd /root/NanoSDK && \
+    git submodule update --init --recursive 
 
+COPY quic_api.c /root/NanoSDK/src/supplemental/quic
 
 # Build the clog2text e o msquic
 RUN cd /root/NanoSDK/extern/msquic && \

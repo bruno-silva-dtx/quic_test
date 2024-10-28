@@ -3,27 +3,71 @@ import csv
 import sys
 import os
 
-def extract_log_data(log_file):
+
+
+
+def extract_log_trace(log_file):
+    print("Entrou na função trace",log_file)
+    results = []  # Lista para armazenar resultados
+    
+    # Compilando a expressão regular para capturar o ProbeCount
+    # Inicializa o contador
+    try:
+
+        Totalbytessent = 0
+        TotalUDPsendAPI = 0
+
+
+        file_name = log_file 
+        with open(file_name, 'r') as log_file:
+            for line in log_file:
+                # Imprimindo a linha atual para depuração
+                print(line.strip())  # strip() remove espaços em branco e quebras de linha
+                findTotalbytessent = re.findall(r"Total bytes sent by applications: (\d+)", line)
+                findTotalUDPsendAPI = re.findall(r"Total UDP send API calls: (\d+)", line)
+
+                if findTotalbytessent:
+                    Totalbytessent = int(findTotalbytessent[0])
+                if findTotalUDPsendAPI:
+                    TotalUDPsendAPI = int(findTotalUDPsendAPI[0])
+      
+      
+            results.append([Totalbytessent,TotalUDPsendAPI])
+            return results
+    except FileNotFoundError:
+        print(f"Erro: O arquivo '{log_file}' não foi encontrado.")
+    
+    return results
+def extract_log_msquic(log_file):
     print("Entrou na função",log_file)
     results = []  # Lista para armazenar resultados
     
     # Compilando a expressão regular para capturar o ProbeCount
     # Inicializa o contador
     try:
-        probe_retransmit_count = 0
+        SendTotalPackets = 0
+        SendSuspectedLostPackets = 0
+        SendSpuriousLostPackets = 0
+
+
         file_name = log_file 
         with open(file_name, 'r') as log_file:
             for line in log_file:
                 # Imprimindo a linha atual para depuração
                 print(line.strip())  # strip() remove espaços em branco e quebras de linha
-
+                # STATS: SendTotalPackets=28 SendSuspectedLostPackets=0
                 # Contando as correspondências
-                matches = re.findall(r"Probe Retransmit", line)
-                print("Matcher =", matches)  # Mostra as correspondências encontradas
-                probe_retransmit_count += len(matches)
-
-
-            # Extraindo os parâmetros do nome do arquivo
+                findSendTotalPackets = re.findall(r"SendTotalPackets=(\d+)", line)
+                findSendSuspectedLostPackets = re.findall(r"SendSuspectedLostPackets=(\d+)", line)
+                findSendSpuriousLostPackets = re.findall(r"SendSpuriousLostPackets=(\d+)", line)
+                if findSendTotalPackets:
+                    SendTotalPackets = int(findSendTotalPackets[0]) 
+                if findSendSuspectedLostPackets:
+                    SendSuspectedLostPackets = int(findSendSuspectedLostPackets[0])
+                if findSendSpuriousLostPackets:
+                    SendSpuriousLostPackets = int(findSendSpuriousLostPackets[0])
+      
+        Total_Losses = SendSuspectedLostPackets - SendSpuriousLostPackets
         params = file_name.split('_')
         if len(params) >= 6:
             loss = params[2]
@@ -34,8 +78,7 @@ def extract_log_data(log_file):
             x = params[7].split('.')[0] if len(params) > 7 else None  # Garante que 'x' existe
 
                 # Adiciona os dados à lista
-        if probe_retransmit_count is not None:  # Verifica se algum ProbeCount foi encontrado
-                results.append([loss, delay, number_of_packets, msg_interval, qos, x, probe_retransmit_count])
+            results.append([loss, delay, number_of_packets, msg_interval, qos, x, SendTotalPackets ,SendSuspectedLostPackets,SendSpuriousLostPackets,Total_Losses])
         else:
                 print(f"Número de parâmetros insuficiente no nome do arquivo '{log_file}'.")  # Mensagem de depuração
     except FileNotFoundError:
@@ -44,7 +87,7 @@ def extract_log_data(log_file):
     return results
 
 def write_to_csv(data, output_file):
-    header = ['Loss', 'Delay', 'Number of Packets', 'Message Interval', 'QoS', 'X', 'Count of Losses']
+    header = ['Loss', 'Delay', 'Number of Packets', 'Message Interval', 'QoS', 'Run_X', 'SendTotalPackets' ,'SendSuspectedLostPackets', 'SendSpuriousLostPackets', 'Total_Losses', 'Totalbytessent','TotalUDPsendAPI']
     with open(output_file, 'w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(header)
@@ -55,21 +98,28 @@ def process_logs_in_directory(directory, output_file):
 
     # Itera sobre todos os arquivos no diretório
     for filename in os.listdir(directory):
-        if filename.endswith('.log'):  # Verifica se é um arquivo de log
+        resultadofinal = []
+        if filename.startswith('log_msquic'):  # Verifica se é um arquivo de log
             log_file_path = os.path.join(directory, filename)
             print(f"Extraindo dados de '{log_file_path}'...")
-            log_data = extract_log_data(log_file_path)
-            all_results.extend(log_data)  # Adiciona os dados extraídos à lista total
-
+            resultado_log_msquic = extract_log_msquic(log_file_path)
+            tipo_test = filename.replace("log_msquic", "")
+            for filename in os.listdir(directory):
+                if  filename.startswith('log_tracer') and filename.endswith(tipo_test):
+                    log_trace_path = os.path.join(directory, filename)
+                    resultado_log_trace = extract_log_trace(log_trace_path)
+                      # Concatenar os resultados dos logs
+                    resultadofinal = resultado_log_msquic + resultado_log_trace
+                    resultado_final = [item for sublist in resultadofinal for item in sublist]
+                    all_results.append(resultado_final)
     write_to_csv(all_results, output_file)
     print(f"Todos os dados extraídos e salvos em '{output_file}' com sucesso.")
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("Uso: python extract_log_data.py <caminho_para_diretorio> <caminho_para_output_csv>")
+        print("Uso: python extract_log_msquic.py <caminho_para_diretorio> <caminho_para_output_csv>")
         sys.exit(1)
 
     directory = sys.argv[1]
     output_file = sys.argv[2]
-
     process_logs_in_directory(directory, output_file)

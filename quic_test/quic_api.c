@@ -579,47 +579,6 @@ quic_strm_cb(_In_ HQUIC stream, _In_opt_ void *Context,
 		log_warn("Unknown Event Type %d", Event->Type);
 		break;
 	}
-		uint64_t Counters[QUIC_PERF_COUNTER_MAX];
-        uint32_t BufferLength = sizeof(Counters);
-		// Obtenha os contadores de desempenho
-		if (MsQuic->GetParam(
-			NULL,  // parâmetro global
-			QUIC_PARAM_GLOBAL_PERF_COUNTERS,
-			&BufferLength,
-			Counters));
-		// Imprima os contadores
-		printf("Performance Counters:\n");
-		printf("Total connections ever allocated: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_CREATED]);
-		printf("Total connections that failed during handshake: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_HANDSHAKE_FAIL]);
-		printf("Total connections rejected by the application: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_APP_REJECT]);
-		printf("Total connections resumed: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_RESUMED]);
-		printf("Connections currently allocated: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_ACTIVE]);
-		printf("Connections currently in the connected state: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_CONNECTED]);
-		printf("Total connections shutdown with a protocol error: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_PROTOCOL_ERRORS]);
-		printf("Total connection attempts with no matching ALPN: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_NO_ALPN]);
-		printf("Current streams allocated: %llu\n", Counters[QUIC_PERF_COUNTER_STRM_ACTIVE]);
-		printf("Total suspected packets lost: %llu\n", Counters[QUIC_PERF_COUNTER_PKTS_SUSPECTED_LOST]);
-		printf("Total packets dropped for any reason: %llu\n", Counters[QUIC_PERF_COUNTER_PKTS_DROPPED]);
-		printf("Total packets with decryption failures: %llu\n", Counters[QUIC_PERF_COUNTER_PKTS_DECRYPTION_FAIL]);
-		printf("Total UDP datagrams received: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_RECV]);
-		printf("Total UDP datagrams sent: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_SEND]);
-		printf("Total UDP payload bytes received: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_RECV_BYTES]);
-		printf("Total UDP payload bytes sent: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_SEND_BYTES]);
-		printf("Total UDP receive events: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_RECV_EVENTS]);
-		printf("Total UDP send API calls: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_SEND_CALLS]);
-		printf("Total bytes sent by applications: %llu\n", Counters[QUIC_PERF_COUNTER_APP_SEND_BYTES]);
-		printf("Total bytes received by applications: %llu\n", Counters[QUIC_PERF_COUNTER_APP_RECV_BYTES]);
-		printf("Current connections queued for processing: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_QUEUE_DEPTH]);
-		printf("Current connection operations queued: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_OPER_QUEUE_DEPTH]);
-		printf("Total connection operations queued ever: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_OPER_QUEUED]);
-		printf("Total connection operations processed ever: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_OPER_COMPLETED]);
-		printf("Current worker operations queued: %llu\n", Counters[QUIC_PERF_COUNTER_WORK_OPER_QUEUE_DEPTH]);
-		printf("Total worker operations queued ever: %llu\n", Counters[QUIC_PERF_COUNTER_WORK_OPER_QUEUED]);
-		printf("Total worker operations processed ever: %llu\n", Counters[QUIC_PERF_COUNTER_WORK_OPER_COMPLETED]);
-		printf("Total path challenges that succeed ever: %llu\n", Counters[QUIC_PERF_COUNTER_PATH_VALIDATED]);
-		printf("Total path challenges that fail ever: %llu\n", Counters[QUIC_PERF_COUNTER_PATH_FAILURE]);
-		printf("Total stateless reset packets sent ever: %llu\n", Counters[QUIC_PERF_COUNTER_SEND_STATELESS_RESET]);
-		printf("Total stateless retry packets sent ever: %llu\n", Counters[QUIC_PERF_COUNTER_SEND_STATELESS_RETRY]);
 	return QUIC_STATUS_SUCCESS;
 }
 
@@ -708,49 +667,6 @@ quic_connection_cb(_In_ HQUIC Connection, _In_opt_ void *Context,
 			pipe_ops->pipe_fini(qsock->pipe);
 			qsock->pipe = NULL;
 		}
-		uint64_t Counters[QUIC_PERF_COUNTER_MAX];
-        uint32_t BufferLength = sizeof(Counters);
-		// Obtenha os contadores de desempenho
-		if (MsQuic->GetParam(
-			NULL,  // parâmetro global
-			QUIC_PARAM_GLOBAL_PERF_COUNTERS,
-			&BufferLength,
-			Counters));
-
-		// Imprima os contadores
-		printf("Performance Counters:\n");
-		printf("Total connections ever allocated: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_CREATED]);
-		printf("Total connections that failed during handshake: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_HANDSHAKE_FAIL]);
-		printf("Total connections rejected by the application: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_APP_REJECT]);
-		printf("Total connections resumed: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_RESUMED]);
-		printf("Connections currently allocated: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_ACTIVE]);
-		printf("Connections currently in the connected state: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_CONNECTED]);
-		printf("Total connections shutdown with a protocol error: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_PROTOCOL_ERRORS]);
-		printf("Total connection attempts with no matching ALPN: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_NO_ALPN]);
-		printf("Current streams allocated: %llu\n", Counters[QUIC_PERF_COUNTER_STRM_ACTIVE]);
-		printf("Total suspected packets lost: %llu\n", Counters[QUIC_PERF_COUNTER_PKTS_SUSPECTED_LOST]);
-		printf("Total packets dropped for any reason: %llu\n", Counters[QUIC_PERF_COUNTER_PKTS_DROPPED]);
-		printf("Total packets with decryption failures: %llu\n", Counters[QUIC_PERF_COUNTER_PKTS_DECRYPTION_FAIL]);
-		printf("Total UDP datagrams received: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_RECV]);
-		printf("Total UDP datagrams sent: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_SEND]);
-		printf("Total UDP payload bytes received: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_RECV_BYTES]);
-		printf("Total UDP payload bytes sent: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_SEND_BYTES]);
-		printf("Total UDP receive events: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_RECV_EVENTS]);
-		printf("Total UDP send API calls: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_SEND_CALLS]);
-		printf("Total bytes sent by applications: %llu\n", Counters[QUIC_PERF_COUNTER_APP_SEND_BYTES]);
-		printf("Total bytes received by applications: %llu\n", Counters[QUIC_PERF_COUNTER_APP_RECV_BYTES]);
-		printf("Current connections queued for processing: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_QUEUE_DEPTH]);
-		printf("Current connection operations queued: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_OPER_QUEUE_DEPTH]);
-		printf("Total connection operations queued ever: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_OPER_QUEUED]);
-		printf("Total connection operations processed ever: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_OPER_COMPLETED]);
-		printf("Current worker operations queued: %llu\n", Counters[QUIC_PERF_COUNTER_WORK_OPER_QUEUE_DEPTH]);
-		printf("Total worker operations queued ever: %llu\n", Counters[QUIC_PERF_COUNTER_WORK_OPER_QUEUED]);
-		printf("Total worker operations processed ever: %llu\n", Counters[QUIC_PERF_COUNTER_WORK_OPER_COMPLETED]);
-		printf("Total path challenges that succeed ever: %llu\n", Counters[QUIC_PERF_COUNTER_PATH_VALIDATED]);
-		printf("Total path challenges that fail ever: %llu\n", Counters[QUIC_PERF_COUNTER_PATH_FAILURE]);
-		printf("Total stateless reset packets sent ever: %llu\n", Counters[QUIC_PERF_COUNTER_SEND_STATELESS_RESET]);
-		printf("Total stateless retry packets sent ever: %llu\n", Counters[QUIC_PERF_COUNTER_SEND_STATELESS_RETRY]);
-
 		nni_mtx_unlock(&qsock->mtx);
 		if (qsock->closed == true) {
 			nni_sock_rele(qsock->sock);
@@ -810,51 +726,6 @@ quic_connection_cb(_In_ HQUIC Connection, _In_opt_ void *Context,
 		break;
 	}
 
-		uint64_t Counters[QUIC_PERF_COUNTER_MAX];
-        uint32_t BufferLength = sizeof(Counters);
-		// Obtenha os contadores de desempenho
-		if (MsQuic->GetParam(
-			NULL,  // parâmetro global
-			QUIC_PARAM_GLOBAL_PERF_COUNTERS,
-			&BufferLength,
-			Counters));
-
-		// Imprima os contadores
-		printf("Performance Counters:\n");
-		printf("Total connections ever allocated: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_CREATED]);
-		printf("Total connections that failed during handshake: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_HANDSHAKE_FAIL]);
-		printf("Total connections rejected by the application: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_APP_REJECT]);
-		printf("Total connections resumed: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_RESUMED]);
-		printf("Connections currently allocated: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_ACTIVE]);
-		printf("Connections currently in the connected state: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_CONNECTED]);
-		printf("Total connections shutdown with a protocol error: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_PROTOCOL_ERRORS]);
-		printf("Total connection attempts with no matching ALPN: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_NO_ALPN]);
-		printf("Current streams allocated: %llu\n", Counters[QUIC_PERF_COUNTER_STRM_ACTIVE]);
-		printf("Total suspected packets lost: %llu\n", Counters[QUIC_PERF_COUNTER_PKTS_SUSPECTED_LOST]);
-		printf("Total packets dropped for any reason: %llu\n", Counters[QUIC_PERF_COUNTER_PKTS_DROPPED]);
-		printf("Total packets with decryption failures: %llu\n", Counters[QUIC_PERF_COUNTER_PKTS_DECRYPTION_FAIL]);
-		printf("Total UDP datagrams received: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_RECV]);
-		printf("Total UDP datagrams sent: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_SEND]);
-		printf("Total UDP payload bytes received: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_RECV_BYTES]);
-		printf("Total UDP payload bytes sent: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_SEND_BYTES]);
-		printf("Total UDP receive events: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_RECV_EVENTS]);
-		printf("Total UDP send API calls: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_SEND_CALLS]);
-		printf("Total bytes sent by applications: %llu\n", Counters[QUIC_PERF_COUNTER_APP_SEND_BYTES]);
-		printf("Total bytes received by applications: %llu\n", Counters[QUIC_PERF_COUNTER_APP_RECV_BYTES]);
-		printf("Current connections queued for processing: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_QUEUE_DEPTH]);
-		printf("Current connection operations queued: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_OPER_QUEUE_DEPTH]);
-		printf("Total connection operations queued ever: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_OPER_QUEUED]);
-		printf("Total connection operations processed ever: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_OPER_COMPLETED]);
-		printf("Current worker operations queued: %llu\n", Counters[QUIC_PERF_COUNTER_WORK_OPER_QUEUE_DEPTH]);
-		printf("Total worker operations queued ever: %llu\n", Counters[QUIC_PERF_COUNTER_WORK_OPER_QUEUED]);
-		printf("Total worker operations processed ever: %llu\n", Counters[QUIC_PERF_COUNTER_WORK_OPER_COMPLETED]);
-		printf("Total path challenges that succeed ever: %llu\n", Counters[QUIC_PERF_COUNTER_PATH_VALIDATED]);
-		printf("Total path challenges that fail ever: %llu\n", Counters[QUIC_PERF_COUNTER_PATH_FAILURE]);
-		printf("Total stateless reset packets sent ever: %llu\n", Counters[QUIC_PERF_COUNTER_SEND_STATELESS_RESET]);
-		printf("Total stateless retry packets sent ever: %llu\n", Counters[QUIC_PERF_COUNTER_SEND_STATELESS_RETRY]);
-
-
-	
 	return QUIC_STATUS_SUCCESS;
 }
 
@@ -883,6 +754,48 @@ quic_disconnect(void *qsock, void *qpipe)
 	nni_mtx_unlock(&qs->mtx);
 	nni_aio_wait(&qs->close_aio);
 	nni_aio_wait(&qstrm->rraio);
+	uint64_t Counters[QUIC_PERF_COUNTER_MAX];
+    uint32_t BufferLength = sizeof(Counters);
+		// Obtenha os contadores de desempenho
+	if (MsQuic->GetParam(
+		NULL,  // parâmetro global
+		QUIC_PARAM_GLOBAL_PERF_COUNTERS,
+		&BufferLength,
+		Counters));
+
+		// Imprima os contadores
+	printf("Performance Counters:\n");
+	printf("Total connections ever allocated: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_CREATED]);
+	printf("Total connections that failed during handshake: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_HANDSHAKE_FAIL]);
+	printf("Total connections rejected by the application: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_APP_REJECT]);
+	printf("Total connections resumed: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_RESUMED]);
+	printf("Connections currently allocated: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_ACTIVE]);
+	printf("Connections currently in the connected state: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_CONNECTED]);
+	printf("Total connections shutdown with a protocol error: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_PROTOCOL_ERRORS]);
+	printf("Total connection attempts with no matching ALPN: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_NO_ALPN]);
+	printf("Current streams allocated: %llu\n", Counters[QUIC_PERF_COUNTER_STRM_ACTIVE]);
+	printf("Total suspected packets lost: %llu\n", Counters[QUIC_PERF_COUNTER_PKTS_SUSPECTED_LOST]);
+	printf("Total packets dropped for any reason: %llu\n", Counters[QUIC_PERF_COUNTER_PKTS_DROPPED]);
+	printf("Total packets with decryption failures: %llu\n", Counters[QUIC_PERF_COUNTER_PKTS_DECRYPTION_FAIL]);
+	printf("Total UDP datagrams received: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_RECV]);
+	printf("Total UDP datagrams sent: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_SEND]);
+	printf("Total UDP payload bytes received: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_RECV_BYTES]);
+	printf("Total UDP payload bytes sent: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_SEND_BYTES]);
+	printf("Total UDP receive events: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_RECV_EVENTS]);
+	printf("Total UDP send API calls: %llu\n", Counters[QUIC_PERF_COUNTER_UDP_SEND_CALLS]);
+	printf("Total bytes sent by applications: %llu\n", Counters[QUIC_PERF_COUNTER_APP_SEND_BYTES]);
+	printf("Total bytes received by applications: %llu\n", Counters[QUIC_PERF_COUNTER_APP_RECV_BYTES]);
+	printf("Current connections queued for processing: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_QUEUE_DEPTH]);
+	printf("Current connection operations queued: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_OPER_QUEUE_DEPTH]);
+	printf("Total connection operations queued ever: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_OPER_QUEUED]);
+	printf("Total connection operations processed ever: %llu\n", Counters[QUIC_PERF_COUNTER_CONN_OPER_COMPLETED]);
+	printf("Current worker operations queued: %llu\n", Counters[QUIC_PERF_COUNTER_WORK_OPER_QUEUE_DEPTH]);
+	printf("Total worker operations queued ever: %llu\n", Counters[QUIC_PERF_COUNTER_WORK_OPER_QUEUED]);
+	printf("Total worker operations processed ever: %llu\n", Counters[QUIC_PERF_COUNTER_WORK_OPER_COMPLETED]);
+	printf("Total path challenges that succeed ever: %llu\n", Counters[QUIC_PERF_COUNTER_PATH_VALIDATED]);
+	printf("Total path challenges that fail ever: %llu\n", Counters[QUIC_PERF_COUNTER_PATH_FAILURE]);
+	printf("Total stateless reset packets sent ever: %llu\n", Counters[QUIC_PERF_COUNTER_SEND_STATELESS_RESET]);
+	printf("Total stateless retry packets sent ever: %llu\n", Counters[QUIC_PERF_COUNTER_SEND_STATELESS_RETRY]);
 
 	return 0;
 }
