@@ -14,11 +14,11 @@ log {
   }
   file {
     default {
-      enable = true
+      enable = false
       formatter = text
-      level = all
-      path = "/opt/emqx/log/emqx_bruno.log"
-      rotation_count = 20
+      level = warning
+      path = "/opt/emqx/log/emqx.log"
+      rotation_count = 10
       rotation_size = "50MB"
       time_offset = system
       timestamp_format = auto

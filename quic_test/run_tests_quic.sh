@@ -18,6 +18,7 @@ helpFunction()
    echo -e "$0 -r 10 -l 1% -p 25% -d 20ms -j 5ms -n 10 -s 100 -i 1 -q 1"
    echo -e "$0 -r 10 -l 0 -p 0 -d 20ms -j 5ms -n 10 -s 100 -i 1 -q 0"
    echo -e "$0 -r 1 -l 0 -p 0 -d 20ms -j 5ms -n 1 -s 100 -i 1 -q 0"
+   echo -e "$0 -r 1 -l 30% -p 0% -d 20ms -j 5ms -n 100 -s 100 -i 300 -q 0"
    exit 1 # Exit script after printing help
 }
 
@@ -54,9 +55,9 @@ fi
 # Start Docker environment
 docker compose up -d
 container_id=$(docker compose ps -q)
-docker compose -f mqtt-receive.yml up -d
-container_receive=$(docker compose -f mqtt-receive.yml ps -q)
-sleep 10
+#docker compose -f mqtt-receive.yml up -d
+#container_receive=$(docker compose -f mqtt-receive.yml ps -q)
+sleep 3
 
 # Setup network conditions
 iflink=$(docker exec -it $container_id bash -c 'cat /sys/class/net/eth0/iflink') 
@@ -115,6 +116,7 @@ for (( x=1; x<=$runs; x++ )); do
          chmod +x scripts/log_wrapper.sh  && \
          chmod +x send_msg_quic.sh && \
          ./scripts/log_wrapper.sh ./send_msg_quic.sh 0 topic $size_of_packets $number_of_packets $msg_interval > log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log 
+         sleep 30
          "  
       #   lttng destroy -a  && ./scripts/log_wrapper.sh  ./send_msg_quic.sh 0 topic 100 10 10   && babeltrace --names all ./msquic_lttng*/* > quic.babel.txt %% cat quic.babel.txt
         sleep 10
@@ -174,5 +176,5 @@ sudo modprobe -r ifb
 # Clean up docker
 docker stop quic_test quic_test_receiver
 docker rm quic_test quic_test_receiver
-docker compose down
+#docker compose down
 docker system prune -f

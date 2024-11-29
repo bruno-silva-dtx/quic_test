@@ -25,7 +25,7 @@ def extract_log_trace(log_file):
                 print(line.strip())  # strip() remove espaços em branco e quebras de linha
                 findTotalbytessent = re.findall(r"Total bytes sent by applications: (\d+)", line)
                 findTotalUDPsendAPI = re.findall(r"Total UDP send API calls: (\d+)", line)
-
+    
                 if findTotalbytessent:
                     Totalbytessent = int(findTotalbytessent[0])
                 if findTotalUDPsendAPI:
@@ -48,6 +48,14 @@ def extract_log_msquic(log_file):
         SendTotalPackets = 0
         SendSuspectedLostPackets = 0
         SendSpuriousLostPackets = 0
+        Loss_Ratio_RACK_FACK = 0	
+        contLostPackets = 0
+        contador_Rack = 0
+        contador_Fack = 0
+        RelacaoLost = 0
+        Loss_Ratio_RACK_FACK = 0
+        Forgetting = 0
+        Loss_Ratio_RACK_FACK_FORGETTING = 0
 
 
         file_name = log_file 
@@ -60,15 +68,28 @@ def extract_log_msquic(log_file):
                 findSendTotalPackets = re.findall(r"SendTotalPackets=(\d+)", line)
                 findSendSuspectedLostPackets = re.findall(r"SendSuspectedLostPackets=(\d+)", line)
                 findSendSpuriousLostPackets = re.findall(r"SendSpuriousLostPackets=(\d+)", line)
+                
+                if re.findall(r"Forgetting", line):
+                    Forgetting += 1
+                if re.findall(r"Lost: RACK", line):
+                    contador_Rack += 1
+                if re.findall(r"Lost: FACK", line):
+                    contador_Fack += 1
+                if re.findall(r"Lost: (\d+)", line):
+                    contLostPackets += 1
                 if findSendTotalPackets:
                     SendTotalPackets = int(findSendTotalPackets[0]) 
                 if findSendSuspectedLostPackets:
                     SendSuspectedLostPackets = int(findSendSuspectedLostPackets[0])
                 if findSendSpuriousLostPackets:
                     SendSpuriousLostPackets = int(findSendSpuriousLostPackets[0])
+    
       
         Total_Losses = SendSuspectedLostPackets - SendSpuriousLostPackets
+        Loss_Ratio_RACK_FACK = (contador_Fack + contador_Rack) / int(SendTotalPackets) * 100
+        RelacaoLost = contLostPackets / int(SendTotalPackets) * 100
         params = file_name.split('_')
+        Loss_Ratio_RACK_FACK_FORGETTING = Forgetting / int(SendTotalPackets)
         if len(params) >= 6:
             loss = params[2]
             delay = params[3]
@@ -78,7 +99,7 @@ def extract_log_msquic(log_file):
             x = params[7].split('.')[0] if len(params) > 7 else None  # Garante que 'x' existe
 
                 # Adiciona os dados à lista
-            results.append([loss, delay, number_of_packets, msg_interval, qos, x, SendTotalPackets ,SendSuspectedLostPackets,SendSpuriousLostPackets,Total_Losses])
+            results.append([loss, delay, number_of_packets, msg_interval, qos, x, SendTotalPackets ,SendSuspectedLostPackets,SendSpuriousLostPackets,Total_Losses, str(contador_Rack) , str(contador_Fack),str(Loss_Ratio_RACK_FACK), str(Forgetting),str(Loss_Ratio_RACK_FACK_FORGETTING) , str(contLostPackets),str(RelacaoLost) ])
         else:
                 print(f"Número de parâmetros insuficiente no nome do arquivo '{log_file}'.")  # Mensagem de depuração
     except FileNotFoundError:
@@ -87,7 +108,7 @@ def extract_log_msquic(log_file):
     return results
 
 def write_to_csv(data, output_file):
-    header = ['Loss', 'Delay', 'Number of Packets', 'Message Interval', 'QoS', 'Run_X', 'SendTotalPackets' ,'SendSuspectedLostPackets', 'SendSpuriousLostPackets', 'Total_Losses', 'Totalbytessent','TotalUDPsendAPI']
+    header = ['Loss', 'Delay', 'Number of Msg', 'Message Interval', 'QoS', 'Run_X', 'SendTotalPackets' ,'SendSuspectedLostPackets', 'SendSpuriousLostPackets', 'Total_Losses','Lost_RACK' , 'Lost_FACK','Loss_Ratio_RACK_FACK' , 'FORGETTING', 'Loss_Ratio_RACK_FACK_FORGETTING' ,'All_System_Losses','Relação ASL/T' , 'Totalbytessent','TotalUDPsendAPI']
     with open(output_file, 'w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(header)

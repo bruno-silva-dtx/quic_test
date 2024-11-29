@@ -16,9 +16,9 @@ log {
     default {
       enable = true
       formatter = text
-      level = all
-      path = "/opt/emqx/log/emqx_bruno.log"
-      rotation_count = 20
+      level = info
+      path = "/opt/emqx/log/emqx.log"
+      rotation_count = 10
       rotation_size = "50MB"
       time_offset = system
       timestamp_format = auto

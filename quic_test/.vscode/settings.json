@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "platform.h": "c",
+        "msquic.h": "c",
+        "mqtt_client.h": "c"
+    }
+}
