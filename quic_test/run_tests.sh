@@ -109,7 +109,7 @@ do
    #Corrrer infinitamente para debug
       sudo docker run --network=quic_test_emqx-bridge \
      -e SSLKEYLOGFILE="/tmp/SSLKEYLOGFILE" \
-      --mount 'type=bind,source=/home/dae/quic_protocol/quic_test/quic_test,destination=/tmp/SSLKEYLOGFILE' \
+      --mount 'type=bind,source=/home/bruno/Desktop/quic/quic_test/quic_test,destination=/tmp/SSLKEYLOGFILE' \
       quic_mqtt tail -f /dev/null
 
    # ./NanoSDK/demo/quic_mqtt/build/quic_client pub 'mqtt-tcp://emqx:14567' 0 topic 100 100  10

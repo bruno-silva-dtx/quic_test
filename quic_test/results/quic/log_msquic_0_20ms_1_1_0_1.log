@@ -1,0 +1,657 @@
+[7][1a7f.1a7f][03:09:12.892720][ dso] Loaded
+[7][1a7f.1a7f][03:09:12.907950][ api] MsQuicOpenVersion
+[0][1a7f.1aa1][03:09:12.908846][ lib][0x61c2ec118ac0] Worker start
+[1][1a7f.1aa2][03:09:12.909040][ lib][0x61c2ec118b50] Worker start
+[4][1a7f.1aa5][03:09:12.909284][ lib][0x61c2ec118d00] Worker start
+[2][1a7f.1aa3][03:09:12.909359][ lib][0x61c2ec118be0] Worker start
+[3][1a7f.1aa4][03:09:12.909376][ lib][0x61c2ec118c70] Worker start
+[5][1a7f.1aa6][03:09:12.909602][ lib][0x61c2ec118d90] Worker start
+[6][1a7f.1aa7][03:09:12.909871][ lib][0x61c2ec118e20] Worker start
+[7][1a7f.1a7f][03:09:12.910504][ dso] Initialized (AvailMem = 1073741824 bytes)
+[7][1a7f.1a7f][03:09:12.910520][ lib] Failed to open global settings, 0x95
+[7][1a7f.1a7f][03:09:12.910528][ lib] Settings 0x76fac8a814e0 Updated
+[7][1a7f.1a7f][03:09:12.910529][sett] SendBufferingEnabled   = 1
+[7][1a7f.1a7f][03:09:12.910530][sett] PacingEnabled          = 1
+[7][1a7f.1a7f][03:09:12.910530][sett] MigrationEnabled       = 1
+[7][1a7f.1a7f][03:09:12.910530][sett] DatagramReceiveEnabled = 0
+[7][1a7f.1a7f][03:09:12.910531][sett] MaxOperationsPerDrain  = 16
+[7][1a7f.1a7f][03:09:12.910531][sett] RetryMemoryLimit       = 65
+[7][1a7f.1a7f][03:09:12.910531][sett] LoadBalancingMode      = 0
+[7][1a7f.1a7f][03:09:12.910532][sett] FixedServerID          = 0
+[7][1a7f.1a7f][03:09:12.910532][sett] MaxStatelessOperations = 16
+[7][1a7f.1a7f][03:09:12.910532][sett] MaxWorkerQueueDelayUs  = 250000
+[7][1a7f.1a7f][03:09:12.910533][sett] InitialWindowPackets   = 10
+[7][1a7f.1a7f][03:09:12.910533][sett] SendIdleTimeoutMs      = 1000
+[7][1a7f.1a7f][03:09:12.910533][sett] InitialRttMs           = 333
+[7][1a7f.1a7f][03:09:12.910533][sett] MaxAckDelayMs          = 25
+[7][1a7f.1a7f][03:09:12.910534][sett] DisconnectTimeoutMs    = 16000
+[7][1a7f.1a7f][03:09:12.910534][sett] KeepAliveIntervalMs    = 0
+[7][1a7f.1a7f][03:09:12.910534][sett] IdleTimeoutMs          = 30000
+[7][1a7f.1a7f][03:09:12.910535][sett] HandshakeIdleTimeoutMs = 10000
+[7][1a7f.1a7f][03:09:12.910535][sett] PeerBidiStreamCount    = 0
+[7][1a7f.1a7f][03:09:12.910536][sett] PeerUnidiStreamCount   = 0
+[7][1a7f.1a7f][03:09:12.910536][sett] TlsClientMaxSendBuffer = 8192
+[7][1a7f.1a7f][03:09:12.910536][sett] TlsServerMaxSendBuffer = 0
+[7][1a7f.1a7f][03:09:12.910537][sett] StreamRecvWindowDefault= 65536
+[7][1a7f.1a7f][03:09:12.910537][sett] StreamRecvBufferDefault= 4096
+[7][1a7f.1a7f][03:09:12.910537][sett] ConnFlowControlWindow  = 16777216
+[7][1a7f.1a7f][03:09:12.910538][sett] MaxBytesPerKey         = 274877906944
+[7][1a7f.1a7f][03:09:12.910538][sett] ServerResumptionLevel  = 0
+[7][1a7f.1a7f][03:09:12.910538][sett] Version Negotiation Ext Enabled = 0
+[7][1a7f.1a7f][03:09:12.910539][sett] MinimumMtu             = 1248
+[7][1a7f.1a7f][03:09:12.910539][sett] MaximumMtu             = 1500
+[7][1a7f.1a7f][03:09:12.910539][sett] MtuCompleteTimeout     = 600000000
+[7][1a7f.1a7f][03:09:12.910540][sett] MtuMissingProbeCount   = 3
+[7][1a7f.1a7f][03:09:12.910540][sett] MaxBindingStatelessOper= 100
+[7][1a7f.1a7f][03:09:12.910540][sett] StatelessOperExpirMs   = 100
+[7][1a7f.1a7f][03:09:12.910541][sett] CongestionControlAlgorithm = 0
+[7][1a7f.1a7f][03:09:12.910541][sett] DestCidUpdateIdleTimeoutMs = 20000
+[7][1a7f.1a7f][03:09:12.910542][ lib] CID Length = 9
+[7][1a7f.1a7f][03:09:12.910566][ lib] Initialized, PartitionCount=8
+[7][1a7f.1a7f][03:09:12.910567][ lib] Version 2.1.8.0
+[7][1a7f.1a7f][03:09:12.910568][ lib] AddRef
+[7][1a7f.1a7f][03:09:12.910569][ api] MsQuicOpenVersion, status=0x0
+[7][1a7f.1a7f][03:09:12.910571][ api] Enter 2 (0x0).
+[7][1a7f.1aa8][03:09:12.913809][ lib][0x61c2ec118eb0] Worker start
+[7][1a7f.1a7f][03:09:12.929955][data] Initialized, DatapathFeatures=12
+[7][1a7f.1a7f][03:09:12.930000][wrkr][0x61c2ec11f380] Created, IdealProc=0 Owner=0x61c2ec10d1f0
+[7][1a7f.1a7f][03:09:12.932736][wrkr][0x61c2ec11fab0] Created, IdealProc=1 Owner=0x61c2ec10d1f0
+[5][1a7f.1aa9][03:09:12.934421][wrkr][0x61c2ec11f380] Start
+[5][1a7f.1aa9][03:09:12.934422][wrkr][0x61c2ec11f380] IsActive = 1, Arg = 1
+[5][1a7f.1aa9][03:09:12.934423][wrkr][0x61c2ec11f380] IsActive = 0, Arg = 4294967295
+[5][1a7f.1aa9][03:09:12.934423][wrkr][0x61c2ec11f380] QueueDelay = 0
+[7][1a7f.1a7f][03:09:12.936374][wrkr][0x61c2ec1201e0] Created, IdealProc=2 Owner=0x61c2ec10d1f0
+[1][1a7f.1aaa][03:09:12.936534][wrkr][0x61c2ec11fab0] Start
+[1][1a7f.1aaa][03:09:12.936536][wrkr][0x61c2ec11fab0] IsActive = 1, Arg = 1
+[1][1a7f.1aaa][03:09:12.936536][wrkr][0x61c2ec11fab0] IsActive = 0, Arg = 4294967295
+[1][1a7f.1aaa][03:09:12.936537][wrkr][0x61c2ec11fab0] QueueDelay = 0
+[3][1a7f.1aab][03:09:12.939232][wrkr][0x61c2ec1201e0] Start
+[3][1a7f.1aab][03:09:12.939234][wrkr][0x61c2ec1201e0] IsActive = 1, Arg = 1
+[3][1a7f.1aab][03:09:12.939235][wrkr][0x61c2ec1201e0] IsActive = 0, Arg = 4294967295
+[3][1a7f.1aab][03:09:12.939235][wrkr][0x61c2ec1201e0] QueueDelay = 0
+[0][1a7f.1aac][03:09:12.940313][wrkr][0x61c2ec120910] Start
+[0][1a7f.1aac][03:09:12.940315][wrkr][0x61c2ec120910] IsActive = 1, Arg = 1
+[0][1a7f.1aac][03:09:12.940315][wrkr][0x61c2ec120910] IsActive = 0, Arg = 4294967295
+[0][1a7f.1aac][03:09:12.940315][wrkr][0x61c2ec120910] QueueDelay = 0
+[7][1a7f.1a7f][03:09:12.940415][wrkr][0x61c2ec120910] Created, IdealProc=3 Owner=0x61c2ec10d1f0
+[7][1a7f.1a7f][03:09:12.940480][wrkr][0x61c2ec121040] Created, IdealProc=4 Owner=0x61c2ec10d1f0
+[5][1a7f.1aad][03:09:12.940526][wrkr][0x61c2ec121040] Start
+[7][1a7f.1a7f][03:09:12.940527][wrkr][0x61c2ec121770] Created, IdealProc=5 Owner=0x61c2ec10d1f0
+[5][1a7f.1aad][03:09:12.940527][wrkr][0x61c2ec121040] IsActive = 1, Arg = 1
+[5][1a7f.1aad][03:09:12.940527][wrkr][0x61c2ec121040] IsActive = 0, Arg = 4294967295
+[5][1a7f.1aad][03:09:12.940527][wrkr][0x61c2ec121040] QueueDelay = 0
+[1][1a7f.1aaf][03:09:12.940561][wrkr][0x61c2ec121ea0] Start
+[1][1a7f.1aaf][03:09:12.940561][wrkr][0x61c2ec121ea0] IsActive = 1, Arg = 1
+[1][1a7f.1aaf][03:09:12.940562][wrkr][0x61c2ec121ea0] IsActive = 0, Arg = 4294967295
+[1][1a7f.1aaf][03:09:12.940562][wrkr][0x61c2ec121ea0] QueueDelay = 0
+[7][1a7f.1a7f][03:09:12.940658][wrkr][0x61c2ec121ea0] Created, IdealProc=6 Owner=0x61c2ec10d1f0
+[7][1a7f.1a7f][03:09:12.940701][wrkr][0x61c2ec1225d0] Created, IdealProc=7 Owner=0x61c2ec10d1f0
+[6][1a7f.1aae][03:09:12.940907][wrkr][0x61c2ec121770] Start
+[6][1a7f.1aae][03:09:12.940909][wrkr][0x61c2ec121770] IsActive = 1, Arg = 1
+[6][1a7f.1aae][03:09:12.940909][wrkr][0x61c2ec121770] IsActive = 0, Arg = 4294967295
+[6][1a7f.1aae][03:09:12.940909][wrkr][0x61c2ec121770] QueueDelay = 0
+[3][1a7f.1ab0][03:09:12.941083][wrkr][0x61c2ec1225d0] Start
+[3][1a7f.1ab0][03:09:12.941085][wrkr][0x61c2ec1225d0] IsActive = 1, Arg = 1
+[3][1a7f.1ab0][03:09:12.941086][wrkr][0x61c2ec1225d0] IsActive = 0, Arg = 4294967295
+[3][1a7f.1ab0][03:09:12.941086][wrkr][0x61c2ec1225d0] QueueDelay = 0
+[7][1a7f.1a7f][03:09:12.941346][ reg][0x61c2ec10d1f0] Created, AppName=mqtt
+[7][1a7f.1a7f][03:09:12.941348][ api] Exit 0
+[7][1a7f.1a7f][03:09:12.941362][ api] Enter 5 (0x61c2ec10d1f0).
+[7][1a7f.1a7f][03:09:12.941365][cnfg][0x61c2ec123640] Failed to open app specific settings, 0x95
+[7][1a7f.1a7f][03:09:12.941366][cnfg][0x61c2ec123640] Created, Registration=0x61c2ec10d1f0
+[7][1a7f.1a7f][03:09:12.941367][cnfg][0x61c2ec123640] Settings 0x61c2ec123680 Updated
+[7][1a7f.1a7f][03:09:12.941368][sett] SendBufferingEnabled   = 1
+[7][1a7f.1a7f][03:09:12.941369][sett] PacingEnabled          = 1
+[7][1a7f.1a7f][03:09:12.941369][sett] MigrationEnabled       = 1
+[7][1a7f.1a7f][03:09:12.941369][sett] DatagramReceiveEnabled = 0
+[7][1a7f.1a7f][03:09:12.941370][sett] MaxOperationsPerDrain  = 16
+[7][1a7f.1a7f][03:09:12.941370][sett] RetryMemoryLimit       = 65
+[7][1a7f.1a7f][03:09:12.941370][sett] LoadBalancingMode      = 0
+[7][1a7f.1a7f][03:09:12.941371][sett] FixedServerID          = 0
+[7][1a7f.1a7f][03:09:12.941371][sett] MaxStatelessOperations = 16
+[7][1a7f.1a7f][03:09:12.941371][sett] MaxWorkerQueueDelayUs  = 250000
+[7][1a7f.1a7f][03:09:12.941372][sett] InitialWindowPackets   = 10
+[7][1a7f.1a7f][03:09:12.941372][sett] SendIdleTimeoutMs      = 1000
+[7][1a7f.1a7f][03:09:12.941372][sett] InitialRttMs           = 333
+[7][1a7f.1a7f][03:09:12.941372][sett] MaxAckDelayMs          = 25
+[7][1a7f.1a7f][03:09:12.941373][sett] DisconnectTimeoutMs    = 30000
+[7][1a7f.1a7f][03:09:12.941373][sett] KeepAliveIntervalMs    = 10000
+[7][1a7f.1a7f][03:09:12.941373][sett] IdleTimeoutMs          = 30000
+[7][1a7f.1a7f][03:09:12.941374][sett] HandshakeIdleTimeoutMs = 60000
+[7][1a7f.1a7f][03:09:12.941374][sett] PeerBidiStreamCount    = 1
+[7][1a7f.1a7f][03:09:12.941374][sett] PeerUnidiStreamCount   = 1
+[7][1a7f.1a7f][03:09:12.941375][sett] TlsClientMaxSendBuffer = 8192
+[7][1a7f.1a7f][03:09:12.941375][sett] TlsServerMaxSendBuffer = 0
+[7][1a7f.1a7f][03:09:12.941375][sett] StreamRecvWindowDefault= 65536
+[7][1a7f.1a7f][03:09:12.941376][sett] StreamRecvBufferDefault= 4096
+[7][1a7f.1a7f][03:09:12.941376][sett] ConnFlowControlWindow  = 16777216
+[7][1a7f.1a7f][03:09:12.941376][sett] MaxBytesPerKey         = 274877906944
+[7][1a7f.1a7f][03:09:12.941377][sett] ServerResumptionLevel  = 0
+[7][1a7f.1a7f][03:09:12.941377][sett] Version Negotiation Ext Enabled = 0
+[7][1a7f.1a7f][03:09:12.941378][sett] MinimumMtu             = 1248
+[7][1a7f.1a7f][03:09:12.941378][sett] MaximumMtu             = 1500
+[7][1a7f.1a7f][03:09:12.941378][sett] MtuCompleteTimeout     = 1000
+[7][1a7f.1a7f][03:09:12.941378][sett] MtuMissingProbeCount   = 1
+[7][1a7f.1a7f][03:09:12.941379][sett] MaxBindingStatelessOper= 100
+[7][1a7f.1a7f][03:09:12.941379][sett] StatelessOperExpirMs   = 100
+[7][1a7f.1a7f][03:09:12.941379][sett] CongestionControlAlgorithm = 0
+[7][1a7f.1a7f][03:09:12.941380][sett] DestCidUpdateIdleTimeoutMs = 20000
+[7][1a7f.1a7f][03:09:12.941380][ api] Exit 0
+[7][1a7f.1a7f][03:09:12.941380][ api] Enter 7 (0x61c2ec123640).
+[7][1a7f.1a7f][03:09:12.941611][ api] Exit 0
+[7][1a7f.1a7f][03:09:12.941616][ api] Enter 12 (0x61c2ec10d1f0).
+[7][1a7f.1a7f][03:09:12.941630][conn][0x61c2ec12c6e0] Created, IsServer=0, CorrelationId=0
+[7][1a7f.1a7f][03:09:12.941640][conn][0x61c2ec12c6e0] OUT: BytesSent=0 InFlight=0 InFlightMax=327440 CWnd=654880 SSThresh=4294967295 ConnFC=0 ISB=131072 PostedBytes=0 SRtt=0
+[7][1a7f.1a7f][03:09:12.941702][conn][0x61c2ec12c6e0] OUT: StreamFC=0 StreamSendWindow=0
+[7][1a7f.1a7f][03:09:12.941703][conn][0x61c2ec12c6e0] CUBIC: SlowStartThreshold=4294967295 K=0 WindowMax=0 WindowLastMax=0
+[7][1a7f.1a7f][03:09:12.941710][conn][0x61c2ec12c6e0] Path[0] Initialized
+[7][1a7f.1a7f][03:09:12.941712][conn][0x61c2ec12c6e0] (SeqNum=0) New Destination CID: 8BB3D954E0316118
+[7][1a7f.1a7f][03:09:12.941712][conn][0x61c2ec12c6e0] Initialize complete
+[7][1a7f.1a7f][03:09:12.941713][conn][0x61c2ec12c6e0] Assigned worker: 0x61c2ec1225d0
+[7][1a7f.1a7f][03:09:12.941714][conn][0x61c2ec12c6e0] Registered with 0x61c2ec10d1f0
+[7][1a7f.1a7f][03:09:12.941714][ api] Exit 0
+[7][1a7f.1a7f][03:09:12.941715][ api] Enter 0 (0x61c2ec12c6e0).
+[7][1a7f.1a7f][03:09:12.941716][conn][0x61c2ec12c6e0] Scheduling: 1
+[7][1a7f.1a7f][03:09:12.941718][ api] Waiting on operation
+[3][1a7f.1ab0][03:09:12.941855][wrkr][0x61c2ec1225d0] IsActive = 1, Arg = 1
+[3][1a7f.1ab0][03:09:12.941856][conn][0x61c2ec12c6e0] Scheduling: 2
+[3][1a7f.1ab0][03:09:12.941857][wrkr][0x61c2ec1225d0] QueueDelay = 17
+[3][1a7f.1ab0][03:09:12.941859][conn][0x61c2ec12c6e0] Execute: 11
+[3][1a7f.1ab0][03:09:12.941861][conn][0x61c2ec12c6e0] New Local IP: 0.0.0.0:0
+[3][1a7f.1ab0][03:09:12.941940][conn][0x61c2ec12c6e0] Scheduling: 0
+[3][1a7f.1ab0][03:09:12.941941][wrkr][0x61c2ec1225d0] IsActive = 0, Arg = 4294967295
+[3][1a7f.1ab0][03:09:12.941942][wrkr][0x61c2ec1225d0] QueueDelay = 0
+[7][1a7f.1a7f][03:09:12.942298][ api] Exit 0
+[7][1a7f.1a7f][03:09:12.942299][ api] Enter 0 (0x61c2ec12c6e0).
+[7][1a7f.1a7f][03:09:12.942302][conn][0x61c2ec12c6e0] Scheduling: 1
+[3][1a7f.1ab0][03:09:12.942414][wrkr][0x61c2ec1225d0] IsActive = 1, Arg = 1
+[3][1a7f.1ab0][03:09:12.942415][conn][0x61c2ec12c6e0] Scheduling: 2
+[3][1a7f.1ab0][03:09:12.942415][wrkr][0x61c2ec1225d0] QueueDelay = 13
+[3][1a7f.1ab0][03:09:12.942416][conn][0x61c2ec12c6e0] Execute: 11
+[7][1a7f.1a7f][03:09:12.942444][ api] Waiting on operation
+[3][1a7f.1ab0][03:09:12.942486][conn][0x61c2ec12c6e0] Scheduling: 0
+[3][1a7f.1ab0][03:09:12.942487][wrkr][0x61c2ec1225d0] IsActive = 0, Arg = 4294967295
+[3][1a7f.1ab0][03:09:12.942487][wrkr][0x61c2ec1225d0] QueueDelay = 0
+[7][1a7f.1a7f][03:09:12.942740][ api] Exit 0
+[7][1a7f.1a7f][03:09:12.942861][ api] Enter 15 (0x61c2ec12c6e0).
+[7][1a7f.1a7f][03:09:12.942865][conn][0x61c2ec12c6e0] Scheduling: 1
+[7][1a7f.1a7f][03:09:12.942867][ api] Exit 4294967294
+[3][1a7f.1ab0][03:09:12.942874][wrkr][0x61c2ec1225d0] IsActive = 1, Arg = 1
+[3][1a7f.1ab0][03:09:12.942875][conn][0x61c2ec12c6e0] Scheduling: 2
+[3][1a7f.1ab0][03:09:12.942875][wrkr][0x61c2ec1225d0] QueueDelay = 0
+[3][1a7f.1ab0][03:09:12.942876][conn][0x61c2ec12c6e0] Execute: 2
+[3][1a7f.1ab0][03:09:12.944554][conn][0x61c2ec12c6e0] New Remote IP: 172.18.0.2:14567
+[3][1a7f.1ab0][03:09:12.944567][data][0x61c2ec12ff40] Created, local=0.0.0.0:0, remote=172.18.0.2:14567
+[3][1a7f.1ab0][03:09:12.944758][bind][0x61c2ec12e2c0] Created, Udp=0x61c2ec12ff40 LocalAddr=172.18.0.3:53171 RemoteAddr=172.18.0.2:14567
+[3][1a7f.1ab0][03:09:12.944760][ lib] Now in use.
+[3][1a7f.1ab0][03:09:12.944761][conn][0x61c2ec12c6e0] (SeqNum=0) New Source CID: 
+[3][1a7f.1ab0][03:09:12.944763][conn][0x61c2ec12c6e0] New Local IP: 172.18.0.3:53171
+[3][1a7f.1ab0][03:09:12.944798][conn][0x61c2ec12c6e0] Configuration set, 0x61c2ec123640
+[3][1a7f.1ab0][03:09:12.944799][conn][0x61c2ec12c6e0] Applying new settings
+[3][1a7f.1ab0][03:09:12.944801][conn][0x61c2ec12c6e0] OUT: BytesSent=0 InFlight=0 InFlightMax=6100 CWnd=12200 SSThresh=4294967295 ConnFC=0 ISB=131072 PostedBytes=0 SRtt=0
+[3][1a7f.1ab0][03:09:12.944802][conn][0x61c2ec12c6e0] OUT: StreamFC=0 StreamSendWindow=0
+[3][1a7f.1ab0][03:09:12.944802][conn][0x61c2ec12c6e0] CUBIC: SlowStartThreshold=4294967295 K=0 WindowMax=0 WindowLastMax=0
+[3][1a7f.1ab0][03:09:12.944813][conn][0x61c2ec12c6e0] App configured max stream count of 1 (type=1).
+[3][1a7f.1ab0][03:09:12.944814][conn][0x61c2ec12c6e0] App configured max stream count of 1 (type=3).
+[3][1a7f.1ab0][03:09:12.944815][sett] SendBufferingEnabled   = 1
+[3][1a7f.1ab0][03:09:12.944815][sett] PacingEnabled          = 1
+[3][1a7f.1ab0][03:09:12.944816][sett] MigrationEnabled       = 1
+[3][1a7f.1ab0][03:09:12.944816][sett] DatagramReceiveEnabled = 0
+[3][1a7f.1ab0][03:09:12.944816][sett] MaxOperationsPerDrain  = 16
+[3][1a7f.1ab0][03:09:12.944817][sett] RetryMemoryLimit       = 65
+[3][1a7f.1ab0][03:09:12.944817][sett] LoadBalancingMode      = 0
+[3][1a7f.1ab0][03:09:12.944817][sett] FixedServerID          = 0
+[3][1a7f.1ab0][03:09:12.944818][sett] MaxStatelessOperations = 16
+[3][1a7f.1ab0][03:09:12.944818][sett] MaxWorkerQueueDelayUs  = 250000
+[3][1a7f.1ab0][03:09:12.944818][sett] InitialWindowPackets   = 10
+[3][1a7f.1ab0][03:09:12.944819][sett] SendIdleTimeoutMs      = 1000
+[3][1a7f.1ab0][03:09:12.944819][sett] InitialRttMs           = 333
+[3][1a7f.1ab0][03:09:12.944819][sett] MaxAckDelayMs          = 25
+[3][1a7f.1ab0][03:09:12.944820][sett] DisconnectTimeoutMs    = 30000
+[3][1a7f.1ab0][03:09:12.944820][sett] KeepAliveIntervalMs    = 10000
+[3][1a7f.1ab0][03:09:12.944820][sett] IdleTimeoutMs          = 30000
+[3][1a7f.1ab0][03:09:12.944821][sett] HandshakeIdleTimeoutMs = 60000
+[3][1a7f.1ab0][03:09:12.944821][sett] PeerBidiStreamCount    = 1
+[3][1a7f.1ab0][03:09:12.944821][sett] PeerUnidiStreamCount   = 1
+[3][1a7f.1ab0][03:09:12.944822][sett] TlsClientMaxSendBuffer = 8192
+[3][1a7f.1ab0][03:09:12.944822][sett] TlsServerMaxSendBuffer = 0
+[3][1a7f.1ab0][03:09:12.944822][sett] StreamRecvWindowDefault= 65536
+[3][1a7f.1ab0][03:09:12.944823][sett] StreamRecvBufferDefault= 4096
+[3][1a7f.1ab0][03:09:12.944823][sett] ConnFlowControlWindow  = 16777216
+[3][1a7f.1ab0][03:09:12.944823][sett] MaxBytesPerKey         = 274877906944
+[3][1a7f.1ab0][03:09:12.944824][sett] ServerResumptionLevel  = 0
+[3][1a7f.1ab0][03:09:12.944824][sett] Version Negotiation Ext Enabled = 0
+[3][1a7f.1ab0][03:09:12.944825][sett] MinimumMtu             = 1248
+[3][1a7f.1ab0][03:09:12.944825][sett] MaximumMtu             = 1500
+[3][1a7f.1ab0][03:09:12.944825][sett] MtuCompleteTimeout     = 1000
+[3][1a7f.1ab0][03:09:12.944825][sett] MtuMissingProbeCount   = 1
+[3][1a7f.1ab0][03:09:12.944826][sett] MaxBindingStatelessOper= 100
+[3][1a7f.1ab0][03:09:12.944826][sett] StatelessOperExpirMs   = 100
+[3][1a7f.1ab0][03:09:12.944826][sett] CongestionControlAlgorithm = 0
+[3][1a7f.1ab0][03:09:12.944826][sett] DestCidUpdateIdleTimeoutMs = 20000
+[3][1a7f.1ab0][03:09:12.944828][conn][0x61c2ec12c6e0] QUIC Version: 16777216
+[3][1a7f.1ab0][03:09:12.944840][conn][0x61c2ec12c6e0] Handshake start
+[3][1a7f.1ab0][03:09:12.944841][conn][0x61c2ec12c6e0] Encoding Transport Parameters (Server = 0)
+[3][1a7f.1ab0][03:09:12.944842][conn][0x61c2ec12c6e0] TP: Idle Timeout (30000 ms)
+[3][1a7f.1ab0][03:09:12.944843][conn][0x61c2ec12c6e0] TP: Max Udp Payload Size (1472 bytes)
+[3][1a7f.1ab0][03:09:12.944843][conn][0x61c2ec12c6e0] TP: Max Data (16777216 bytes)
+[3][1a7f.1ab0][03:09:12.944844][conn][0x61c2ec12c6e0] TP: Max Local Bidirectional Stream Data (65536 bytes)
+[3][1a7f.1ab0][03:09:12.944844][conn][0x61c2ec12c6e0] TP: Max Remote Bidirectional Stream Data (65536 bytes)
+[3][1a7f.1ab0][03:09:12.944845][conn][0x61c2ec12c6e0] TP: Max Unidirectional Stream Data (65536)
+[3][1a7f.1ab0][03:09:12.944845][conn][0x61c2ec12c6e0] TP: Max Bidirectional Streams (1)
+[3][1a7f.1ab0][03:09:12.944846][conn][0x61c2ec12c6e0] TP: Max Unidirectional Streams (1)
+[3][1a7f.1ab0][03:09:12.944846][conn][0x61c2ec12c6e0] TP: ACK Delay Exponent (8)
+[3][1a7f.1ab0][03:09:12.944846][conn][0x61c2ec12c6e0] TP: Max ACK Delay (26 ms)
+[3][1a7f.1ab0][03:09:12.944847][conn][0x61c2ec12c6e0] TP: Connection ID Limit (4)
+[3][1a7f.1ab0][03:09:12.944848][conn][0x61c2ec12c6e0] TP: Initial Source Connection ID ()
+[3][1a7f.1ab0][03:09:12.944849][conn][0x61c2ec12c6e0] TP: Min ACK Delay (1000 us)
+[3][1a7f.1ab0][03:09:12.944849][conn][0x61c2ec12c6e0] Encoded 62 bytes for QUIC TP
+[3][1a7f.1ab0][03:09:12.944851][conn][0x61c2ec12c6e0] TLS context Created
+[3][1a7f.1ab0][03:09:12.945142][conn][0x61c2ec12c6e0] Sending 268 handshake bytes (Level = 0)
+[3][1a7f.1ab0][03:09:12.945157][conn][0x61c2ec12c6e0] Decoding Transport Parameters (Server = 0) (62 bytes)
+[3][1a7f.1ab0][03:09:12.945157][conn][0x61c2ec12c6e0] TP: Idle Timeout (30000 ms)
+[3][1a7f.1ab0][03:09:12.945158][conn][0x61c2ec12c6e0] TP: Max Udp Payload Size (1472 bytes)
+[3][1a7f.1ab0][03:09:12.945159][conn][0x61c2ec12c6e0] TP: Max Data (16777216 bytes)
+[3][1a7f.1ab0][03:09:12.945159][conn][0x61c2ec12c6e0] TP: Max Local Bidirectional Stream Data (65536 bytes)
+[3][1a7f.1ab0][03:09:12.945160][conn][0x61c2ec12c6e0] TP: Max Remote Bidirectional Stream Data (65536 bytes)
+[3][1a7f.1ab0][03:09:12.945160][conn][0x61c2ec12c6e0] TP: Max Unidirectional Stream Data (65536)
+[3][1a7f.1ab0][03:09:12.945161][conn][0x61c2ec12c6e0] TP: Max Bidirectional Streams (1)
+[3][1a7f.1ab0][03:09:12.945161][conn][0x61c2ec12c6e0] TP: Max Unidirectional Streams (1)
+[3][1a7f.1ab0][03:09:12.945162][conn][0x61c2ec12c6e0] TP: ACK Delay Exponent (8)
+[3][1a7f.1ab0][03:09:12.945162][conn][0x61c2ec12c6e0] TP: Max ACK Delay (26 ms)
+[3][1a7f.1ab0][03:09:12.945163][conn][0x61c2ec12c6e0] TP: Connection ID Limit (4)
+[3][1a7f.1ab0][03:09:12.945164][conn][0x61c2ec12c6e0] TP: Initial Source Connection ID ()
+[3][1a7f.1ab0][03:09:12.945164][conn][0x61c2ec12c6e0] TP: Min ACK Delay (1000 us)
+[3][1a7f.1ab0][03:09:12.945165][conn][0x61c2ec12c6e0] Scheduling flags 0x2 to 0x0
+[3][1a7f.1ab0][03:09:12.945167][conn][0x61c2ec12c6e0] Queueing send flush, reason=0
+[3][1a7f.1ab0][03:09:12.945168][conn][0x61c2ec12c6e0] QS:268 MAX:0 UNA:0 NXT:0 RECOV:0-0
+[3][1a7f.1ab0][03:09:12.945169][conn][0x61c2ec12c6e0] Setting 3, delay=10000000 us
+[3][1a7f.1ab0][03:09:12.945171][time][0x61c2ec122668] Updating Connection 0x61c2ec12c6e0.
+[3][1a7f.1ab0][03:09:12.945171][time][0x61c2ec122668] Next Expiration = {22988149385, 0x61c2ec12c6e0}.
+[3][1a7f.1ab0][03:09:12.945172][conn][0x61c2ec12c6e0] Execute: 4
+[3][1a7f.1ab0][03:09:12.945173][conn][0x61c2ec12c6e0] Flushing Send. Allowance=12200 bytes
+[3][1a7f.1ab0][03:09:12.945184][pack][4398046511105] Created in batch 4398046511105
+[3][1a7f.1ab0][03:09:12.945185][conn][0x61c2ec12c6e0] Sending 268 crypto bytes, offset=0
+[3][1a7f.1ab0][03:09:12.945186][conn][0x61c2ec12c6e0] QS:268 MAX:268 UNA:0 NXT:268 RECOV:0-0
+[3][1a7f.1ab0][03:09:12.945187][conn][0x61c2ec12c6e0]   unACKed: [0, 268]
+[3][1a7f.1ab0][03:09:12.945190][C][TX][0] LH Ver:0x16777216 DestCid:8bb3d954e0316118 SrcCid: Type:I (Token 0 bytes) (Payload 1202 bytes)
+[3][1a7f.1ab0][03:09:12.945192][C][TX][0]   CRYPTO Offset:0 Len:268
+[3][1a7f.1ab0][03:09:12.945193][C][TX][0]   PADDING Len:910
+[3][1a7f.1ab0][03:09:12.945193][pack][4398046511105] Encrypting
+[3][1a7f.1ab0][03:09:12.945198][pack][4398046511105] Finalizing
+[3][1a7f.1ab0][03:09:12.945200][conn][0x61c2ec12c6e0][TX][0] 1 (1220 bytes)
+[3][1a7f.1ab0][03:09:12.945201][conn][0x61c2ec12c6e0] Setting 4, delay=60000000 us
+[3][1a7f.1ab0][03:09:12.945201][conn][0x61c2ec12c6e0] Setting 3, delay=10000000 us
+[3][1a7f.1ab0][03:09:12.945201][time][0x61c2ec122668] Updating Connection 0x61c2ec12c6e0.
+[3][1a7f.1ab0][03:09:12.945201][time][0x61c2ec122668] Next Expiration = {22988149417, 0x61c2ec12c6e0}.
+[3][1a7f.1ab0][03:09:12.945202][conn][0x61c2ec12c6e0] OUT: BytesSent=1220 InFlight=1220 InFlightMax=6100 CWnd=12200 SSThresh=4294967295 ConnFC=0 ISB=131072 PostedBytes=0 SRtt=0
+[3][1a7f.1ab0][03:09:12.945203][conn][0x61c2ec12c6e0] OUT: StreamFC=0 StreamSendWindow=0
+[3][1a7f.1ab0][03:09:12.945203][conn][0x61c2ec12c6e0] Sending batch. 1 datagrams
+[3][1a7f.1ab0][03:09:12.945204][data][0x61c2ec12ff40] Send 1220 bytes in 1 buffers (segment=1220) Dst=172.18.0.2:14567, Src=172.18.0.3:53171
+[3][1a7f.1ab0][03:09:12.945266][pack][4398046511105] Batch sent
+[3][1a7f.1ab0][03:09:12.945267][conn][0x61c2ec12c6e0] Setting loss detection 0 timer for 998934 us. (ProbeCount=0)
+[3][1a7f.1ab0][03:09:12.945268][conn][0x61c2ec12c6e0] Setting 2, delay=998934 us
+[3][1a7f.1ab0][03:09:12.945268][time][0x61c2ec122668] Updating Connection 0x61c2ec12c6e0.
+[3][1a7f.1ab0][03:09:12.945269][time][0x61c2ec122668] Next Expiration = {22979148417, 0x61c2ec12c6e0}.
+[3][1a7f.1ab0][03:09:12.945270][conn][0x61c2ec12c6e0] Flush complete flags=0x0
+[3][1a7f.1ab0][03:09:12.945271][conn][0x61c2ec12c6e0] Scheduling: 0
+[3][1a7f.1ab0][03:09:12.945272][wrkr][0x61c2ec1225d0] IsActive = 0, Arg = 4294967295
+[3][1a7f.1ab0][03:09:12.945272][wrkr][0x61c2ec1225d0] QueueDelay = 0
+[3][1a7f.1aa4][03:09:13.033450][data][0x61c2ec12ff40] Recv 1220 bytes (segment=1220) Src=172.18.0.3:53171 Dst=172.18.0.2:14567
+[3][1a7f.1aa4][03:09:13.033454][data][0x61c2ec12ff40] Recv 258 bytes (segment=258) Src=172.18.0.3:53171 Dst=172.18.0.2:14567
+[3][1a7f.1aa4][03:09:13.033457][pack][4398046511105] Received
+[3][1a7f.1aa4][03:09:13.033457][pack][4398046511106] Received
+[3][1a7f.1aa4][03:09:13.033460][conn][0x61c2ec12c6e0] Queuing 2 UDP datagrams
+[3][1a7f.1aa4][03:09:13.033464][conn][0x61c2ec12c6e0] Scheduling: 1
+[3][1a7f.1ab0][03:09:13.033486][wrkr][0x61c2ec1225d0] IsActive = 1, Arg = 1
+[3][1a7f.1ab0][03:09:13.033486][conn][0x61c2ec12c6e0] Scheduling: 2
+[3][1a7f.1ab0][03:09:13.033487][wrkr][0x61c2ec1225d0] QueueDelay = 2
+[3][1a7f.1ab0][03:09:13.033488][conn][0x61c2ec12c6e0] Execute: 1
+[3][1a7f.1ab0][03:09:13.033490][conn][0x61c2ec12c6e0] Recv 2 UDP datagrams
+[3][1a7f.1ab0][03:09:13.033491][conn][0x61c2ec12c6e0] IN: BytesRecv=1220
+[3][1a7f.1ab0][03:09:13.033492][conn][0x61c2ec12c6e0] Batch Recv 1 UDP datagrams
+[3][1a7f.1ab0][03:09:13.033496][pack][4398046511105] Decrypting
+[3][1a7f.1ab0][03:09:13.033505][C][RX][0] LH Ver:0x16777216 DestCid: SrcCid:33098d6a3d72903448 Type:I (Token 0 bytes) (Payload 120 bytes)
+[3][1a7f.1ab0][03:09:13.033508][C][RX][0]   ACK Largest:0 Delay:79
+[3][1a7f.1ab0][03:09:13.033509][C][RX][0]     0
+[3][1a7f.1ab0][03:09:13.033510][C][RX][0]   CRYPTO Offset:0 Len:90
+[3][1a7f.1ab0][03:09:13.033511][conn][0x61c2ec12c6e0][RX][0]  (123 bytes)
+[3][1a7f.1ab0][03:09:13.033511][conn][0x61c2ec12c6e0] (SeqNum=0) Removed Destination CID: 8BB3D954E0316118
+[3][1a7f.1ab0][03:09:13.033513][conn][0x61c2ec12c6e0] (SeqNum=0) New Destination CID: 33098D6A3D72903448
+[3][1a7f.1ab0][03:09:13.033516][C][TX][0] ACKed (88.315 ms)
+[3][1a7f.1ab0][03:09:13.033517][conn][0x61c2ec12c6e0][TX][0] 1 ACKed
+[3][1a7f.1ab0][03:09:13.033518][conn][0x61c2ec12c6e0] Received ack for 268 crypto bytes, offset=0
+[3][1a7f.1ab0][03:09:13.033519][conn][0x61c2ec12c6e0] QS:268 MAX:268 UNA:268 NXT:268 RECOV:0-0
+[3][1a7f.1ab0][03:09:13.033520][conn][0x61c2ec12c6e0] Path[0] Minimum MTU validated
+[3][1a7f.1ab0][03:09:13.033521][conn][0x61c2ec12c6e0] Updated Rtt=68.91 ms, Var=34.45
+[3][1a7f.1ab0][03:09:13.033523][conn][0x61c2ec12c6e0] OUT: BytesSent=1220 InFlight=0 InFlightMax=6100 CWnd=12200 SSThresh=4294967295 ConnFC=0 ISB=131072 PostedBytes=0 SRtt=68091
+[3][1a7f.1ab0][03:09:13.033524][conn][0x61c2ec12c6e0] OUT: StreamFC=0 StreamSendWindow=0
+[3][1a7f.1ab0][03:09:13.033525][conn][0x61c2ec12c6e0] Setting loss detection 2 timer for 141947 us. (ProbeCount=0)
+[3][1a7f.1ab0][03:09:13.033525][conn][0x61c2ec12c6e0] Setting 2, delay=141947 us
+[3][1a7f.1ab0][03:09:13.033527][time][0x61c2ec122668] Updating Connection 0x61c2ec12c6e0.
+[3][1a7f.1ab0][03:09:13.033527][time][0x61c2ec122668] Next Expiration = {22978379688, 0x61c2ec12c6e0}.
+[3][1a7f.1ab0][03:09:13.033529][conn][0x61c2ec12c6e0] Received 90 crypto bytes, offset=0 Ready=1
+[3][1a7f.1ab0][03:09:13.033530][conn][0x61c2ec12c6e0] Processing 90 received bytes
+[3][1a7f.1ab0][03:09:13.035442][conn][0x61c2ec12c6e0] New encryption secrets (Level = 2)
+[3][1a7f.1ab0][03:09:13.035454][conn][0x61c2ec12c6e0] Writing Handshake data starts at 268
+[3][1a7f.1ab0][03:09:13.035455][conn][0x61c2ec12c6e0] Draining 90 crypto bytes
+[3][1a7f.1ab0][03:09:13.035456][conn][0x61c2ec12c6e0] Write Key Updated, 2.
+[3][1a7f.1ab0][03:09:13.035456][conn][0x61c2ec12c6e0] Read Key Updated, 2.
+[3][1a7f.1ab0][03:09:13.035458][C][RX][0] Marked for ACK (ECN=0)
+[3][1a7f.1ab0][03:09:13.035460][conn][0x61c2ec12c6e0] Starting ACK_DELAY timer for 25 ms
+[3][1a7f.1ab0][03:09:13.035460][conn][0x61c2ec12c6e0] Setting 1, delay=25000 us
+[3][1a7f.1ab0][03:09:13.035461][time][0x61c2ec122668] Updating Connection 0x61c2ec12c6e0.
+[3][1a7f.1ab0][03:09:13.035461][time][0x61c2ec122668] Next Expiration = {22978264676, 0x61c2ec12c6e0}.
+[3][1a7f.1ab0][03:09:13.035463][conn][0x61c2ec12c6e0] Batch Recv 1 UDP datagrams
+[3][1a7f.1ab0][03:09:13.035463][pack][4398046511105] Decrypting
+[3][1a7f.1ab0][03:09:13.035467][C][RX][1] LH Ver:0x16777216 DestCid: SrcCid:33098d6a3d72903448 Type:HS (Payload 1063 bytes)
+[3][1a7f.1ab0][03:09:13.035469][C][RX][1]   CRYPTO Offset:0 Len:1038
+[3][1a7f.1ab0][03:09:13.035470][C][RX][1]   PADDING Len:1
+[3][1a7f.1ab0][03:09:13.035470][conn][0x61c2ec12c6e0][RX][1]  (1065 bytes)
+[3][1a7f.1ab0][03:09:13.035472][conn][0x61c2ec12c6e0] Received 1038 crypto bytes, offset=0 Ready=1
+[3][1a7f.1ab0][03:09:13.035472][conn][0x61c2ec12c6e0] Processing 912 received bytes
+[3][1a7f.1ab0][03:09:13.035526][conn][0x61c2ec12c6e0] Draining 912 crypto bytes
+[3][1a7f.1ab0][03:09:13.035526][C][RX][1] Marked for ACK (ECN=0)
+[3][1a7f.1ab0][03:09:13.035527][conn][0x61c2ec12c6e0] IN: BytesRecv=1478
+[3][1a7f.1ab0][03:09:13.035527][conn][0x61c2ec12c6e0] Batch Recv 1 UDP datagrams
+[3][1a7f.1ab0][03:09:13.035527][pack][4398046511106] Decrypting
+[3][1a7f.1ab0][03:09:13.035528][C][RX][2] LH Ver:0x16777216 DestCid: SrcCid:33098d6a3d72903448 Type:HS (Payload 215 bytes)
+[3][1a7f.1ab0][03:09:13.035528][C][RX][2]   CRYPTO Offset:1038 Len:190
+[3][1a7f.1ab0][03:09:13.035529][conn][0x61c2ec12c6e0][RX][2]  (217 bytes)
+[3][1a7f.1ab0][03:09:13.035529][conn][0x61c2ec12c6e0] Received 190 crypto bytes, offset=1038 Ready=1
+[3][1a7f.1ab0][03:09:13.035529][conn][0x61c2ec12c6e0] Processing 316 received bytes
+[3][1a7f.1ab0][03:09:13.035581][conn][0x61c2ec12c6e0] New encryption secrets (Level = 3)
+[3][1a7f.1ab0][03:09:13.035590][conn][0x61c2ec12c6e0] Sending 52 handshake bytes (Level = 2)
+[3][1a7f.1ab0][03:09:13.035596][conn][0x61c2ec12c6e0] TLS Handshake complete
+[3][1a7f.1ab0][03:09:13.035597][conn][0x61c2ec12c6e0] Decoding Transport Parameters (Server = 1) (87 bytes)
+[3][1a7f.1ab0][03:09:13.035599][conn][0x61c2ec12c6e0] TP: Original Connection Destination ID (8bb3d954e0316118)
+[3][1a7f.1ab0][03:09:13.035599][conn][0x61c2ec12c6e0] TP: Stateless Reset Token (f81cf711131cc9b3a2833f52e0db81b8)
+[3][1a7f.1ab0][03:09:13.035600][conn][0x61c2ec12c6e0] TP: Max Udp Payload Size (1472 bytes)
+[3][1a7f.1ab0][03:09:13.035600][conn][0x61c2ec12c6e0] TP: Max Data (16777216 bytes)
+[3][1a7f.1ab0][03:09:13.035601][conn][0x61c2ec12c6e0] TP: Max Local Bidirectional Stream Data (65536 bytes)
+[3][1a7f.1ab0][03:09:13.035601][conn][0x61c2ec12c6e0] TP: Max Remote Bidirectional Stream Data (65536 bytes)
+[3][1a7f.1ab0][03:09:13.035602][conn][0x61c2ec12c6e0] TP: Max Unidirectional Stream Data (65536)
+[3][1a7f.1ab0][03:09:13.035602][conn][0x61c2ec12c6e0] TP: ACK Delay Exponent (8)
+[3][1a7f.1ab0][03:09:13.035603][conn][0x61c2ec12c6e0] TP: Max ACK Delay (26 ms)
+[3][1a7f.1ab0][03:09:13.035604][conn][0x61c2ec12c6e0] TP: Connection ID Limit (4)
+[3][1a7f.1ab0][03:09:13.035604][conn][0x61c2ec12c6e0] TP: Initial Source Connection ID (33098d6a3d72903448)
+[3][1a7f.1ab0][03:09:13.035605][conn][0x61c2ec12c6e0] TP: Min ACK Delay (1000 us)
+[3][1a7f.1ab0][03:09:13.035606][conn][0x61c2ec12c6e0] Peer Transport Parameters Set
+[3][1a7f.1ab0][03:09:13.035607][conn][0x61c2ec12c6e0] Indicating QUIC_CONNECTION_EVENT_DATAGRAM_STATE_CHANGED [SendEnabled=0] [MaxSendLength=0]
+[3][1a7f.1ab0][03:09:13.035608][ api] Enter 0 (0x61c2ec12c6e0).
+[3][1a7f.1ab0][03:09:13.035611][ api] Exit 1
+[3][1a7f.1ab0][03:09:13.035612][conn][0x61c2ec12c6e0] Datagram send shutdown
+[3][1a7f.1ab0][03:09:13.035613][conn][0x61c2ec12c6e0] Writing 1-RTT data starts at 320
+[3][1a7f.1ab0][03:09:13.035613][conn][0x61c2ec12c6e0] Draining 316 crypto bytes
+[3][1a7f.1ab0][03:09:13.035613][conn][0x61c2ec12c6e0] Write Key Updated, 3.
+[3][1a7f.1ab0][03:09:13.035614][conn][0x61c2ec12c6e0] Queueing send flush, reason=8
+[3][1a7f.1ab0][03:09:13.035614][conn][0x61c2ec12c6e0] Read Key Updated, 3.
+[3][1a7f.1ab0][03:09:13.035615][conn][0x61c2ec12c6e0] Scheduling flags 0x2 to 0x0
+[3][1a7f.1ab0][03:09:13.035615][conn][0x61c2ec12c6e0] QS:320 MAX:268 UNA:268 NXT:268 RECOV:0-0
+[3][1a7f.1ab0][03:09:13.035615][conn][0x61c2ec12c6e0] Handshake complete
+[3][1a7f.1ab0][03:09:13.035616][conn][0x61c2ec12c6e0] Indicating QUIC_CONNECTION_EVENT_CONNECTED (Resume=0)
+[3][1a7f.1ab0][03:09:13.035616][ api] Enter 0 (0x61c2ec12c6e0).
+[3][1a7f.1ab0][03:09:13.035616][ api] Exit 1
+[3][1a7f.1ab0][03:09:13.035733][ api] Enter 18 (0x61c2ec12c6e0).
+[3][1a7f.1ab0][03:09:13.035735][strm][0x61c2ec1575a0] Allocated, Conn=0x61c2ec12c6e0
+[3][1a7f.1ab0][03:09:13.035735][ api] Exit 0
+[3][1a7f.1ab0][03:09:13.035736][ api] Enter 20 (0x61c2ec1575a0).
+[3][1a7f.1ab0][03:09:13.035736][ api] Exit 4294967294
+[3][1a7f.1ab0][03:09:13.035737][ api] Enter 24 (0x0).
+[3][1a7f.1ab0][03:09:13.035737][ api] Exit 22
+[3][1a7f.1ab0][03:09:13.035768][ api] Enter 22 (0x61c2ec1575a0).
+[3][1a7f.1ab0][03:09:13.035768][strm][0x61c2ec1575a0] App queuing send [29 bytes, 2 buffers, 0x0 flags]
+[3][1a7f.1ab0][03:09:13.035769][ api] Exit 4294967294
+[3][1a7f.1ab0][03:09:13.035771][ api] Enter 24 (0x61c2ec1575a0).
+[3][1a7f.1ab0][03:09:13.035771][ api] Exit 4294967294
+[3][1a7f.1ab0][03:09:13.035772][conn][0x61c2ec12c6e0] Path[0] Mtu Discovery Initialized: max_mtu=1500, cur/min_mtu=1248
+[3][1a7f.1ab0][03:09:13.035772][conn][0x61c2ec12c6e0] Path[0] Mtu Discovery Search Packet Sending with MTU 1280
+[3][1a7f.1ab0][03:09:13.035773][conn][0x61c2ec12c6e0] Scheduling flags 0x2147483648 to 0x2
+[3][1a7f.1ab0][03:09:13.035773][C][RX][2] Marked for ACK (ECN=0)
+[3][1a7f.1ab0][03:09:13.035774][conn][0x61c2ec12c6e0] Canceling 1
+[3][1a7f.1ab0][03:09:13.035774][time][0x61c2ec122668] Updating Connection 0x61c2ec12c6e0.
+[3][1a7f.1ab0][03:09:13.035775][time][0x61c2ec122668] Next Expiration = {22978379688, 0x61c2ec12c6e0}.
+[3][1a7f.1ab0][03:09:13.035775][conn][0x61c2ec12c6e0] Scheduling flags 0x1 to 0x2147483650
+[3][1a7f.1ab0][03:09:13.035775][conn][0x61c2ec12c6e0] Batch Recv 1 UDP datagrams
+[3][1a7f.1ab0][03:09:13.035776][pack][4398046511106] Decrypting
+[3][1a7f.1ab0][03:09:13.035778][C][RX][3] SH DestCid: KP:0 SB:0 (Payload 8 bytes)
+[3][1a7f.1ab0][03:09:13.035779][C][RX][3]   MAX_STREAMS[1] Count:10
+[3][1a7f.1ab0][03:09:13.035779][C][RX][3]   MAX_STREAMS[0] Count:1
+[3][1a7f.1ab0][03:09:13.035779][conn][0x61c2ec12c6e0][RX][3]  (9 bytes)
+[3][1a7f.1ab0][03:09:13.035780][conn][0x61c2ec12c6e0] Peer updated max stream count (1, 10).
+[3][1a7f.1ab0][03:09:13.035780][conn][0x61c2ec12c6e0] Indicating QUIC_CONNECTION_EVENT_STREAMS_AVAILABLE [bi=10 uni=0]
+[3][1a7f.1ab0][03:09:13.035780][ api] Enter 0 (0x61c2ec12c6e0).
+[3][1a7f.1ab0][03:09:13.035781][ api] Exit 1
+[3][1a7f.1ab0][03:09:13.035781][conn][0x61c2ec12c6e0] Peer updated max stream count (0, 1).
+[3][1a7f.1ab0][03:09:13.035781][conn][0x61c2ec12c6e0] Indicating QUIC_CONNECTION_EVENT_STREAMS_AVAILABLE [bi=10 uni=1]
+[3][1a7f.1ab0][03:09:13.035782][ api] Enter 0 (0x61c2ec12c6e0).
+[3][1a7f.1ab0][03:09:13.035782][ api] Exit 1
+[3][1a7f.1ab0][03:09:13.035782][C][RX][3] Marked for ACK (ECN=0)
+[3][1a7f.1ab0][03:09:13.035782][conn][0x61c2ec12c6e0] Setting 4, delay=30000000 us
+[3][1a7f.1ab0][03:09:13.035783][conn][0x61c2ec12c6e0] Setting 3, delay=10000000 us
+[3][1a7f.1ab0][03:09:13.035786][time][0x61c2ec122668] Removing Connection 0x61c2ec12c6e0.
+[3][1a7f.1ab0][03:09:13.035786][time][0x61c2ec122668] Next Expiration = {NULL}.
+[3][1a7f.1ab0][03:09:13.035787][conn][0x61c2ec12c6e0] Assigned worker: 0x61c2ec120910
+[3][1a7f.1ab0][03:09:13.035787][conn][0x61c2ec12c6e0] Scheduling: 1
+[0][1a7f.1aac][03:09:13.044417][wrkr][0x61c2ec120910] IsActive = 1, Arg = 1
+[0][1a7f.1aac][03:09:13.044418][conn][0x61c2ec12c6e0] Scheduling: 2
+[0][1a7f.1aac][03:09:13.044419][wrkr][0x61c2ec120910] QueueDelay = 1078
+[0][1a7f.1aac][03:09:13.044419][time][0x61c2ec1209a8] Updating Connection 0x61c2ec12c6e0.
+[0][1a7f.1aac][03:09:13.044420][time][0x61c2ec1209a8] Next Expiration = {22978379688, 0x61c2ec12c6e0}.
+[0][1a7f.1aac][03:09:13.044420][conn][0x61c2ec12c6e0] Indicating QUIC_CONNECTION_EVENT_IDEAL_PROCESSOR_CHANGED
+[0][1a7f.1aac][03:09:13.044421][ api] Enter 0 (0x61c2ec12c6e0).
+[0][1a7f.1aac][03:09:13.044423][ api] Exit 1
+[0][1a7f.1aac][03:09:13.044424][conn][0x61c2ec12c6e0] Execute: 4
+[0][1a7f.1aac][03:09:13.044425][conn][0x61c2ec12c6e0] Flushing Send. Allowance=12200 bytes
+[0][1a7f.1aac][03:09:13.044434][pack][1099511627777] Created in batch 1099511627777
+[0][1a7f.1aac][03:09:13.044440][C][TX][1] LH Ver:0x16777216 DestCid:33098d6a3d72903448 SrcCid: Type:I (Token 0 bytes) (Payload 25 bytes)
+[0][1a7f.1aac][03:09:13.044441][C][TX][1]   ACK Largest:0 Delay:42
+[0][1a7f.1aac][03:09:13.044442][C][TX][1]     0
+[0][1a7f.1aac][03:09:13.044442][pack][1099511627777] Encrypting
+[0][1a7f.1aac][03:09:13.044445][pack][1099511627777] Finalizing
+[0][1a7f.1aac][03:09:13.044446][conn][0x61c2ec12c6e0][TX][1] 1 (44 bytes)
+[0][1a7f.1aac][03:09:13.044447][pack][1099511627778] Created in batch 1099511627777
+[0][1a7f.1aac][03:09:13.044448][conn][0x61c2ec12c6e0] Discarding key type = 0
+[0][1a7f.1aac][03:09:13.044449][C][TX][1] ACKed (implicit)
+[0][1a7f.1aac][03:09:13.044450][conn][0x61c2ec12c6e0][TX][1] 1 ACKed
+[0][1a7f.1aac][03:09:13.044451][conn][0x61c2ec12c6e0] Sending 52 crypto bytes, offset=268
+[0][1a7f.1aac][03:09:13.044451][conn][0x61c2ec12c6e0] QS:320 MAX:320 UNA:268 NXT:320 RECOV:0-0
+[0][1a7f.1aac][03:09:13.044452][conn][0x61c2ec12c6e0]   unACKed: [268, 320]
+[0][1a7f.1aac][03:09:13.044453][C][TX][2] LH Ver:0x16777216 DestCid:33098d6a3d72903448 SrcCid: Type:HS (Payload 80 bytes)
+[0][1a7f.1aac][03:09:13.044453][C][TX][2]   ACK Largest:2 Delay:34
+[0][1a7f.1aac][03:09:13.044454][C][TX][2]     1 - 2
+[0][1a7f.1aac][03:09:13.044454][C][TX][2]   CRYPTO Offset:0 Len:52
+[0][1a7f.1aac][03:09:13.044454][pack][1099511627778] Encrypting
+[0][1a7f.1aac][03:09:13.044455][pack][1099511627778] Finalizing
+[0][1a7f.1aac][03:09:13.044456][conn][0x61c2ec12c6e0][TX][2] 3 (98 bytes)
+[0][1a7f.1aac][03:09:13.044456][conn][0x61c2ec12c6e0] Setting 4, delay=30000000 us
+[0][1a7f.1aac][03:09:13.044456][conn][0x61c2ec12c6e0] Setting 3, delay=10000000 us
+[0][1a7f.1aac][03:09:13.044457][conn][0x61c2ec12c6e0] OUT: BytesSent=1362 InFlight=98 InFlightMax=6100 CWnd=12200 SSThresh=4294967295 ConnFC=16777216 ISB=131072 PostedBytes=0 SRtt=68091
+[0][1a7f.1aac][03:09:13.044457][conn][0x61c2ec12c6e0] OUT: StreamFC=0 StreamSendWindow=0
+[0][1a7f.1aac][03:09:13.044457][pack][1099511627779] Created in batch 1099511627777
+[0][1a7f.1aac][03:09:13.044459][C][TX][3] SH DestCid:33098d6a3d72903448 KP:0 SB:1 (Payload 1052 bytes)
+[0][1a7f.1aac][03:09:13.044459][C][TX][3]   ACK Largest:3 Delay:33
+[0][1a7f.1aac][03:09:13.044459][C][TX][3]     3
+[0][1a7f.1aac][03:09:13.044460][C][TX][3]   PADDING Len:1043
+[0][1a7f.1aac][03:09:13.044460][pack][1099511627779] Encrypting
+[0][1a7f.1aac][03:09:13.044461][pack][1099511627779] Finalizing
+[0][1a7f.1aac][03:09:13.044461][conn][0x61c2ec12c6e0][TX][3] 5 (1078 bytes)
+[0][1a7f.1aac][03:09:13.044462][conn][0x61c2ec12c6e0] Sending batch. 1 datagrams
+[0][1a7f.1aac][03:09:13.044462][data][0x61c2ec12ff40] Send 1220 bytes in 1 buffers (segment=1220) Dst=172.18.0.2:14567, Src=172.18.0.3:53171
+[0][1a7f.1aac][03:09:13.044498][pack][1099511627777] Batch sent
+[0][1a7f.1aac][03:09:13.044498][pack][1099511627780] Created in batch 1099511627778
+[0][1a7f.1aac][03:09:13.044499][C][TX][4] SH DestCid:33098d6a3d72903448 KP:0 SB:1 (Payload 1226 bytes)
+[0][1a7f.1aac][03:09:13.044499][C][TX][4]   PING
+[0][1a7f.1aac][03:09:13.044500][C][TX][4]   PADDING Len:1221
+[0][1a7f.1aac][03:09:13.044500][pack][1099511627780] Encrypting
+[0][1a7f.1aac][03:09:13.044500][pack][1099511627780] Finalizing
+[0][1a7f.1aac][03:09:13.044500][conn][0x61c2ec12c6e0][TX][4] 5 (1252 bytes)
+[0][1a7f.1aac][03:09:13.044501][conn][0x61c2ec12c6e0] Sending batch. 2 datagrams
+[0][1a7f.1aac][03:09:13.044501][data][0x61c2ec12ff40] Send 1252 bytes in 1 buffers (segment=0) Dst=172.18.0.2:14567, Src=172.18.0.3:53171
+[0][1a7f.1aac][03:09:13.044570][pack][1099511627778] Batch sent
+[0][1a7f.1aac][03:09:13.044571][conn][0x61c2ec12c6e0] Setting loss detection 2 timer for 230157 us. (ProbeCount=0)
+[0][1a7f.1aac][03:09:13.044571][conn][0x61c2ec12c6e0] Setting 2, delay=230157 us
+[0][1a7f.1aac][03:09:13.044572][time][0x61c2ec1209a8] Updating Connection 0x61c2ec12c6e0.
+[0][1a7f.1aac][03:09:13.044572][time][0x61c2ec1209a8] Next Expiration = {22978478944, 0x61c2ec12c6e0}.
+[0][1a7f.1aac][03:09:13.044573][conn][0x61c2ec12c6e0] Flush complete flags=0x0
+[0][1a7f.1aac][03:09:13.044574][conn][0x61c2ec12c6e0] Execute: 7
+[0][1a7f.1aac][03:09:13.044578][strm][0x61c2ec1575a0] Created, Conn=0x61c2ec12c6e0 ID=0 IsLocal=1
+[0][1a7f.1aac][03:09:13.044579][strm][0x61c2ec1575a0] Send State: 1
+[0][1a7f.1aac][03:09:13.044579][strm][0x61c2ec1575a0] Recv State: 1
+[0][1a7f.1aac][03:09:13.044580][strm][0x61c2ec1575a0] Send Blocked Flags: 128
+[0][1a7f.1aac][03:09:13.044580][strm][0x61c2ec1575a0] Indicating QUIC_STREAM_EVENT_START_COMPLETE [Status=0x0 ID=0 Accepted=1]
+[0][1a7f.1aac][03:09:13.044581][conn][0x61c2ec12c6e0] Execute: 8
+[0][1a7f.1aac][03:09:13.044582][strm][0x61c2ec1575a0] Send Blocked Flags: 0
+[0][1a7f.1aac][03:09:13.044582][strm][0x61c2ec1575a0] Send Request [0x61c2ec170e70] queued with 29 bytes at offset 0 (flags 0x0)
+[0][1a7f.1aac][03:09:13.044583][strm][0x61c2ec1575a0] Setting flags 0x16 (existing flags: 0x0)
+[0][1a7f.1aac][03:09:13.044583][conn][0x61c2ec12c6e0] Queueing send flush, reason=1
+[0][1a7f.1aac][03:09:13.044584][strm][0x61c2ec1575a0] Indicating QUIC_STREAM_EVENT_SEND_COMPLETE [0x61c2ec170e70]
+[3][1a7f.1ab0][03:09:13.047786][wrkr][0x61c2ec1225d0] IsActive = 0, Arg = 4294967295
+[3][1a7f.1ab0][03:09:13.047786][wrkr][0x61c2ec1225d0] QueueDelay = 0
+[7][1a7f.1a7f][03:09:13.050630][ api] Enter 21 (0x61c2ec1575a0).
+[7][1a7f.1a7f][03:09:13.050632][ api] Exit 4294967294
+[7][1a7f.1a7f][03:09:13.050633][ api] Enter 14 (0x61c2ec12c6e0).
+[7][1a7f.1a7f][03:09:13.050634][ api] Exit
+[0][1a7f.1aac][03:09:13.055706][strm][0x61c2ec1575a0] SF:16 FC:65536 QS:29 MAX:0 UNA:0 NXT:0 RECOV:0-0
+[0][1a7f.1aac][03:09:13.055743][conn][0x61c2ec12c6e0] Execute: 1
+[0][1a7f.1aac][03:09:13.055747][conn][0x61c2ec12c6e0] Setting 5, delay=690813 us
+[0][1a7f.1aac][03:09:13.055749][conn][0x61c2ec12c6e0] Scheduling flags 0x8 to 0x0
+[0][1a7f.1aac][03:09:13.055750][conn][0x61c2ec12c6e0] Canceling 4
+[0][1a7f.1aac][03:09:13.055752][conn][0x61c2ec12c6e0] STATS: SRtt=68091 CongestionCount=0 PersistentCongestionCount=0 SendTotalBytes=3692 RecvTotalBytes=1478 CongestionWindow=12200
+[0][1a7f.1aac][03:09:13.055753][conn][0x61c2ec12c6e0] STATS: SendTotalPackets=5 SendSuspectedLostPackets=0 SendSpuriousLostPackets=0 RecvTotalPackets=4 RecvReorderedPackets=0 RecvDroppedPackets=0 RecvDuplicatePackets=0 RecvDecryptionFailures=0
+[0][1a7f.1aac][03:09:13.055754][conn][0x61c2ec12c6e0] App Shutdown: 7 (Remote=0)
+[0][1a7f.1aac][03:09:13.055757][strm][0x61c2ec1575a0] Indicating QUIC_STREAM_EVENT_SEND_SHUTDOWN_COMPLETE
+[0][1a7f.1aac][03:09:13.055758][strm][0x61c2ec1575a0] SF:0 FC:65536 QS:29 MAX:0 UNA:0 NXT:0 RECOV:0-0
+[0][1a7f.1aac][03:09:13.055758][strm][0x61c2ec1575a0] Send State: 3
+[0][1a7f.1aac][03:09:13.055761][strm][0x61c2ec1575a0] Recv State: 3
+[0][1a7f.1aac][03:09:13.055763][strm][0x61c2ec1575a0] Indicating QUIC_STREAM_EVENT_SHUTDOWN_COMPLETE [ConnectionShutdown=1, ConnectionShutdownByApp=1, ConnectionClosedRemotely=0, ConnectionErrorCode=0x7, ConnectionCloseStatus=0x5]
+[0][1a7f.1aac][03:09:13.055764][conn][0x61c2ec12c6e0] Execute: 10
+[0][1a7f.1aac][03:09:13.055765][conn][0x61c2ec12c6e0] Execute: 4
+[0][1a7f.1aac][03:09:13.055766][conn][0x61c2ec12c6e0] Flushing Send. Allowance=12102 bytes
+[0][1a7f.1aac][03:09:13.055771][pack][1099511627781] Created in batch 1099511627779
+[0][1a7f.1aac][03:09:13.056548][C][TX][5] SH DestCid:33098d6a3d72903448 KP:0 SB:1 (Payload 7 bytes)
+[0][1a7f.1aac][03:09:13.056552][C][TX][5]   CONN_CLOSE (App) ErrorCode:0x7
+[0][1a7f.1aac][03:09:13.056553][pack][1099511627781] Encrypting
+[0][1a7f.1aac][03:09:13.056558][pack][1099511627781] Finalizing
+[0][1a7f.1aac][03:09:13.056559][conn][0x61c2ec12c6e0][TX][5] 5 (33 bytes)
+[0][1a7f.1aac][03:09:13.056563][conn][0x61c2ec12c6e0] Sending batch. 1 datagrams
+[0][1a7f.1aac][03:09:13.056564][data][0x61c2ec12ff40] Send 33 bytes in 1 buffers (segment=1220) Dst=172.18.0.2:14567, Src=172.18.0.3:53171
+[0][1a7f.1aac][03:09:13.056609][pack][1099511627779] Batch sent
+[0][1a7f.1aac][03:09:13.056611][conn][0x61c2ec12c6e0] Flush complete flags=0x0
+[0][1a7f.1aac][03:09:13.056612][conn][0x61c2ec12c6e0] Execute: 6
+[0][1a7f.1aac][03:09:13.056613][strm][0x61c2ec1575a0] Send State: 3
+[0][1a7f.1aac][03:09:13.056614][strm][0x61c2ec1575a0] Recv State: 3
+[0][1a7f.1aac][03:09:13.056616][conn][0x61c2ec12c6e0] Scheduling: 0
+[0][1a7f.1aac][03:09:13.056618][wrkr][0x61c2ec120910] IsActive = 0, Arg = 4294967295
+[0][1a7f.1aac][03:09:13.056618][wrkr][0x61c2ec120910] QueueDelay = 0
+[3][1a7f.1aa4][03:09:13.096465][data][0x61c2ec12ff40] Recv 1220 bytes (segment=1220) Src=172.18.0.3:53171 Dst=172.18.0.2:14567
+[3][1a7f.1aa4][03:09:13.096468][data][0x61c2ec12ff40] Recv 1220 bytes (segment=1220) Src=172.18.0.3:53171 Dst=172.18.0.2:14567
+[3][1a7f.1aa4][03:09:13.096468][data][0x61c2ec12ff40] Recv 314 bytes (segment=314) Src=172.18.0.3:53171 Dst=172.18.0.2:14567
+[3][1a7f.1aa4][03:09:13.096470][pack][4398046511107] Received
+[3][1a7f.1aa4][03:09:13.096470][pack][4398046511108] Received
+[3][1a7f.1aa4][03:09:13.096471][pack][4398046511109] Received
+[3][1a7f.1aa4][03:09:13.096473][conn][0x61c2ec12c6e0] Queuing 3 UDP datagrams
+[3][1a7f.1aa4][03:09:13.096476][conn][0x61c2ec12c6e0] Scheduling: 1
+[0][1a7f.1aac][03:09:13.096477][wrkr][0x61c2ec120910] IsActive = 1, Arg = 1
+[0][1a7f.1aac][03:09:13.096478][conn][0x61c2ec12c6e0] Scheduling: 2
+[0][1a7f.1aac][03:09:13.096479][wrkr][0x61c2ec120910] QueueDelay = 0
+[0][1a7f.1aac][03:09:13.096480][conn][0x61c2ec12c6e0] Execute: 1
+[0][1a7f.1aac][03:09:13.096482][conn][0x61c2ec12c6e0] Recv 3 UDP datagrams
+[0][1a7f.1aac][03:09:13.096483][conn][0x61c2ec12c6e0] IN: BytesRecv=2698
+[0][1a7f.1aac][03:09:13.096483][conn][0x61c2ec12c6e0] IN: BytesRecv=3918
+[0][1a7f.1aac][03:09:13.096484][conn][0x61c2ec12c6e0] IN: BytesRecv=4232
+[0][1a7f.1aac][03:09:13.096485][conn][0x61c2ec12c6e0] Batch Recv 3 UDP datagrams
+[0][1a7f.1aac][03:09:13.096488][pack][4398046511107] Decrypting
+[0][1a7f.1aac][03:09:13.096495][C][RX][5] SH DestCid: KP:0 SB:1 (Payload 1203 bytes)
+[0][1a7f.1aac][03:09:13.096497][C][RX][5]   PING
+[0][1a7f.1aac][03:09:13.096498][C][RX][5]   PADDING Len:1198
+[0][1a7f.1aac][03:09:13.096498][conn][0x61c2ec12c6e0][RX][5]  (1204 bytes)
+[0][1a7f.1aac][03:09:13.096501][C][RX][5] Marked for ACK (ECN=0)
+[0][1a7f.1aac][03:09:13.096501][pack][4398046511108] Decrypting
+[0][1a7f.1aac][03:09:13.096502][C][RX][4] SH DestCid: KP:0 SB:1 (Payload 1203 bytes)
+[0][1a7f.1aac][03:09:13.096503][C][RX][4]   ACK Largest:4 Delay:0
+[0][1a7f.1aac][03:09:13.096503][C][RX][4]     3 - 4
+[0][1a7f.1aac][03:09:13.096504][C][RX][4]   HANDSHAKE_DONE
+[0][1a7f.1aac][03:09:13.096506][C][RX][4]   NEW_CONN_ID Seq:1 RPT:0 CID:330949794ee5f3ccc5 Token:8a9903bd23308b30d813c0dbfd2b1a72
+[0][1a7f.1aac][03:09:13.096506][C][RX][4]   NEW_CONN_ID Seq:2 RPT:0 CID:3309fb28fb80a81b6c Token:5fe47cd23530e86d208c0e810506ff15
+[0][1a7f.1aac][03:09:13.096506][C][RX][4]   NEW_CONN_ID Seq:3 RPT:0 CID:3309a44ef2c5ace3e9 Token:007998f7dc98524df310cc900fcfb976
+[0][1a7f.1aac][03:09:13.096507][C][RX][4]   NEW_CONN_ID Seq:4 RPT:1 CID:0059d5c337163d8542 Token:667f5058ea3ba53c57a00a41ac132b1d
+[0][1a7f.1aac][03:09:13.096507][C][RX][4]   NEW_CONN_ID Seq:5 RPT:2 CID:005929ef389d82899f Token:63b3ac0a4456c578a539e5f80b1f9ffc
+[0][1a7f.1aac][03:09:13.096507][C][RX][4]   NEW_CONN_ID Seq:6 RPT:3 CID:00595dc1b417a0420c Token:5f0fe3a0fc3ad2a0e539b6aa4b35e45b
+[0][1a7f.1aac][03:09:13.096507][C][RX][4]   NEW_CONN_ID Seq:7 RPT:4 CID:005931b445b3ba2aa7 Token:e0877be67b117dd2351e54a496b26c37
+[0][1a7f.1aac][03:09:13.096508][C][RX][4]   PADDING Len:990
+[0][1a7f.1aac][03:09:13.096508][conn][0x61c2ec12c6e0][RX][4]  (1204 bytes)
+[0][1a7f.1aac][03:09:13.096510][C][TX][3] ACKed (52.48 ms)
+[0][1a7f.1aac][03:09:13.096510][conn][0x61c2ec12c6e0][TX][3] 5 ACKed
+[0][1a7f.1aac][03:09:13.096511][conn][0x61c2ec12c6e0] Handshake confirmed (ack)
+[0][1a7f.1aac][03:09:13.096512][conn][0x61c2ec12c6e0] Discarding key type = 2
+[0][1a7f.1aac][03:09:13.096516][C][TX][2] ACKed (implicit)
+[0][1a7f.1aac][03:09:13.096516][conn][0x61c2ec12c6e0][TX][2] 3 ACKed
+[0][1a7f.1aac][03:09:13.096517][conn][0x61c2ec12c6e0] Received ack for 52 crypto bytes, offset=268
+[0][1a7f.1aac][03:09:13.096518][conn][0x61c2ec12c6e0] QS:320 MAX:320 UNA:320 NXT:320 RECOV:0-0
+[0][1a7f.1aac][03:09:13.096520][conn][0x61c2ec12c6e0] OUT: BytesSent=3725 InFlight=0 InFlightMax=6100 CWnd=12200 SSThresh=4294967295 ConnFC=16777216 ISB=131072 PostedBytes=0 SRtt=68091
+[0][1a7f.1aac][03:09:13.096521][conn][0x61c2ec12c6e0] OUT: StreamFC=0 StreamSendWindow=0
+[0][1a7f.1aac][03:09:13.096521][C][TX][4] ACKed (52.9 ms)
+[0][1a7f.1aac][03:09:13.096521][conn][0x61c2ec12c6e0][TX][4] 5 ACKed
+[0][1a7f.1aac][03:09:13.096522][conn][0x61c2ec12c6e0] Path[0] MTU updated to 1280 bytes
+[0][1a7f.1aac][03:09:13.096522][conn][0x61c2ec12c6e0] Path[0] Mtu Discovery Search Packet Sending with MTU 1360
+[0][1a7f.1aac][03:09:13.096523][conn][0x61c2ec12c6e0] OUT: BytesSent=3725 InFlight=0 InFlightMax=6100 CWnd=12200 SSThresh=4294967295 ConnFC=16777216 ISB=131072 PostedBytes=0 SRtt=68091
+[0][1a7f.1aac][03:09:13.096523][conn][0x61c2ec12c6e0] OUT: StreamFC=0 StreamSendWindow=0
+[0][1a7f.1aac][03:09:13.096524][conn][0x61c2ec12c6e0] Canceling 2
+[0][1a7f.1aac][03:09:13.096526][time][0x61c2ec1209a8] Updating Connection 0x61c2ec12c6e0.
+[0][1a7f.1aac][03:09:13.096526][time][0x61c2ec1209a8] Next Expiration = {22978950774, 0x61c2ec12c6e0}.
+[0][1a7f.1aac][03:09:13.096527][C][RX][4] Marked for ACK (ECN=0)
+[0][1a7f.1aac][03:09:13.096527][pack][4398046511109] Decrypting
+[0][1a7f.1aac][03:09:13.096528][C][RX][6] SH DestCid: KP:0 SB:1 (Payload 297 bytes)
+[0][1a7f.1aac][03:09:13.096528][C][RX][6]   CRYPTO Offset:0 Len:289
+[0][1a7f.1aac][03:09:13.096529][conn][0x61c2ec12c6e0][RX][6]  (298 bytes)
+[0][1a7f.1aac][03:09:13.096529][C][RX][6] Marked for ACK (ECN=0)
+[0][1a7f.1aac][03:09:13.096530][conn][0x61c2ec12c6e0] Setting 4, delay=30000000 us
+[0][1a7f.1aac][03:09:13.096530][conn][0x61c2ec12c6e0] Setting 3, delay=10000000 us
+[0][1a7f.1aac][03:09:13.096531][conn][0x61c2ec12c6e0] Scheduling: 0
+[0][1a7f.1aac][03:09:13.096531][wrkr][0x61c2ec120910] IsActive = 0, Arg = 4294967295
+[0][1a7f.1aac][03:09:13.096531][wrkr][0x61c2ec120910] QueueDelay = 0
+[3][1a7f.1aa4][03:09:13.102018][data][0x61c2ec12ff40] Recv 30 bytes (segment=30) Src=172.18.0.3:53171 Dst=172.18.0.2:14567
+[3][1a7f.1aa4][03:09:13.102020][pack][4398046511110] Received
+[3][1a7f.1aa4][03:09:13.102023][conn][0x61c2ec12c6e0] Queuing 1 UDP datagrams
+[3][1a7f.1aa4][03:09:13.102024][conn][0x61c2ec12c6e0] Scheduling: 1
+[0][1a7f.1aac][03:09:13.102361][wrkr][0x61c2ec120910] IsActive = 1, Arg = 1
+[0][1a7f.1aac][03:09:13.102364][conn][0x61c2ec12c6e0] Scheduling: 2
+[0][1a7f.1aac][03:09:13.102365][wrkr][0x61c2ec120910] QueueDelay = 41
+[0][1a7f.1aac][03:09:13.102366][conn][0x61c2ec12c6e0] Execute: 1
+[0][1a7f.1aac][03:09:13.102368][conn][0x61c2ec12c6e0] Recv 1 UDP datagrams
+[0][1a7f.1aac][03:09:13.102370][conn][0x61c2ec12c6e0] IN: BytesRecv=4262
+[0][1a7f.1aac][03:09:13.102371][conn][0x61c2ec12c6e0] Batch Recv 1 UDP datagrams
+[0][1a7f.1aac][03:09:13.102375][pack][4398046511110] Decrypting
+[0][1a7f.1aac][03:09:13.102383][C][RX][7] SH DestCid: KP:0 SB:1 (Payload 13 bytes)
+[0][1a7f.1aac][03:09:13.102387][C][RX][7]   ACK Largest:5 Delay:0
+[0][1a7f.1aac][03:09:13.102387][C][RX][7]     3 - 5
+[0][1a7f.1aac][03:09:13.102389][C][RX][7]   CONN_CLOSE ErrorCode:0x0 FrameType:0
+[0][1a7f.1aac][03:09:13.102389][conn][0x61c2ec12c6e0][RX][7]  (14 bytes)
+[0][1a7f.1aac][03:09:13.102393][C][TX][5] ACKed (45.834 ms)
+[0][1a7f.1aac][03:09:13.102394][conn][0x61c2ec12c6e0][TX][5] 5 ACKed
+[0][1a7f.1aac][03:09:13.102397][conn][0x61c2ec12c6e0] OUT: BytesSent=3725 InFlight=0 InFlightMax=6100 CWnd=12200 SSThresh=4294967295 ConnFC=16777216 ISB=131072 PostedBytes=0 SRtt=68091
+[0][1a7f.1aac][03:09:13.102398][conn][0x61c2ec12c6e0] OUT: StreamFC=0 StreamSendWindow=0
+[0][1a7f.1aac][03:09:13.102400][conn][0x61c2ec12c6e0] Connection close complete
+[0][1a7f.1aac][03:09:13.102401][C][RX][7] Marked for ACK (ECN=0)
+[0][1a7f.1aac][03:09:13.102402][conn][0x61c2ec12c6e0] Setting 4, delay=30000000 us
+[0][1a7f.1aac][03:09:13.102403][conn][0x61c2ec12c6e0] Setting 3, delay=10000000 us
+[0][1a7f.1aac][03:09:13.102404][conn][0x61c2ec12c6e0] Shutdown complete, PeerFailedToAcknowledged=0.
+[0][1a7f.1aac][03:09:13.102405][conn][0x61c2ec12c6e0] Indicating QUIC_CONNECTION_EVENT_SHUTDOWN_COMPLETE
+[0][1a7f.1aac][03:09:13.102407][ api] Enter 0 (0x61c2ec12c6e0).
+[0][1a7f.1aac][03:09:13.102411][ api] Exit 1
+[0][1a7f.1aac][03:09:13.102413][ api] Enter 13 (0x61c2ec12c6e0).
+[0][1a7f.1aac][03:09:13.102414][conn][0x61c2ec12c6e0] Unregistered from 0x61c2ec10d1f0
+[0][1a7f.1aac][03:09:13.102415][conn][0x61c2ec12c6e0] Handle closed
+[0][1a7f.1aac][03:09:13.102416][ api] Exit
+[0][1a7f.1aac][03:09:13.103083][conn][0x61c2ec12c6e0] Cleaning up
+[0][1a7f.1aac][03:09:13.103108][time][0x61c2ec1209a8] Removing Connection 0x61c2ec12c6e0.
+[0][1a7f.1aac][03:09:13.103109][time][0x61c2ec1209a8] Next Expiration = {NULL}.
+[0][1a7f.1aac][03:09:13.103110][conn][0x61c2ec12c6e0] Scheduling: 0
+[0][1a7f.1aac][03:09:13.103112][ lib] No longer in use.
+[0][1a7f.1aac][03:09:13.103112][bind][0x61c2ec12e2c0] Cleaning up
+[0][1a7f.1aac][03:09:13.103113][data][0x61c2ec12ff40] Destroyed
+[0][1a7f.1aac][03:09:13.103375][bind][0x61c2ec12e2c0] Destroyed
+[0][1a7f.1aac][03:09:13.103378][conn][0x61c2ec12c6e0] Destroyed
+[0][1a7f.1aac][03:09:13.103380][wrkr][0x61c2ec120910] IsActive = 0, Arg = 4294967295
+[0][1a7f.1aac][03:09:13.103380][wrkr][0x61c2ec120910] QueueDelay = 0

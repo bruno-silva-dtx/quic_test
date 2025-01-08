@@ -18,6 +18,7 @@ RUN apt-get update && \
     libc6-dev \
     libc-dev \
     libatomic1 \
+    ninja-build  \
     gnupg2 \
     wget \
     curl \
@@ -55,6 +56,7 @@ RUN wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsof
     apt-get update && \
     apt-get install -y liblttng-ust-dev lttng-tools
 
+RUN apt-get update && apt-get install -y libwolfssl-dev
 
 # Clone the NanoSDK folder to the container
 RUN git clone https://github.com/emqx/NanoSDK.git /root/NanoSDK && \
@@ -80,12 +82,13 @@ RUN cd /root/NanoSDK/extern/msquic && \
     make install 
 
 # Contruir e instalar o nng
-RUN git clone https://github.com/nanomsg/nng.git && \
-    cd nng && \
-    mkdir build && cd build && \
-    cmake .. && \
-    make && \
-    make install
+#RUN git clone https://github.com/nanomsg/nng.git && \
+#    cd nng && \
+#    rm -rf CMakeCache.txt CMakeFiles && \
+#    mkdir build && cd build && \
+#    cmake .. && \
+#    make && \
+#    make install
 
 # Contruir e instalar o NaonoSDK
 RUN cd /root/NanoSDK && \

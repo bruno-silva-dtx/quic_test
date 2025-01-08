@@ -333,7 +333,6 @@ verify_peer_cert_tls(QUIC_CERTIFICATE* cert, QUIC_CERTIFICATE* chain, char *cace
 	/* @TODO validate SNI */
 }
 
-// Helper function to load a client configuration.
 static BOOLEAN
 quic_load_sdk_config(BOOLEAN Unsecure)
 {
@@ -369,6 +368,16 @@ quic_load_sdk_config(BOOLEAN Unsecure)
 
 	Settings.IsSet.KeepAliveIntervalMs = TRUE;
 	Settings.KeepAliveIntervalMs       = node->qkeepalive * 1000;
+
+	// Limitar o numero de stream
+	Settings.IsSet.PeerBidiStreamCount = TRUE;
+	Settings.PeerBidiStreamCount = 1;  //--> 1 stream bidirecional
+
+	Settings.IsSet.PeerUnidiStreamCount = TRUE;
+	Settings.PeerUnidiStreamCount = 1;  //--> 1 stream unidirecional
+
+
+
 	switch (node->qcongestion_control)
 	{
 	case QUIC_CONGESTION_CONTROL_ALGORITHM_CUBIC:
@@ -452,6 +461,7 @@ there:
 
 	return TRUE;
 }
+
 
 static void
 quic_sock_init(quic_sock_t *qsock)
