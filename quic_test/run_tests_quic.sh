@@ -168,7 +168,7 @@ sudo tc qdisc del dev "$veth" handle ffff: ingress
 sudo modprobe -r ifb
 
 # Clean up docker
-#docker stop quic_test quic_test_receiver
-#docker rm quic_test quic_test_receiver
-#docker compose down
+docker stop quic_test quic_test_receiver
+docker rm quic_test quic_test_receiver
+docker compose down
 docker system prune -f
