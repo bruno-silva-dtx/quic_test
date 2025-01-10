@@ -1,0 +1,2 @@
+Loss,Delay,Number of Msg,Message Interval,QoS,Run_X,SendTotalPackets,SendSuspectedLostPackets,SendSpuriousLostPackets,Total_Losses,Lost_RACK,Lost_FACK,Loss_Ratio_RACK_FACK,FORGETTING,Loss_Ratio_RACK_FACK_FORGETTING,All_System_Losses,Relação ASL/T,Totalbytessent,TotalUDPsendAPI
+0,20ms,1,1,0,1,8,0,0,0,0,0,0.0,0,0.0,0,0.0,0,0

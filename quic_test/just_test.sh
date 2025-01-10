@@ -87,16 +87,27 @@ mkdir -p ./results/quic/captures
 
    
 for (( x=1; x<=$runs; x++ )); do
-
+      sleep 3
       echo "Correndo teste $x"
       sudo tcpdump -U -i $veth port 14567 -w ./results/quic/captures/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos.pcap &
-      sleep 5
+      TCPDUMP_PID=$!
+      sleep 3
 
       docker exec quic_test bash -c "
          apt install sudo -y && \
          apt full-upgrade -y && \
          apt autoremove
       "
+      while true; do
+         if docker inspect -f '{{.State.Running}}' emqx | grep true; then
+            echo "O contêiner está ativo.";
+            break; # Sai do loop se o contêiner estiver ativo
+         else
+            echo "O contêiner parou. Reiniciando...";
+            docker compose up -d
+         fi
+         sleep 5; # Aguarda 5 segundos antes de verificar novamente
+      done
       
       docker exec quic_test bash -c "
          cd /root/NanoSDK/extern/msquic && \
@@ -106,7 +117,7 @@ for (( x=1; x<=$runs; x++ )); do
          sleep 30
          "  
       #   lttng destroy -a  && ./scripts/log_wrapper.sh  ./send_msg_quic.sh 0 topic 100 10 10   && babeltrace --names all ./msquic_lttng*/* > quic.babel.txt %% cat quic.babel.txt
-        sleep 10
+      sleep 10
       docker exec quic_test bash -c " 
          cd /root/NanoSDK/extern/msquic && \
          echo 'Correu o send_msg_quic.sh' && \
@@ -124,7 +135,7 @@ for (( x=1; x<=$runs; x++ )); do
          "     
 
 
-       docker exec quic_test bash -c "
+      docker exec quic_test bash -c "
             cd /root/NanoSDK/extern/msquic && \
             cp /root/NanoSDK/extern/msquic/src/manifest/clog.sidecar /root/NanoSDK/extern/msquic && \
             chmod +x /root/NanoSDK/extern/msquic/submodules/clog/src/clog2text/clog2text_lttng/bin/Release/net6.0/clog2text_lttng && \
@@ -137,23 +148,15 @@ for (( x=1; x<=$runs; x++ )); do
       docker cp quic_test:/root/NanoSDK/extern/msquic/log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log ./results/quic/log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log
       docker cp quic_test:/root/NanoSDK/extern/msquic/log_msquic_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log ./results/quic/log_msquic_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log
       docker cp quic_test:/tmp/SslKeyLogFile_cb  ./results/quic/SslKeyLogFile-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos.txt
-      
-            
-
-    # Clean up inside the container
-    docker exec quic_test bash -c "
-      cd /root/NanoSDK/extern/msquic && \
-      rm -r log_* && \
-      rm -r ./msquic_lttng* && \
-      lttng destroy -a 
-    "
-   # rm -r ./tmp/SslKeyLogFile_cb && \
 
 
-
-    # Terminate tcpdump
-    #pid=$(pgrep tcpdump)  
-    #sudo kill -2 "$pid"
+      docker exec quic_test bash -c "
+         cd /root/NanoSDK/extern/msquic && \
+         rm -r log_* && \
+         rm -r ./msquic_lttng* && \
+         rm -r ./tmp/SslKeyLogFile_cb && \
+         lttng destroy -a 
+      "
 done
 
 # Clean up tc

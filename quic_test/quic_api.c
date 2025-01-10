@@ -370,11 +370,11 @@ quic_load_sdk_config(BOOLEAN Unsecure)
 	Settings.KeepAliveIntervalMs       = node->qkeepalive * 1000;
 
 	// Limitar o numero de stream
-	Settings.IsSet.PeerBidiStreamCount = TRUE;
-	Settings.PeerBidiStreamCount = 1;  //--> 1 stream bidirecional
+	//Settings.IsSet.PeerBidiStreamCount = TRUE;
+	//Settings.PeerBidiStreamCount = 1;  //--> 1 stream bidirecional
 
-	Settings.IsSet.PeerUnidiStreamCount = TRUE;
-	Settings.PeerUnidiStreamCount = 1;  //--> 1 stream unidirecional
+	//Settings.IsSet.PeerUnidiStreamCount = TRUE;
+	//Settings.PeerUnidiStreamCount = 1;  //--> 1 stream unidirecional
 
 
 

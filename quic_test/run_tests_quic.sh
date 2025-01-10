@@ -100,10 +100,11 @@ docker cp quic_api.c quic_test:/root/NanoSDK/src/supplemental/quic
 #docker exec quic_test bash -c 'cd /root/NanoSDK/extern/msquic && rm -rf build && mkdir -p build && cd build && cmake -D QUIC_ENABLE_LOGGING=ON -D QUIC_LOGGING_TYPE=stdout .. && make && make install && cd /root/NanoSDK/demo/quic_mqtt && rm -rf build && mkdir -p build && cd build && cmake -D QUIC_ENABLE_LOGGING=ON -D QUIC_LOGGING_TYPE=stdout .. && make && make install && cd /root/NanoSDK/demo/quic_mqtt && rm -rf build && mkdir -p build && cd build && cmake .. && make && make install'
    
 for (( x=1; x<=$runs; x++ )); do
-
+      sleep 3
       echo "Correndo teste $x"
       sudo tcpdump -U -i $veth port 14567 -w ./results/quic/captures/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos.pcap &
-      sleep 5
+      TCPDUMP_PID=$!
+      sleep 3
 
       docker exec quic_test bash -c "
          apt install sudo -y && \
