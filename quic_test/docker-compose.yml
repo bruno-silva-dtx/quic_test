@@ -6,6 +6,7 @@ services:
     container_name: emqx
     cap_add:
       - NET_ADMIN
+      - SYS_TIME
     networks:
       emqx-bridge:
         aliases:
