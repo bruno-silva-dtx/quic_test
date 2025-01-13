@@ -102,7 +102,7 @@ docker cp quic_api.c quic_test:/root/NanoSDK/src/supplemental/quic
 for (( x=1; x<=$runs; x++ )); do
       sleep 3
       echo "Correndo teste $x"
-      sudo tcpdump -U -i $veth port 14567 -w ./results/quic/captures/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos.pcap &
+      sudo tcpdump -U -i $veth port 14567 -w ./results/quic/captures/run_$x_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.pcap &
       TCPDUMP_PID=$!
       sleep 3
 
