@@ -64,20 +64,34 @@ RUN git clone https://github.com/emqx/NanoSDK.git /root/NanoSDK && \
     git submodule update --init --recursive 
 
 COPY quic_api.c /root/NanoSDK/src/supplemental/quic
-
+COPY CMakeLists.txt /root/NanoSDK/extern/msquic
 # Build the clog2text e o msquic
 RUN cd /root/NanoSDK/extern/msquic && \
     git submodule update --init submodules/clog && \
     dotnet build submodules/clog/src/clog2text/clog2text_lttng/ -c Release
 
+
+
 # Prepare the machine for the test
 RUN pwsh ./root/NanoSDK/extern/msquic/scripts/prepare-machine.ps1 -ForTest -Tls openssl -Force -InitSubmodules
+
+RUN pwsh ./root/NanoSDK/extern/msquic/scripts/generate-dotnet.ps1 -D QUIC_API_ENABLE_PREVIEW_FEATURES 
+
+
+RUN cd /root/NanoSDK && \
+    mkdir build && \
+    cd build && \
+    cmake .. -DQUIC_API_ENABLE_PREVIEW_FEATURES  -DBUILD_SHARED_LIBS=OFF -DNNG_ENABLE_QUIC=ON -DCMAKE_BUILD_TYPE=Debug -DDEBUG=1 && \
+    make && \
+    make install
+
+
 
 # Contruir o msquic
 RUN cd /root/NanoSDK/extern/msquic && \
     mkdir build && \
     cd build && \
-    cmake  .. -DQUIC_ENABLE_LOGGING=ON  -DQUIC_LOGGING_TYPE="lttng" -DCMAKE_BUILD_TYPE=Debug && \
+    cmake  .. -DQUIC_API_ENABLE_PREVIEW_FEATURES -DQUIC_ENABLE_LOGGING=ON  -DQUIC_LOGGING_TYPE="lttng" -DCMAKE_BUILD_TYPE=Debug && \
     make && \
     make install 
 
@@ -91,12 +105,7 @@ RUN cd /root/NanoSDK/extern/msquic && \
 #    make install
 
 # Contruir e instalar o NaonoSDK
-RUN cd /root/NanoSDK && \
-    mkdir build && \
-    cd build && \
-    cmake ..  -DBUILD_SHARED_LIBS=OFF -DNNG_ENABLE_QUIC=ON -DCMAKE_BUILD_TYPE=Debug -DDEBUG=1 && \
-    make && \
-    make install
+
 
 # Copiar e contruir o quic_client
 COPY quic_mqtt /root/quic_mqtt 
