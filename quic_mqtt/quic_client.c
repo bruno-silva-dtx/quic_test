@@ -37,7 +37,7 @@
 #include <nng/supplemental/util/platform.h>
 #include <nng/mqtt/mqtt_quic.h>
 #include <nng/mqtt/mqtt_client.h>
-
+#define QUIC_API_ENABLE_PREVIEW_FEATURES 
 #include "msquic.h"
 
 #include <stdio.h>
@@ -60,11 +60,12 @@ conf_quic config_user = {
 		.set_fail = true,
 	},
 	.multi_stream = false,
-	.qos_first  = true,
+	.qos_first  = false,
 	.qkeepalive = 10,
 	.qconnect_timeout = 60,
 	.qdiscon_timeout = 30,
 	.qidle_timeout = 30,
+	.qcongestion_control = 1,
 };
 
 static void
@@ -233,11 +234,7 @@ client(int type, const char *url, const char *qos, const char *topic, const char
 			q = 0;
 		}
 	}
-	// Esperar pelo retorno da conexão
-	rv = nng_recvmsg(sock, &msg, 0);
-	if (rv != 0) {
-		fatal("nng_recvmsg", rv);
-	}
+
 	switch (type) {
 	case CONN:
 		break;
@@ -255,7 +252,7 @@ client(int type, const char *url, const char *qos, const char *topic, const char
 					nng_thread *thr;
 					nng_thread_create(&thr, sendmsg_func, &sock);
 			#endif	
-			sleep(atoi(msg_intervalo));
+			nng_msleep(atoi(msg_intervalo));
 		}
 		break;
 	default:

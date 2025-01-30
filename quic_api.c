@@ -8,6 +8,7 @@
 //
 #include "quic_api.h"
 #include "core/nng_impl.h"
+#define QUIC_API_ENABLE_PREVIEW_FEATURES  // Ativar recursos experimentais do MsQuic
 #include "msquic.h"
 
 #include "nng/supplemental/util/platform.h"
@@ -343,28 +344,12 @@ quic_load_sdk_config(BOOLEAN Unsecure)
 	conf_quic *node = &conf_node;
 
 	if (!node) {
-		//Settings.IsSet.IdleTimeoutMs       = TRUE;
-		//Settings.IdleTimeoutMs             = 90 * 1000;
-		//Settings.IsSet.KeepAliveIntervalMs = TRUE;
-		//Settings.KeepAliveIntervalMs       =  500;
-		//goto there;
+		Settings.IsSet.IdleTimeoutMs       = TRUE;
+		Settings.IdleTimeoutMs             = 90 * 1000;
+		Settings.IsSet.KeepAliveIntervalMs = TRUE;
+		Settings.KeepAliveIntervalMs       = 60 * 1000;
+		goto there;
 	}
-	
-	if (node->qconnect_timeout != 0) {
-		Settings.IsSet.HandshakeIdleTimeoutMs = TRUE;
-		Settings.HandshakeIdleTimeoutMs =
-		    node->qconnect_timeout * 1000;
-	}
-
-	//Settings.IsSet.StreamMultiReceiveEnabled = TRUE;
-	//Settings.StreamMultiReceiveEnabled = TRUE;
-
-	Settings.IsSet.IdleTimeoutMs       = TRUE;
-	Settings.IdleTimeoutMs             = 90 * 1000;
-	Settings.IsSet.KeepAliveIntervalMs = TRUE;
-	Settings.KeepAliveIntervalMs       = 10 * 1000;
-
-	/*
 	// Configures the client's idle timeout.
 	if (node->qidle_timeout == 0) {
 		Settings.IsSet.IdleTimeoutMs = FALSE;
@@ -372,17 +357,18 @@ quic_load_sdk_config(BOOLEAN Unsecure)
 		Settings.IsSet.IdleTimeoutMs = TRUE;
 		Settings.IdleTimeoutMs       = node->qidle_timeout * 1000;
 	}
-	*/
-
+	if (node->qconnect_timeout != 0) {
+		Settings.IsSet.HandshakeIdleTimeoutMs = TRUE;
+		Settings.HandshakeIdleTimeoutMs =
+		    node->qconnect_timeout * 1000;
+	}
 	if (node->qdiscon_timeout != 0) {
 		Settings.IsSet.DisconnectTimeoutMs = TRUE;
 		Settings.DisconnectTimeoutMs       = node->qdiscon_timeout * 1000;
 	}
-	
 
-
-	//Settings.IsSet.KeepAliveIntervalMs = TRUE;
-	//Settings.KeepAliveIntervalMs       = node->qkeepalive * 1000;
+	Settings.IsSet.KeepAliveIntervalMs = TRUE;
+	Settings.KeepAliveIntervalMs       = node->qkeepalive * 1000;
 
 	// Limitar o numero de stream
 	//Settings.IsSet.PeerBidiStreamCount = TRUE;
@@ -393,7 +379,9 @@ quic_load_sdk_config(BOOLEAN Unsecure)
 
 	Settings.IsSet.CongestionControlAlgorithm = TRUE;
 	Settings.CongestionControlAlgorithm       = QUIC_CONGESTION_CONTROL_ALGORITHM_BBR;
+
 	/*
+
 	switch (node->qcongestion_control)
 	{
 	case QUIC_CONGESTION_CONTROL_ALGORITHM_CUBIC:

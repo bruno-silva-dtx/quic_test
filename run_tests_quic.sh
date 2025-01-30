@@ -86,15 +86,14 @@ mkdir -p ./results/quic/captures
 
 
 
-sudo docker run --cap-add=SYS_ADMIN --privileged -d --name quic_test --network=quic_test_emqx-bridge quic_test tail -f /dev/null
+sudo docker run -d --name quic_test --network=quic_test_emqx-bridge quic_test tail -f /dev/null
 
 docker exec quic_test bash -c "
-            pwsh ./root/NanoSDK/extern/msquic/scripts/prepare-machine.ps1 -ForTest -Tls openssl -Force -InitSubmodules
+            pwsh ./root/NanoSDK/extern/msquic/scripts/prepare-machine.ps1 -ForTest -Tls openssl -Force 
             cd /root/NanoSDK/extern/msquic && rm -rf build && mkdir -p build && cd build && cmake -D QUIC_ENABLE_LOGGING=ON -D QUIC_LOGGING_TYPE=stdout .. && make && make install           
             "
 docker cp send_msg_quic.sh quic_test:/root/NanoSDK/extern/msquic
 docker cp quic_api.c quic_test:/root/NanoSDK/src/supplemental/quic
-
 
 
       #sleep 5
@@ -112,29 +111,17 @@ for (( x=1; x<=$runs; x++ )); do
          apt full-upgrade -y && \
          apt autoremove
       "
-      sleep 10
-
-      echo "Correndo teste $x"
-
-         docker exec quic_test bash -c "
-         sudo apt-get update && \
-         sudo apt-get install -y linux-tools-6.8.0-51-generic && \
-         sudo apt-get install -y linux-cloud-tools-6.8.0-51-generic
-            "
-
-      sleep 5
-
       
-      docker exec  quic_test bash -c "
+      docker exec quic_test bash -c "
          cd /root/NanoSDK/extern/msquic && \
          chmod +x scripts/log_wrapper.sh  && \
          chmod +x send_msg_quic.sh && \
-         sudo perf stat -o /root/NanoSDK/perf_stat_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.txt -e power/energy-cores/,power/energy-gpu/,power/energy-pkg/  ./send_msg_quic.sh 0 topic $size_of_packets $number_of_packets $msg_interval
-         "
-      sleep 10
-
+         ./scripts/log_wrapper.sh ./send_msg_quic.sh 0 topic $size_of_packets $number_of_packets $msg_interval > log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log 
+         sleep 30
+         "  
       #   lttng destroy -a  && ./scripts/log_wrapper.sh  ./send_msg_quic.sh 0 topic 100 10 10   && babeltrace --names all ./msquic_lttng*/* > quic.babel.txt %% cat quic.babel.txt
-         docker exec quic_test bash -c " 
+      sleep 10
+      docker exec quic_test bash -c " 
          cd /root/NanoSDK/extern/msquic && \
          echo 'Correu o send_msg_quic.sh' && \
          git submodule update --init submodules/clog && \
@@ -164,7 +151,7 @@ for (( x=1; x<=$runs; x++ )); do
       docker cp quic_test:/root/NanoSDK/extern/msquic/log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log ./results/quic/log_tracer-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos.log
       docker cp quic_test:/root/NanoSDK/extern/msquic/log_msquic_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log ./results/quic/log_msquic-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos.log
       docker cp quic_test:/tmp/SslKeyLogFile_cb  ./results/quic/SslKeyLogFile-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos.txt
-      docker cp quic_test:/root/NanoSDK/perf_stat_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.txt ./results/quic/perf_stat-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos.txt
+
 
       docker exec quic_test bash -c "
          cd /root/NanoSDK/extern/msquic && \
@@ -179,7 +166,6 @@ done
 sudo tc qdisc del dev "$veth" root
 sudo tc qdisc del dev "$veth" handle ffff: ingress
 sudo modprobe -r ifb
-
 
 # Clean up docker
 docker stop quic_test quic_test_receiver
