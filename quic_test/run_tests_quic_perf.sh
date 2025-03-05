@@ -129,9 +129,9 @@ for (( x=1; x<=$runs; x++ )); do
          cd /root/NanoSDK/extern/msquic && \
          chmod +x scripts/log_wrapper.sh  && \
          chmod +x send_msg_quic.sh && \
-         sudo perf stat -o /root/NanoSDK/perf_stat_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.txt -e power/energy-cores/,power/energy-gpu/,power/energy-pkg/  ./send_msg_quic.sh 0 topic $size_of_packets $number_of_packets $msg_interval
+         sudo perf stat -o /root/NanoSDK/perf_stat_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.txt -e power/energy-cores/,power/energy-gpu/,power/energy-pkg/  ./send_msg_quic.sh 0 topic $size_of_packets $number_of_packets $msg_interval 
          "
-      sleep 10
+      sleep 
 
       #   lttng destroy -a  && ./scripts/log_wrapper.sh  ./send_msg_quic.sh 0 topic 100 10 10   && babeltrace --names all ./msquic_lttng*/* > quic.babel.txt %% cat quic.babel.txt
          docker exec quic_test bash -c " 

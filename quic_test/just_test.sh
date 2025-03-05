@@ -17,7 +17,7 @@ helpFunction()
    echo -e "$0 -r 10 -l 1% -p 25% -d 20ms -j 5ms -n 10 -s 100 -i 1 -q 1"
    echo -e "$0 -r 10 -l 0 -p 0 -d 20ms -j 5ms -n 10 -s 100 -i 1 -q 0"
    echo -e "$0 -r 1 -l 0 -p 0 -d 20ms -j 5ms -n 1 -s 100 -i 1 -q 0"
-   echo -e "$0 -r 1 -l 30% -p 0% -d 20ms -j 5ms -n 100 -s 100 -i 300 -q 0"
+   echo -e "$0 -r 1 -l 0% -p 0% -d 20ms -j 5ms -n 10 -s 15000 -i 1 -q 1"
    exit 1 # Exit script after printing help
 }
 

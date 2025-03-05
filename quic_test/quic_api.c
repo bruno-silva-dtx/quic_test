@@ -343,28 +343,12 @@ quic_load_sdk_config(BOOLEAN Unsecure)
 	conf_quic *node = &conf_node;
 
 	if (!node) {
-		//Settings.IsSet.IdleTimeoutMs       = TRUE;
-		//Settings.IdleTimeoutMs             = 90 * 1000;
-		//Settings.IsSet.KeepAliveIntervalMs = TRUE;
-		//Settings.KeepAliveIntervalMs       =  500;
-		//goto there;
+		Settings.IsSet.IdleTimeoutMs       = TRUE;
+		Settings.IdleTimeoutMs             = 90 * 1000;
+		Settings.IsSet.KeepAliveIntervalMs = TRUE;
+		Settings.KeepAliveIntervalMs       = 60 * 1000;
+		goto there;
 	}
-	
-	if (node->qconnect_timeout != 0) {
-		Settings.IsSet.HandshakeIdleTimeoutMs = TRUE;
-		Settings.HandshakeIdleTimeoutMs =
-		    node->qconnect_timeout * 1000;
-	}
-
-	//Settings.IsSet.StreamMultiReceiveEnabled = TRUE;
-	//Settings.StreamMultiReceiveEnabled = TRUE;
-
-	Settings.IsSet.IdleTimeoutMs       = TRUE;
-	Settings.IdleTimeoutMs             = 90 * 1000;
-	Settings.IsSet.KeepAliveIntervalMs = TRUE;
-	Settings.KeepAliveIntervalMs       = 10 * 1000;
-
-	/*
 	// Configures the client's idle timeout.
 	if (node->qidle_timeout == 0) {
 		Settings.IsSet.IdleTimeoutMs = FALSE;
@@ -372,17 +356,18 @@ quic_load_sdk_config(BOOLEAN Unsecure)
 		Settings.IsSet.IdleTimeoutMs = TRUE;
 		Settings.IdleTimeoutMs       = node->qidle_timeout * 1000;
 	}
-	*/
-
+	if (node->qconnect_timeout != 0) {
+		Settings.IsSet.HandshakeIdleTimeoutMs = TRUE;
+		Settings.HandshakeIdleTimeoutMs =
+		    node->qconnect_timeout * 1000;
+	}
 	if (node->qdiscon_timeout != 0) {
 		Settings.IsSet.DisconnectTimeoutMs = TRUE;
 		Settings.DisconnectTimeoutMs       = node->qdiscon_timeout * 1000;
 	}
-	
 
-
-	//Settings.IsSet.KeepAliveIntervalMs = TRUE;
-	//Settings.KeepAliveIntervalMs       = node->qkeepalive * 1000;
+	Settings.IsSet.KeepAliveIntervalMs = TRUE;
+	Settings.KeepAliveIntervalMs       = node->qkeepalive * 1000;
 
 	// Limitar o numero de stream
 	//Settings.IsSet.PeerBidiStreamCount = TRUE;
@@ -391,9 +376,8 @@ quic_load_sdk_config(BOOLEAN Unsecure)
 	//Settings.IsSet.PeerUnidiStreamCount = TRUE;
 	//Settings.PeerUnidiStreamCount = 1;  //--> 1 stream unidirecional
 
-	Settings.IsSet.CongestionControlAlgorithm = TRUE;
-	Settings.CongestionControlAlgorithm       = QUIC_CONGESTION_CONTROL_ALGORITHM_BBR;
-	/*
+
+
 	switch (node->qcongestion_control)
 	{
 	case QUIC_CONGESTION_CONTROL_ALGORITHM_CUBIC:
@@ -405,7 +389,6 @@ quic_load_sdk_config(BOOLEAN Unsecure)
 		log_warn("unsupport congestion control algorithm, use default cubic!");
 		break;
 	}
-	*/
 
 there:
 

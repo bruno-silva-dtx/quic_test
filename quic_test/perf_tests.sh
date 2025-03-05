@@ -19,7 +19,7 @@ helpFunction()
    exit 1 # Exit script after printing help
 }
 
-while getopts "r:l:p:d:j:n:s:i:q:" opt
+while getopts "r:l:p:d:j:n:s:i:q:" 
 do
    case "$opt" in
       r ) runs="$OPTARG" ;;
