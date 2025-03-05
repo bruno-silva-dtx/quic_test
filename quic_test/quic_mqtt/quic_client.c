@@ -51,7 +51,7 @@ static nng_socket * g_sock;
 
 conf_quic config_user = {
 	.tls = {
-		.enable = true,
+		.enable = false,
 		.cafile = "",
 		.certfile = "",
 		.keyfile  = "",
@@ -59,7 +59,7 @@ conf_quic config_user = {
 		.verify_peer = true,
 		.set_fail = true,
 	},
-	.multi_stream = true,
+	.multi_stream = false,
 	.qos_first  = true,
 	.qkeepalive = 10,
 	.qconnect_timeout = 60,

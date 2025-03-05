@@ -1,4 +1,5 @@
 #!/bin/bash
+#set -e
 
 helpFunction()
 {
@@ -162,7 +163,7 @@ for (( x=1; x<=$runs; x++ )); do
          chmod +x scripts/log_wrapper.sh  && \
          chmod +x send_msg_quic.sh && \
          lttng destroy msqui && \
-         ./scripts/log_wrapper.sh ./send_msg_quic.sh 0 topic $size_of_packets $number_of_packets $msg_interval > log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log 
+         ./scripts/log_wrapper.sh ./send_msg_quic.sh 0 topic 1500 10 1 > log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log 
          "  
       #   lttng destroy -a  && ./scripts/log_wrapper.sh  ./send_msg_quic.sh 0 topic 100 10 10   && babeltrace --names all ./msquic_lttng*/* > quic.babel.txt %% cat quic.babel.txt
       sleep 10

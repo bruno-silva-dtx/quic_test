@@ -46,7 +46,7 @@ def identify_packet(pkt):
         return src , dest
 
 
-def generate_mermaid(emqx_packets, client_packets,filename):
+def generate_mermaid(emqx_packets, client_packets,filename, local_diagram):
     sequence = ["```mermaid", "sequenceDiagram"]
     loss_emqx_clinet = 0
     loss_client_emqx = 0
@@ -111,14 +111,14 @@ def generate_mermaid(emqx_packets, client_packets,filename):
     print("Pacotes total enviados lost Cliente -> EMQX", loss_client_emqx)
 
 
-
-    with open(filename, "w") as file:
+    filename_final = local_diagram + filename
+    with open(filename_final, "w") as file:
         for line in sequence:
             file.write(line + "\n")
     
     return total_packets , send_total_emqx, send_total_client, send_sucess_emqx_client, send_sucess_client_emqx, loss_emqx_clinet, loss_client_emqx
 
-def analyze_pcap_files(directory, output_file):
+def analyze_pcap_files(directory, output_file, local_diagram=""):
     results = []
     
     paired_files = {}
@@ -146,7 +146,7 @@ def analyze_pcap_files(directory, output_file):
 
             diagram_filename = os.path.join(directory, f"{base_name}-diagram.md")
             total_packets, send_total_emqx, send_total_client, send_sucess_emqx_client, send_sucess_client_emqx, loss_emqx_client, loss_client_emqx = generate_mermaid(
-                emqx_packets, client_packets, diagram_filename
+                emqx_packets, client_packets, diagram_filename, local_diagram
             )
             
             results.append({
@@ -156,6 +156,7 @@ def analyze_pcap_files(directory, output_file):
                 "Number_of_Msg": num_msgs,
                 "Message_Interval": msg_interval,
                 "QoS": qos,
+                "TotalPackets": total_packets,
                 "SendTotalPackets_cliente": send_total_client,
                 "SendTotalPackets_emqx": send_total_emqx,
                 "Total_Send_Packets_EMQX_Client": send_sucess_emqx_client,
@@ -172,6 +173,7 @@ def analyze_pcap_files(directory, output_file):
 def main():
     directory = "results/quic/captures/"
     output_file = "quic_analysis.csv"
+    local_diagram = "/results_diagram"
     analyze_pcap_files(directory, output_file)
     print(f"Resultados salvos em {output_file}")
 
