@@ -6,25 +6,33 @@ import os
 
 
 
-def extract_quic_packets(pcap_file : str, role, ip_filter):
+def extract_quic_packets(pcap_file, role, ip_filter):
     total_bytes = 0
-    cap = pyshark.FileCapture(pcap_file, display_filter=f'')
+    cap = pyshark.FileCapture(pcap_file, display_filter=f'ip.addr=={ip_filter}')
     packets = {}
+    mqtt_publish_count = 0
     for packet in cap:
-        try:
-            pkt_num = int(packet.quic.packet_number)
-            id_ipv4 = (packet.ip.id  )
-            src_ip = packet.ip.src
-            dst_ip = packet.ip.dst
-            src_port = packet.udp.srcport
-            dst_port = packet.udp.dstport
-            timestamp = float(packet.sniff_time.timestamp())
-            unique_id = f"{src_ip}:{src_port}->{dst_ip}:{dst_port} #{pkt_num}-{str(id_ipv4)}"
-            packets[unique_id] = timestamp
-            if hasattr(packet, 'length'):  # Check if the packet has a length field
-                total_bytes += int(packet.length)
-        except AttributeError:
-            continue  # Ignora pacotes sem quic.packet_number
+        pkt_num = 0
+        if 'quic' in packet:
+            try:
+                payload = bytes.fromhex(packet.quic.payload.replace(':', ''))  
+                if payload and payload[0] == 0x30:  
+                    mqtt_publish_count += 1
+            except AttributeError:
+                pass  
+            
+        id_ipv4 = (packet.ip.id)
+        src_ip = packet.ip.src
+        dst_ip = packet.ip.dst
+        src_port = packet.udp.srcport
+        dst_port = packet.udp.dstport
+        timestamp = float(packet.sniff_time.timestamp())
+        unique_id = f"{src_ip}:{src_port}->{dst_ip}:{dst_port} #{pkt_num}-{str(id_ipv4)}"
+        packets[unique_id] = timestamp
+        if hasattr(packet, 'length'):  # Check if the packet has a length field
+            total_bytes += int(packet.length)
+    
+    print("Mqtt:",mqtt_publish_count)
     cap.close()
     return packets , total_bytes
 
@@ -57,25 +65,15 @@ def generate_mermaid(emqx_packets, client_packets,filename, local_diagram):
     send_total_client= len(client_packets)
     all_packets = {**emqx_packets, **client_packets}
     common_keys = set(emqx_packets.keys()) & set(client_packets.keys())
-    print("Emqx quey")
-    print(emqx_packets.keys())
-    print("Client query")
-    print(client_packets.keys())
-    print(common_keys)
     inner_join_result = {key: (emqx_packets[key], client_packets[key]) for key in common_keys}
-    print(inner_join_result)
     for pkt, timestamp in sorted(all_packets.items(), key=lambda x: x[1]):
-        print(identify_packet(pkt))
         if pkt  in inner_join_result:
-            print("Passou")
             if identify_packet(pkt)[0] == "172.18.0.3":
                 sequence.append(f' Cliente->>EMQX: QUIC Packet {print_datagrams(pkt)} (Entregue)')
                 send_sucess_client_emqx += 1
-                print("Passou")
             else:
                 sequence.append(f' EMQX->>Cliente: QUIC Packet {print_datagrams(pkt)} (Entregue)')
                 send_sucess_emqx_client += 1
-                print("Passou")
         if pkt not in inner_join_result:
             if identify_packet(pkt)[0] == "172.18.0.3":
                 sequence.append(f' Cliente--xEMQX: QUIC Packet {print_datagrams(pkt)} (Perda)')
@@ -84,8 +82,6 @@ def generate_mermaid(emqx_packets, client_packets,filename, local_diagram):
                 sequence.append(f' EMQX--xCliente: QUIC Packet {print_datagrams(pkt)} (Perda)')
                 loss_emqx_clinet += 1
 
-    print(loss_emqx_clinet)
-    print(loss_client_emqx)
     total_packets = len(all_packets)
     sequence.append("```")
     sequence.append("```mermaid")
@@ -140,9 +136,13 @@ def analyze_pcap_files(directory, output_file, local_diagram=""):
             num_msgs = parts[4]
             msg_interval = parts[5]
             qos = parts[6]
+            print(f"Analisando {base_name}")
+            print(files)
 
             emqx_packets, total_bytes_emqx = extract_quic_packets(files["emqx"], "EMQX", "172.18.0.2")
+            print(emqx_packets)
             client_packets, total_bytes_client = extract_quic_packets(files["client"], "Cliente", "172.18.0.3")
+            print(client_packets)
 
             diagram_filename = os.path.join(directory, f"{base_name}-diagram.md")
             total_packets, send_total_emqx, send_total_client, send_sucess_emqx_client, send_sucess_client_emqx, loss_emqx_client, loss_client_emqx = generate_mermaid(

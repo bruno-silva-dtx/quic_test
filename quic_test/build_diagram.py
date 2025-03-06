@@ -5,18 +5,15 @@ def extract_quic_packets(pcap_file, role, ip_filter):
     packets = {}
     for packet in cap:
         print(packet)
-        try:
-            pkt_num = int(packet.quic.packet_number)
-            id_ipv4 = (packet.ip.id  )
-            src_ip = packet.ip.src
-            dst_ip = packet.ip.dst
-            src_port = packet.udp.srcport
-            dst_port = packet.udp.dstport
-            timestamp = float(packet.sniff_time.timestamp())
-            unique_id = f"{src_ip}:{src_port}->{dst_ip}:{dst_port} #{pkt_num}-{str(id_ipv4)}"
-            packets[unique_id] = timestamp
-        except AttributeError:
-            continue  # Ignora pacotes sem quic.packet_number
+        pkt_num = int(packet.quic.packet_number)
+        id_ipv4 = (packet.ip.id  )
+        src_ip = packet.ip.src
+        dst_ip = packet.ip.dst
+        src_port = packet.udp.srcport
+        dst_port = packet.udp.dstport
+        timestamp = float(packet.sniff_time.timestamp())
+        unique_id = f"{src_ip}:{src_port}->{dst_ip}:{dst_port} #{pkt_num}-{str(id_ipv4)}"
+        packets[unique_id] = timestamp
     cap.close()
     return packets
 
