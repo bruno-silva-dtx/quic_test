@@ -59,7 +59,7 @@ conf_quic config_user = {
 		.verify_peer = true,
 		.set_fail = true,
 	},
-	.multi_stream = false,
+	.multi_stream = true,
 	.qos_first  = true,
 	.qkeepalive = 10,
 	.qconnect_timeout = 60,

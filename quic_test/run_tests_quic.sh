@@ -128,12 +128,6 @@ docker exec quic_test bash -c "
       
 
 for (( x=1; x<=$runs; x++ )); do
-      sleep 3
-      echo "Correndo teste $x"
-      sudo tcpdump -U -i $veth port 14567 -w ./results/quic/captures/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos.pcap &
-      TCPDUMP_PID=$!
-
-      sleep 10
       echo "Correndo teste $x"
       echo "Executando o tcmdump no quic_test"
       docker exec quic_test bash -c "
@@ -142,15 +136,18 @@ for (( x=1; x<=$runs; x++ )); do
          apt install tcpdump -y && \
          cd /tmp && \
          sudo tcpdump -U -i eth0 port 14567 -w /tmp/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos-client.pcap &
+         echo \$! > /tmp/tcpdump-quic-test-$x-$loss.pid && \
          sleep 5
       "
-      sleep 20
+      sleep 10
       echo "Executando o tcpdump no emqx"
+
       docker exec --user root emqx  bash -c "
          tcpdump -U -i eth0 port 14567 -w /tmp/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos-emqx.pcap &
+         echo \$! > /tmp/tcpdump-emqx-$x-$loss.pid
       "
       echo "Espere 10 segundos para o tcpdump"
-      sleep 30
+      sleep 5
 
       docker exec quic_test bash -c "
          apt install sudo -y && \
@@ -162,8 +159,8 @@ for (( x=1; x<=$runs; x++ )); do
          cd /root/NanoSDK/extern/msquic && \
          chmod +x scripts/log_wrapper.sh  && \
          chmod +x send_msg_quic.sh && \
-         lttng destroy msqui && \
-         ./scripts/log_wrapper.sh ./send_msg_quic.sh 0 topic 1500 10 1 > log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log 
+         lttng destroy msqui && \100
+         ./scripts/log_wrapper.sh ./send_msg_quic.sh ${qos} topic 1500 ${number_of_packets} 1 > log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log 
          "  
       #   lttng destroy -a  && ./scripts/log_wrapper.sh  ./send_msg_quic.sh 0 topic 100 10 10   && babeltrace --names all ./msquic_lttng*/* > quic.babel.txt %% cat quic.babel.txt
       sleep 10
@@ -208,11 +205,11 @@ for (( x=1; x<=$runs; x++ )); do
          lttng destroy -a && \
       " 
 
-      # Finaliza o tcpdump corretamente
-      sudo kill -9 $TCPDUMP_PID
-      #wait $TCPDUMP_PID
+      docker exec --user root emqx bash -c "kill -9 \$(cat /tmp/tcpdump-emqx-$x-$loss.pid)"
+      docker exec quic_test bash -c "kill -9 \$(cat /tmp/tcpdump-quic-test-$x-$loss.pid)"
 
-      sleep 10
+
+      sleep 5
 done
 
 # Clean up tc

@@ -15,6 +15,6 @@ qos_level=0
 for loss in "${loss_values[@]}"
 do
   echo "Running test with packet loss: ${loss}%"
-  ./run_tests_quic.sh -r $runs -l "$loss%" -p 25% -d $delay -j $jitter -n $num_messages -s $message_size -i $interval -q $qos_level
+  ./run_tests_quic.sh -r $runs -l $loss% -p 25% -d $delay -j $jitter -n $num_messages -s $message_size -i $interval -q $qos_level
   sleep 10
 done

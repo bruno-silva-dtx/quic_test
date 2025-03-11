@@ -1,0 +1,61 @@
+Analisando run-6-loss-0%-delay-20ms-n-100-s-1500-i-1-q-0
+Top Diff Packets [(('udp', 'udp.payload'), 1275), (('udp', 'udp.length'), 1176), (('udp', 'udp.checksum'), 1176), (('udp', 'udp.srcport'), 648), (('udp', 'udp.dstport'), 648), (('udp', 'udp.port'), 648)]
+Interseção de pacotes: 51
+Pacotes enviados Cliente: 51
+Pacotes entregues Cliente -> EMQX: 51
+Pacotes perdidos Cliente -> EMQX: 0
+Analisando run-9-loss-0%-delay-20ms-n-100-s-1500-i-1-q-0
+Top Diff Packets [(('udp', 'udp.payload'), 3321), (('udp', 'udp.length'), 3069), (('udp', 'udp.checksum'), 3069), (('udp', 'udp.srcport'), 2061), (('udp', 'udp.port'), 2061), (('udp', 'udp.dstport'), 1799), (('udp', 'udp.stream'), 1197)]
+Interseção de pacotes: 82
+Pacotes enviados Cliente: 82
+Pacotes entregues Cliente -> EMQX: 82
+Pacotes perdidos Cliente -> EMQX: 0
+Analisando run-4-loss-0%-delay-20ms-n-100-s-1500-i-1-q-0
+Top Diff Packets [(('udp', 'udp.payload'), 1431), (('udp', 'udp.length'), 1329), (('udp', 'udp.checksum'), 1329), (('udp', 'udp.srcport'), 725), (('udp', 'udp.dstport'), 725), (('udp', 'udp.port'), 725)]
+Interseção de pacotes: 54
+Pacotes enviados Cliente: 54
+Pacotes entregues Cliente -> EMQX: 54
+Pacotes perdidos Cliente -> EMQX: 0
+Analisando run-8-loss-0%-delay-20ms-n-100-s-1500-i-1-q-0
+Top Diff Packets [(('udp', 'udp.payload'), 1275), (('udp', 'udp.length'), 1161), (('udp', 'udp.checksum'), 1161), (('udp', 'udp.srcport'), 648), (('udp', 'udp.dstport'), 648), (('udp', 'udp.port'), 648)]
+Interseção de pacotes: 51
+Pacotes enviados Cliente: 51
+Pacotes entregues Cliente -> EMQX: 51
+Pacotes perdidos Cliente -> EMQX: 0
+Analisando run-7-loss-0%-delay-20ms-n-100-s-1500-i-1-q-0
+Top Diff Packets [(('udp', 'udp.payload'), 2278), (('udp', 'udp.length'), 2072), (('udp', 'udp.checksum'), 2072), (('udp', 'udp.srcport'), 1107), (('udp', 'udp.dstport'), 1107), (('udp', 'udp.port'), 1107)]
+Interseção de pacotes: 68
+Pacotes enviados Cliente: 68
+Pacotes entregues Cliente -> EMQX: 68
+Pacotes perdidos Cliente -> EMQX: 0
+Analisando run-1-loss-0%-delay-20ms-n-100-s-1500-i-1-q-0
+Top Diff Packets [(('udp', 'udp.payload'), 109604), (('udp', 'udp.stream'), 105729), (('udp', 'udp.length'), 101088), (('udp', 'udp.checksum'), 101088), (('udp', 'udp.srcport'), 88392), (('udp', 'udp.port'), 88392), (('udp', 'udp.dstport'), 72470)]
+Interseção de pacotes: 1167
+Pacotes enviados Cliente: 94
+Pacotes entregues Cliente -> EMQX: 0
+Pacotes perdidos Cliente -> EMQX: 94
+Analisando run-3-loss-0%-delay-20ms-n-100-s-1500-i-1-q-0
+Top Diff Packets [(('udp', 'udp.payload'), 92471), (('udp', 'udp.stream'), 88233), (('udp', 'udp.length'), 85767), (('udp', 'udp.checksum'), 85767), (('udp', 'udp.srcport'), 74714), (('udp', 'udp.port'), 74714), (('udp', 'udp.dstport'), 60459)]
+Interseção de pacotes: 1040
+Pacotes enviados Cliente: 89
+Pacotes entregues Cliente -> EMQX: 0
+Pacotes perdidos Cliente -> EMQX: 89
+Analisando run-10-loss-0%-delay-20ms-n-100-s-1500-i-1-q-0
+Top Diff Packets [(('udp', 'udp.payload'), 903), (('udp', 'udp.length'), 857), (('udp', 'udp.checksum'), 857), (('udp', 'udp.srcport'), 462), (('udp', 'udp.dstport'), 462), (('udp', 'udp.port'), 462)]
+Interseção de pacotes: 43
+Pacotes enviados Cliente: 43
+Pacotes entregues Cliente -> EMQX: 43
+Pacotes perdidos Cliente -> EMQX: 0
+Analisando run-5-loss-0%-delay-20ms-n-100-s-1500-i-1-q-0
+Top Diff Packets [(('udp', 'udp.payload'), 2415), (('udp', 'udp.length'), 2220), (('udp', 'udp.checksum'), 2220), (('udp', 'udp.srcport'), 1176), (('udp', 'udp.dstport'), 1176), (('udp', 'udp.port'), 1176)]
+Interseção de pacotes: 70
+Pacotes enviados Cliente: 70
+Pacotes entregues Cliente -> EMQX: 70
+Pacotes perdidos Cliente -> EMQX: 0
+Analisando run-2-loss-0%-delay-20ms-n-100-s-1500-i-1-q-0
+Top Diff Packets [(('udp', 'udp.payload'), 58482), (('udp', 'udp.stream'), 56430), (('udp', 'udp.length'), 54119), (('udp', 'udp.checksum'), 54119), (('udp', 'udp.srcport'), 46195), (('udp', 'udp.port'), 46195), (('udp', 'udp.dstport'), 39815)]
+Interseção de pacotes: 1084
+Pacotes enviados Cliente: 54
+Pacotes entregues Cliente -> EMQX: 0
+Pacotes perdidos Cliente -> EMQX: 54
+Resultados salvos em quic_analysis.csv
