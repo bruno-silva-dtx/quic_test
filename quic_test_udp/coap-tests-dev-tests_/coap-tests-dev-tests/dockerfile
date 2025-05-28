@@ -1,0 +1,24 @@
+# Escolha a imagem base adequada para o seu projeto
+FROM python:3.8
+
+VOLUME /coap-tests/results
+# Copie todo o conteúdo da pasta coap-testes para a imagem
+# Atenção: ajuste o caminho se necessário, aqui estou assumindo que
+# o Dockerfile está dentro de coap-tests e queremos copiar tudo dentro desta pasta.
+COPY . /coap-tests
+
+# Defina o diretório de trabalho dentro do contêiner para onde você copiou o código
+WORKDIR /coap-tests
+
+# Instale as dependências do projeto, se houver
+RUN pip install -r requirements.txt
+RUN apt-get update && apt-get install -y sudo
+
+# Update the package list and install tcpdump
+RUN apt-get update && apt-get install -y tcpdump
+# Torne o script de testes executável
+RUN chmod +x run_tests.sh
+
+# Defina o comando para rodar quando o contêiner iniciar
+CMD ["./run_tests.sh", "-b", "mqtt-tcp://emqx:14567", "-t", "tcp", "-n", "100", "-s", "1024", "-i", "1", "-r", "100"]
+

@@ -1,0 +1,57 @@
+gateway {
+  mqttsn {
+    broadcast = true
+    enable_qos3 = true
+    enable_stats = true
+    gateway_id = 1
+    idle_timeout = "30s"
+    listeners {
+      dtls {
+        seguranca {
+          bind = "1885"
+          max_conn_rate = 1000
+          max_connections = 102400
+        }
+      }
+      udp {
+        default {
+          bind = "1884"
+          max_conn_rate = 1000
+          max_connections = 1024000
+        }
+      }
+    }
+    mountpoint = ""
+    predefined = []
+  }
+}
+log {
+  console {
+    enable = true
+    formatter = text
+    level = debug
+    time_offset = system
+    timestamp_format = auto
+  }
+  file {
+    default {
+      enable = true
+      formatter = text
+      level = debug
+      path = "/opt/emqx/log/emqx.log"
+      rotation_count = 10
+      rotation_size = "50MB"
+      time_offset = system
+      timestamp_format = auto
+    }
+  }
+  throttling {
+    time_window = "1m"
+  }
+}
+rewrite = []
+topic_metrics = [
+  {
+    topic = "11"
+  }
+]

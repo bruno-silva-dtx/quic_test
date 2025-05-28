@@ -1,0 +1,181 @@
+nohup: ignoring input
+Testing with QoS level: 1
+Running test with packet loss: 1%, QoS: 1
+Received parameters: 10, 1, 25%, 20ms, 5ms, 100, 1500, 1, 
+Parameters: runs=10, loss=1%, burstloss=25%, delay=20ms, delaystddev=5ms, number_of_packets=100, size_of_packets=1500, msg_interval=1, qos=1
+time="2025-04-09T12:15:22Z" level=warning msg="/home/dae/quic_test_udp/mqtt-tests-main/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Container mqtt-tests-main-emqx-1  Running
+time="2025-04-09T12:15:22Z" level=warning msg="/home/dae/quic_test_udp/mqtt-tests-main/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+the input device is not a TTY
+grep: (standard input): Bad file descriptor
+c76a61d2efc6f4c17e1196f4cfab629296ae21892d1966530aa93463e531e4ae:
+Cannot find device "ifb0"
+Cannot find device "ingress"
+Cannot find device "parent"
+Cannot find device "root"
+Cannot find device "ifb0"
+qdisc noqueue 0: dev lo root refcnt 2 
+qdisc fq_codel 0: dev ens18 root refcnt 2 limit 10240p flows 1024 quantum 1514 target 5ms interval 100ms memory_limit 32Mb ecn drop_batch 64 
+qdisc noqueue 0: dev docker0 root refcnt 2 
+qdisc noqueue 0: dev br-83f99259e845 root refcnt 2 
+qdisc netem 801f: dev vethef7119f root refcnt 7 limit 1000 delay 20ms  5ms loss 1% 25%
+qdisc ingress ffff: dev vethef7119f parent ffff:fff1 ---------------- 
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 283B done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:alpine3.19
+#2 DONE 1.2s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/7] FROM docker.io/library/python:alpine3.19@sha256:8287ca207e905649e9f399b5f91a119e5e9051d8cd110d5f8c3b4bd9458ebd1d
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 18.16MB 0.4s done
+#5 DONE 0.6s
+
+#6 [2/7] RUN apk update
+#6 CACHED
+
+#7 [3/7] RUN apk add --no-cache gcc libressl-dev musl-dev libffi-dev
+#7 CACHED
+
+#8 [4/7] COPY . /opt/app/
+#8 DONE 10.5s
+
+#9 [5/7] WORKDIR /opt/app/
+#9 DONE 0.2s
+
+#10 [6/7] RUN pip install --upgrade pip
+#10 3.671 Requirement already satisfied: pip in /usr/local/lib/python3.13/site-packages (24.3.1)
+#10 3.876 Collecting pip
+#10 3.929   Downloading pip-25.0.1-py3-none-any.whl.metadata (3.7 kB)
+#10 3.980 Downloading pip-25.0.1-py3-none-any.whl (1.8 MB)
+#10 4.235    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 7.0 MB/s eta 0:00:00
+#10 4.250 Installing collected packages: pip
+#10 4.250   Attempting uninstall: pip
+#10 4.252     Found existing installation: pip 24.3.1
+#10 4.285     Uninstalling pip-24.3.1:
+#10 4.544       Successfully uninstalled pip-24.3.1
+#10 5.443 Successfully installed pip-25.0.1
+#10 5.443 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#10 DONE 6.1s
+
+#11 [7/7] RUN pip install -r requirements.txt
+#11 1.008 Collecting cryptography==41.0.5 (from -r requirements.txt (line 1))
+#11 1.050   Downloading cryptography-41.0.5-cp37-abi3-musllinux_1_1_x86_64.whl.metadata (5.2 kB)
+#11 1.137 Collecting wsproto==1.2.0 (from -r requirements.txt (line 2))
+#11 1.145   Downloading wsproto-1.2.0-py3-none-any.whl.metadata (5.6 kB)
+#11 1.342 Collecting paho-mqtt==1.6.1 (from -r requirements.txt (line 3))
+#11 1.350   Downloading paho-mqtt-1.6.1.tar.gz (99 kB)
+#11 1.421   Installing build dependencies: started
+#11 3.073   Installing build dependencies: finished with status 'done'
+#11 3.074   Getting requirements to build wheel: started
+#11 3.348   Getting requirements to build wheel: finished with status 'done'
+#11 3.349   Preparing metadata (pyproject.toml): started
+#11 3.510   Preparing metadata (pyproject.toml): finished with status 'done'
+#11 3.645 Collecting websockets==12.0 (from -r requirements.txt (line 4))
+#11 3.653   Downloading websockets-12.0-py3-none-any.whl.metadata (6.6 kB)
+#11 3.865 Collecting python3-dtls==1.3.0 (from -r requirements.txt (line 5))
+#11 3.873   Downloading python3_dtls-1.3.0-py3-none-any.whl.metadata (17 kB)
+#11 4.079 Collecting cffi>=1.12 (from cryptography==41.0.5->-r requirements.txt (line 1))
+#11 4.087   Downloading cffi-1.17.1-cp313-cp313-musllinux_1_1_x86_64.whl.metadata (1.5 kB)
+#11 4.170 Collecting h11<1,>=0.9.0 (from wsproto==1.2.0->-r requirements.txt (line 2))
+#11 4.178   Downloading h11-0.14.0-py3-none-any.whl.metadata (8.2 kB)
+#11 4.255 Collecting pycparser (from cffi>=1.12->cryptography==41.0.5->-r requirements.txt (line 1))
+#11 4.264   Downloading pycparser-2.22-py3-none-any.whl.metadata (943 bytes)
+#11 4.306 Downloading cryptography-41.0.5-cp37-abi3-musllinux_1_1_x86_64.whl (4.4 MB)
+#11 4.922    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.4/4.4 MB 7.3 MB/s eta 0:00:00
+#11 4.930 Downloading wsproto-1.2.0-py3-none-any.whl (24 kB)
+#11 4.971 Downloading websockets-12.0-py3-none-any.whl (118 kB)
+#11 5.021 Downloading python3_dtls-1.3.0-py3-none-any.whl (102 kB)
+#11 5.091 Downloading cffi-1.17.1-cp313-cp313-musllinux_1_1_x86_64.whl (488 kB)
+#11 5.190 Downloading h11-0.14.0-py3-none-any.whl (58 kB)
+#11 5.236 Downloading pycparser-2.22-py3-none-any.whl (117 kB)
+#11 5.318 Building wheels for collected packages: paho-mqtt
+#11 5.319   Building wheel for paho-mqtt (pyproject.toml): started
+#11 5.505   Building wheel for paho-mqtt (pyproject.toml): finished with status 'done'
+#11 5.505   Created wheel for paho-mqtt: filename=paho_mqtt-1.6.1-py3-none-any.whl size=62200 sha256=aba651ded6db3062164d6223f8fb7a9d2b84a3ff1f638a82209f172df251cc4c
+#11 5.505   Stored in directory: /root/.cache/pip/wheels/f9/58/b1/af83cc69fc3ea9dcfafeb61e26c7fa7bcfca4fdf276791c6dc
+#11 5.510 Successfully built paho-mqtt
+#11 5.526 Installing collected packages: python3-dtls, paho-mqtt, websockets, pycparser, h11, wsproto, cffi, cryptography
+#11 6.490 Successfully installed cffi-1.17.1 cryptography-41.0.5 h11-0.14.0 paho-mqtt-1.6.1 pycparser-2.22 python3-dtls-1.3.0 websockets-12.0 wsproto-1.2.0
+#11 6.490 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#11 DONE 7.0s
+
+#12 exporting to image
+#12 exporting layers
+#12 exporting layers 1.7s done
+#12 writing image sha256:8e11749572be2c737943cf05abfd6c28e7c14dc2624f051954775f3d40bfabf1 0.0s done
+#12 naming to docker.io/library/mqtt-pub:0.1 0.0s done
+#12 DONE 1.8s
+tcpdump: port: No such device exists
+(No such device exists)
+the input device is not a TTY
+tcpdump: port: No such device exists
+(No such device exists)
+the input device is not a TTY
+tcpdump: port: No such device exists
+(No such device exists)
+the input device is not a TTY
+tcpdump: port: No such device exists
+(No such device exists)
+the input device is not a TTY
+tcpdump: port: No such device exists
+(No such device exists)
+the input device is not a TTY
+tcpdump: port: No such device exists
+(No such device exists)
+the input device is not a TTY
+tcpdump: port: No such device exists
+(No such device exists)
+the input device is not a TTY
+tcpdump: port: No such device exists
+(No such device exists)
+the input device is not a TTY
+tcpdump: port: No such device exists
+(No such device exists)
+the input device is not a TTY
+tcpdump: port: No such device exists
+(No such device exists)
+the input device is not a TTY
+tcpdump: port: No such device exists
+(No such device exists)
+the input device is not a TTY
+tcpdump: port: No such device exists
+(No such device exists)
+the input device is not a TTY
+tcpdump: port: No such device exists
+(No such device exists)
+the input device is not a TTY
+tcpdump: port: No such device exists
+(No such device exists)
+the input device is not a TTY
+tcpdump: port: No such device exists
+(No such device exists)
+the input device is not a TTY
+
+Usage:
+ kill [options] <pid> [...]
+
+Options:
+ <pid> [...]            send signal to every <pid> listed
+ -<signal>, -s, --signal <signal>
+                        specify the <signal> to be sent
+ -q, --queue <value>    integer value to be sent with the signal
+ -l, --list=[<signal>]  list all signal names, or convert one to a name
+ -L, --table            list all signal names in a nice table
+
+ -h, --help     display this help and exit
+ -V, --version  output version information and exit
+
+For more details see kill(1).
+tcpdump: port: No such device exists
+(No such device exists)
+the input device is not a TTY

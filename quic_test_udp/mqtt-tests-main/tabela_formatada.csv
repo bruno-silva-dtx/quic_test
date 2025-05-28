@@ -1,0 +1,5 @@
+Transporte,Perda de Pacotes (%),Total de Bytes Transmitidos,Total de Bytes Perdidos,Total de Pacotes Transmitidos,Total de Pacotes Perdidos
+TCP,0.0,2813.00 ± 38.98,255.10 ± 191.53,31.00 ± 0.67,2.80 ± 1.99
+TLS,0.0,6019.20 ± 385.40,431.60 ± 383.80,36.20 ± 1.69,2.90 ± 1.79
+WS,0.0,3442.60 ± 39.82,209.80 ± 149.12,33.30 ± 0.67,2.50 ± 1.58
+WSS,0.0,6674.90 ± 391.54,318.40 ± 389.80,38.00 ± 1.70,1.90 ± 1.60
