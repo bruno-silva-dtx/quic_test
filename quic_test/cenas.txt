@@ -1,0 +1,254 @@
+Packet (Length: 1262)
+Layer ETH
+:	Destination: 86:4c:50:66:59:0b
+	Address: 86:4c:50:66:59:0b
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Source: 72:15:fc:e9:e9:d2
+	.... ..1. .... .... .... .... = LG bit: Locally administered address (this is NOT the factory default)
+	.... ...0 .... .... .... .... = IG bit: Individual address (unicast)
+	Type: IPv4 (0x0800)
+	Address: 72:15:fc:e9:e9:d2
+Layer IP
+:	0100 .... = Version: 4
+	.... 0101 = Header Length: 20 bytes (5)
+	Differentiated Services Field: 0x00 (DSCP: CS0, ECN: Not-ECT)
+	0000 00.. = Differentiated Services Codepoint: Default (0)
+	.... ..00 = Explicit Congestion Notification: Not ECN-Capable Transport (0)
+	Total Length: 1248
+	Identification: 0x0363 (867)
+	010. .... = Flags: 0x2, Don't fragment
+	0... .... = Reserved bit: Not set
+	.1.. .... = Don't fragment: Set
+	..0. .... = More fragments: Not set
+	...0 0000 0000 0000 = Fragment Offset: 0
+	Time to Live: 64
+	Protocol: UDP (17)
+	Header Checksum: 0xda80 [validation disabled]
+	Header checksum status: Unverified
+	Source Address: 172.18.0.3
+	Destination Address: 172.18.0.2
+Layer UDP
+:	Source Port: 57816
+	Destination Port: 14567
+	Length: 1228
+	Checksum: 0x5d07 [unverified]
+	Checksum Status: Unverified
+	Stream index: 0
+	Timestamps
+	Time since first frame: 0.000000000 seconds
+	Time since previous frame: 0.000000000 seconds
+	UDP payload (1220 bytes)
+		Layer QUIC
+		:	QUIC Connection information
+			Connection Number: 0
+			Packet Length: 1220
+			1... .... = Header Form: Long Header (1)
+			.1.. .... = Fixed Bit: True
+			..00 .... = Packet Type: Initial (0)
+			.... 00.. = Reserved: 0
+			.... ..11 = Packet Number Length: 4 bytes (3)
+			Version: 1 (0x00000001)
+			Destination Connection ID Length: 8
+			Destination Connection ID: 396497ef814eba2c
+			Source Connection ID Length: 0
+			Token Length: 0
+			Length: 1202
+			Packet Number: 0
+			Payload [truncated]: 85c5e78944caa1f91a0cd2c4637f13b28777961d8ba2b40bacb0ad739151a30a0a1f75c30d006e731f815ae4d33672a3502653e5773518df2894ffc4146c28fea2593e14365c5b4042908f57a8b25d285bc53a20bb1bce098fc476fa140b3cabc80b16cafeb4840ec773348095
+			CRYPTO
+			Frame Type: CRYPTO (0x0000000000000006)
+			Offset: 0
+			Length: 262
+			Crypto Data
+			Handshake Protocol: Client Hello
+			Handshake Type: Client Hello (1)
+			Length: 258
+			Version: TLS 1.2 (0x0303)
+			Random: 09d01358862c9a9b6ce0e2a06580cee67ebd3879abf451826d8a38354199c9de
+			Session ID Length: 0
+			Cipher Suites Length: 8
+			Cipher Suites (4 suites)
+			Cipher Suite: TLS_AES_256_GCM_SHA384 (0x1302)
+			Compression Methods Length: 1
+			Compression Methods (1 method)
+			Compression Method: null (0)
+			Extensions Length: 209
+			Type: server_name (0)
+			Length: 9
+			Server Name list length: 7
+			Server Name Type: host_name (0)
+			Server Name length: 4
+			Server Name: emqx
+			EC point formats Length: 3
+			Elliptic curves point formats (3)
+			EC point format: uncompressed (0)
+			Supported Groups List Length: 10
+			Supported Groups (5 groups)
+			Supported Group: x25519 (0x001d)
+			Session Ticket: <MISSING>
+			ALPN Extension Length: 5
+			ALPN Protocol
+			ALPN string length: 4
+			ALPN Next Protocol: mqtt
+	Signature Hash Algorithms Length: 28
+	Signature Hash Algorithms (14 algorithms)
+	Signature Algorithm: ecdsa_secp256r1_sha256 (0x0403)
+	Signature Hash Algorithm Hash: SHA256 (4)
+	Signature Hash Algorithm Signature: ECDSA (3)
+	Supported Versions length: 2
+	Supported Version: TLS 1.3 (0x0304)
+	PSK Key Exchange Modes Length: 1
+	PSK Key Exchange Mode: PSK with (EC)DHE key establishment (psk_dhe_ke) (1)
+	Client Key Share Length: 36
+	Group: x25519 (29)
+	Key Exchange Length: 32
+	Key Exchange: 2e6df9e12e4cddef9753da68afdaff8d67951b3d350d2d7442e3fdf8fcae1c69
+	Type: max_idle_timeout (0x01)
+	Length: 4
+	Value: 80007530
+	max_idle_timeout: 30000
+	max_udp_payload_size: 1472
+	initial_max_data: 16777216
+	initial_max_stream_data_bidi_local: 65536
+	initial_max_stream_data_bidi_remote: 65536
+	initial_max_stream_data_uni: 65536
+	ack_delay_exponent: 8
+	max_ack_delay: 26
+	Active Connection ID Limit: 4
+	Initial Source Connection ID: <MISSING>
+	min_ack_delay: 1000
+	JA4: u13d0412mt_16476d049b0b_d048baa029f2
+	JA4_r: u13d0412mt_00ff,1301,1302,1303_000a,000b,000d,0016,0017,0023,002b,002d,0033,0039_0403,0503,0603,0807,0808,0809,080a,080b,0804,0805,0806,0401,0501,0601
+	JA3 Fullstring: 771,4866-4867-4865-255,0-11-10-35-16-22-23-13-43-45-51-57,29-23-30-25-24,0-1-2
+	JA3: dfcd5c636de70ad122e9d2857812be7d
+	Padding Length: 916
+	Extension: server_name (len=9) name=emqx
+	Server Name Indication extension
+	Extension: ec_point_formats (len=4)
+	Extension: supported_groups (len=12)
+	Extension: session_ticket (len=0)
+	Extension: application_layer_protocol_negotiation (len=7)
+	Extension: encrypt_then_mac (len=0)
+	Extension: extended_master_secret (len=0)
+	Extension: signature_algorithms (len=30)
+	Extension: supported_versions (len=3) TLS 1.3
+	Extension: psk_key_exchange_modes (len=2)
+	Extension: key_share (len=38) x25519
+	Key Share extension
+	Key Share Entry: Group: x25519, Key Exchange length: 32
+	Extension: quic_transport_parameters (len=56)
+	Parameter: max_idle_timeout (len=4) 30000 ms
+	Parameter: max_udp_payload_size (len=2) 1472
+	Parameter: initial_max_data (len=4) 16777216
+	Parameter: initial_max_stream_data_bidi_local (len=4) 65536
+	Parameter: initial_max_stream_data_bidi_remote (len=4) 65536
+	Parameter: initial_max_stream_data_uni (len=4) 65536
+	Parameter: ack_delay_exponent (len=1)
+	Parameter: max_ack_delay (len=1) 26
+	Parameter: active_connection_id_limit (len=1) 4
+	Parameter: initial_source_connection_id (len=0)
+	Parameter: min_ack_delay (draft-01) (len=2) 1000
+	PADDING Length: 916
+	Frame Type: PADDING (0x0000000000000000)
+	Cipher Suite: TLS_CHACHA20_POLY1305_SHA256 (0x1303)
+	Cipher Suite: TLS_AES_128_GCM_SHA256 (0x1301)
+	Cipher Suite: TLS_EMPTY_RENEGOTIATION_INFO_SCSV (0x00ff)
+	Type: ec_point_formats (11)
+	Type: supported_groups (10)
+	Type: session_ticket (35)
+	Type: application_layer_protocol_negotiation (16)
+	Type: encrypt_then_mac (22)
+	Type: extended_master_secret (23)
+	Type: signature_algorithms (13)
+	Type: supported_versions (43)
+	Type: psk_key_exchange_modes (45)
+	Type: key_share (51)
+	Type: quic_transport_parameters (57)
+	Length: 4
+	Length: 12
+	Length: 0
+	Length: 7
+	Length: 0
+	Length: 0
+	Length: 30
+	Length: 3
+	Length: 2
+	Length: 38
+	Length: 56
+	EC point format: ansiX962_compressed_prime (1)
+	EC point format: ansiX962_compressed_char2 (2)
+	Supported Group: secp256r1 (0x0017)
+	Supported Group: x448 (0x001e)
+	Supported Group: secp521r1 (0x0019)
+	Supported Group: secp384r1 (0x0018)
+	Signature Algorithm: ecdsa_secp384r1_sha384 (0x0503)
+	Signature Algorithm: ecdsa_secp521r1_sha512 (0x0603)
+	Signature Algorithm: ed25519 (0x0807)
+	Signature Algorithm: ed448 (0x0808)
+	Signature Algorithm: rsa_pss_pss_sha256 (0x0809)
+	Signature Algorithm: rsa_pss_pss_sha384 (0x080a)
+	Signature Algorithm: rsa_pss_pss_sha512 (0x080b)
+	Signature Algorithm: rsa_pss_rsae_sha256 (0x0804)
+	Signature Algorithm: rsa_pss_rsae_sha384 (0x0805)
+	Signature Algorithm: rsa_pss_rsae_sha512 (0x0806)
+	Signature Algorithm: rsa_pkcs1_sha256 (0x0401)
+	Signature Algorithm: rsa_pkcs1_sha384 (0x0501)
+	Signature Algorithm: rsa_pkcs1_sha512 (0x0601)
+	Signature Hash Algorithm Hash: SHA384 (5)
+	Signature Hash Algorithm Hash: SHA512 (6)
+	Signature Hash Algorithm Hash: Unknown (8)
+	Signature Hash Algorithm Hash: Unknown (8)
+	Signature Hash Algorithm Hash: Unknown (8)
+	Signature Hash Algorithm Hash: Unknown (8)
+	Signature Hash Algorithm Hash: Unknown (8)
+	Signature Hash Algorithm Hash: Unknown (8)
+	Signature Hash Algorithm Hash: Unknown (8)
+	Signature Hash Algorithm Hash: Unknown (8)
+	Signature Hash Algorithm Hash: SHA256 (4)
+	Signature Hash Algorithm Hash: SHA384 (5)
+	Signature Hash Algorithm Hash: SHA512 (6)
+	Signature Hash Algorithm Signature: ECDSA (3)
+	Signature Hash Algorithm Signature: ECDSA (3)
+	Signature Hash Algorithm Signature: Unknown (7)
+	Signature Hash Algorithm Signature: Unknown (8)
+	Signature Hash Algorithm Signature: Unknown (9)
+	Signature Hash Algorithm Signature: Unknown (10)
+	Signature Hash Algorithm Signature: Unknown (11)
+	Signature Hash Algorithm Signature: SM2 (4)
+	Signature Hash Algorithm Signature: Unknown (5)
+	Signature Hash Algorithm Signature: Unknown (6)
+	Signature Hash Algorithm Signature: RSA (1)
+	Signature Hash Algorithm Signature: RSA (1)
+	Signature Hash Algorithm Signature: RSA (1)
+	Type: max_udp_payload_size (0x03)
+	Type: initial_max_data (0x04)
+	Type: initial_max_stream_data_bidi_local (0x05)
+	Type: initial_max_stream_data_bidi_remote (0x06)
+	Type: initial_max_stream_data_uni (0x07)
+	Type: ack_delay_exponent (0x0a)
+	Type: max_ack_delay (0x0b)
+	Type: active_connection_id_limit (0x0e)
+	Type: initial_source_connection_id (0x0f)
+	Type: min_ack_delay (draft-01) (0xff03de1a)
+	Length: 2
+	Length: 4
+	Length: 4
+	Length: 4
+	Length: 4
+	Length: 1
+	Length: 1
+	Length: 1
+	Length: 0
+	Length: 2
+	Value: 45c0
+	Value: 81000000
+	Value: 80010000
+	Value: 80010000
+	Value: 80010000
+	Value: 08
+	Value: 1a
+	Value: 04
+	Value: <MISSING>
+	Value: 43e8
+

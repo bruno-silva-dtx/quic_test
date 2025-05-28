@@ -84,7 +84,7 @@ tc qdisc show dev ifb0
 
 # add delay and loss on both ingress and egress if's
 sudo tc qdisc add dev $veth root netem delay $delay $delaystddev loss $loss $burstloss rate 250kbit
-sudo tc qdisc add dev ifb0 root netem delay $delay $delaystddev loss $loss $burstloss rate 25kbit
+sudo tc qdisc add dev ifb0 root netem delay $delay $delaystddev loss $loss $burstloss rate 250kbit
 sudo tc qdisc list
 
 sudo modprobe ifb

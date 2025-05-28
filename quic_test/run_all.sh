@@ -9,12 +9,17 @@ jitter="5ms"
 num_messages=100
 message_size=1500
 interval=1
-qos_level=0
 
-# Loop para rodar o script com diferentes taxas de perda
-for loss in "${loss_values[@]}"
+for qos_level in 0 1 2
 do
-  echo "Running test with packet loss: ${loss}%"
-  ./run_tests_quic.sh -r $runs -l $loss% -p 25% -d $delay -j $jitter -n $num_messages -s $message_size -i $interval -q $qos_level
-  sleep 10
+  echo "Testing with QoS level: ${qos_level}"
+
+  # Loop para rodar o script com diferentes taxas de perda
+  for loss in "${loss_values[@]}"
+  do
+    echo "Running test with packet loss: ${loss}%, QoS: ${qos_level}"
+    ./run_tests_quic.sh -r $runs -l ${loss}% -p 25% -d $delay -j $jitter -n $num_messages -s $message_size -i $interval -q $qos_level
+    sleep 10
+  done
+
 done
