@@ -93,7 +93,7 @@ sudo ip link set dev ifb0 up
 echo "Verificaçao dos testes"
 sudo tc qdisc show dev $veth
 sudo tc qdisc show dev ifb0
-sleep 10
+sleep 2
 
 mkdir -p ./results/quic
 mkdir -p ./results/quic/captures
@@ -102,51 +102,49 @@ mkdir -p ./results/quic/captures
 
 sudo docker run -d --name quic_test --network=quic_test_emqx-bridge quic_test tail -f /dev/null
 
-docker exec quic_test bash -c "
-            pwsh ./root/NanoSDK/extern/msquic/scripts/prepare-machine.ps1 -ForTest -Tls openssl -Force -InitSubmodules
-            cd /root/NanoSDK/extern/msquic && rm -rf build && mkdir -p build && cd build && cmake -D QUIC_ENABLE_LOGGING=ON -D QUIC_LOGGING_TYPE=stdout .. && make && make install           
-            "
+#docker exec quic_test bash -c "
+#            pwsh ./root/NanoSDK/extern/msquic/scripts/prepare-machine.ps1 -ForTest -Tls openssl -Force -InitSubmodules
+#            cd /root/NanoSDK/extern/msquic && rm -rf build && mkdir -p build && cd build && cmake -D QUIC_ENABLE_LOGGING=ON -D QUIC_LOGGING_TYPE=stdout .. && make && make install           
+#            "
 docker cp send_msg_quic.sh quic_test:/root/NanoSDK/extern/msquic
 docker cp quic_api.c quic_test:/root/NanoSDK/src/supplemental/quic
 
-docker exec quic_test bash -c " 
-      cd /root/NanoSDK/extern/msquic && \
-      echo 'Correu o send_msg_quic.sh' && \
-      git submodule update --init submodules/clog && \
-      dotnet build submodules/clog/src/clog2text/clog2text_lttng/ -c Release
-"
+
+docker exec --user root quic_test bash -c "
+   apt install sudo -y && \
+   apt install tcpdump -y && \
+   apt update -y && \
+   chmod 777 /tmp 
+   "
+sleep 5
+#docker exec quic_test bash -c " 
+#      cd /root/NanoSDK/extern/msquic && \
+#      git submodule update --init submodules/clog && \
+#      dotnet build submodules/clog/src/clog2text/clog2text_lttng/ -c Release
+#"
 
       #sleep 5
 #docker exec quic_test bash -c 'cd /root/NanoSDK/extern/msquic && rm -rf build && mkdir -p build && cd build && cmake -D QUIC_ENABLE_LOGGING=ON -D QUIC_LOGGING_TYPE=stdout .. && make && make install && cd /root/NanoSDK/demo/quic_mqtt && rm -rf build && mkdir -p build && cd build && cmake -D QUIC_ENABLE_LOGGING=ON -D QUIC_LOGGING_TYPE=stdout .. && make && make install && cd /root/NanoSDK/demo/quic_mqtt && rm -rf build && mkdir -p build && cd build && cmake .. && make && make install'
 
-      docker exec quic_test bash -c "
-         cd /root/NanoSDK/extern/msquic && \
-         chmod +x scripts/log_wrapper.sh  && \
-         chmod +x send_msg_quic.sh && \
-         ./scripts/log_wrapper.sh ./send_msg_quic.sh 0 topic $size_of_packets $number_of_packets $msg_interval > log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log          
-         "  
-      
-
 for (( x=1; x<=$runs; x++ )); do
       echo "Correndo teste $x"
       echo "Executando o tcmdump no quic_test"
-      docker exec quic_test bash -c "
-         apt install sudo -y && \
-         apt install sudo -y && \
-         apt install tcpdump -y && \
+      # Iniciar tcpdump em quic_test
+      docker exec --user root quic_test bash -c "
          cd /tmp && \
-         sudo tcpdump -U -i eth0 port 14567 -w /tmp/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos-client.pcap &
-         echo \$! > /tmp/tcpdump-quic-test-$x-$loss.pid && \
-         sleep 5
+         tcpdump -U -i eth0 port 14567 -w /tmp/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos-client.pcap &
+         echo \$! > /tmp/tcpdump-quic-test-$x-$loss.pid
       "
-      sleep 10
+
       echo "Executando o tcpdump no emqx"
 
-      docker exec --user root emqx  bash -c "
+      # Iniciar tcpdump em emqx
+      docker exec --user root emqx bash -c "
          tcpdump -U -i eth0 port 14567 -w /tmp/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos-emqx.pcap &
          echo \$! > /tmp/tcpdump-emqx-$x-$loss.pid
       "
-      echo "Espere 10 segundos para o tcpdump"
+
+      echo "Espere 5 segundos para o tcpdump"
       sleep 5
 
       docker exec quic_test bash -c "
@@ -155,44 +153,67 @@ for (( x=1; x<=$runs; x++ )); do
          apt autoremove
       "
       
-      docker exec quic_test bash -c "
-         cd /root/NanoSDK/extern/msquic && \
-         chmod +x scripts/log_wrapper.sh  && \
-         chmod +x send_msg_quic.sh && \
-         lttng destroy msqui && \100
-         ./scripts/log_wrapper.sh ./send_msg_quic.sh ${qos} topic 1500 ${number_of_packets} 1 > log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log 
-         "  
+      #docker exec quic_test bash -c "
+      #   cd /root/NanoSDK/extern/msquic && \
+      #   chmod +x scripts/log_wrapper.sh  && \
+      #   chmod +x send_msg_quic.sh && \
+      #   lttng destroy msqui && \
+      #   ./scripts/log_wrapper.sh ./send_msg_quic.sh ${qos} topic 1500 ${number_of_packets} 1 > log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log 
+      #   "  
+
+      echo " ./root/quic_mqtt/build/quic_client pub 'mqtt-tcp://emqx:14567' ${qos} topic 1500 ${number_of_packets} 1 "
+
+      docker exec --user root quic_test bash -c "
+      ./root/quic_mqtt/build/quic_client pub 'mqtt-tcp://emqx:14567' ${qos} topic 1500 ${number_of_packets} 1  &
+      "
+      echo "Aguardando 15 segundos para o teste ser concluído"
+      sleep 15
+      #docker exec --user root quic_test bash -c "
+      #   cd /root/NanoSDK/extern/msquic && \
+      #   chmod +x scripts/log_wrapper.sh  && \
+      #   chmod +x send_msg_quic.sh && \
+      #   ./root/quic_mqtt/build/quic_client pub 'mqtt-tcp://emqx:14567' ${qos} topic 1500 ${number_of_packets} 1  
+      #   "           
       #   lttng destroy -a  && ./scripts/log_wrapper.sh  ./send_msg_quic.sh 0 topic 100 10 10   && babeltrace --names all ./msquic_lttng*/* > quic.babel.txt %% cat quic.babel.txt
-      sleep 10
-   # ./scripts/log_wrapper.sh  ./send_msg_quic.sh 0 topic 100 10 10
+   
+      # ./scripts/log_wrapper.sh  ./send_msg_quic.sh 0 topic 100 10 10
 
 
-      docker exec quic_test bash -c "
-            cd /root/NanoSDK/extern/msquic && \
-            apt update && \
-            dotnet build submodules/clog/src/clog2text/clog2text_lttng/ -c Release && \
-            babeltrace --names all ./msquic_lttng*/* > quic.babel.txt
-         "     
+      #docker exec quic_test bash -c "
+      #      cd /root/NanoSDK/extern/msquic && \
+      #      apt update && \
+      #      dotnet build submodules/clog/src/clog2text/clog2text_lttng/ -c Release && \
+      #      babeltrace --names all ./msquic_lttng*/* > quic.babel.txt
+      #   "     
 
 
-      docker exec quic_test bash -c "
-            cd /root/NanoSDK/extern/msquic && \
-            cp /root/NanoSDK/extern/msquic/src/manifest/clog.sidecar /root/NanoSDK/extern/msquic && \
-            chmod +x /root/NanoSDK/extern/msquic/submodules/clog/src/clog2text/clog2text_lttng/bin/Release/net6.0/clog2text_lttng && \
-            submodules/clog/src/clog2text/clog2text_lttng/bin/Release/net6.0/clog2text_lttng -i quic.babel.txt -s clog.sidecar -o log_msquic_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log --showTimestamp --showCpuInfo 
-         "
-
-      
-      sleep 5
+      #docker exec quic_test bash -c "
+      #      cd /root/NanoSDK/extern/msquic && \
+      #      cp /root/NanoSDK/extern/msquic/src/manifest/clog.sidecar /root/NanoSDK/extern/msquic && \
+      #      chmod +x /root/NanoSDK/extern/msquic/submodules/clog/src/clog2text/clog2text_lttng/bin/Release/net6.0/clog2text_lttng && \
+      #      submodules/clog/src/clog2text/clog2text_lttng/bin/Release/net6.0/clog2text_lttng -i quic.babel.txt -s clog.sidecar -o log_msquic_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log --showTimestamp --showCpuInfo 
+      #   "
 
       # Copy logs to host
       # Copiar os arquivos de log do contêiner para o host
+
       docker cp quic_test:/root/NanoSDK/extern/msquic/log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log ./results/quic/log_tracer-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos.log
       docker cp quic_test:/root/NanoSDK/extern/msquic/log_msquic_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log ./results/quic/log_msquic-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos.log
       docker cp quic_test:/tmp/SslKeyLogFile_cb  ./results/quic/SslKeyLogFile-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos.txt
       docker cp quic_test:/tmp/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos-client.pcap ./results/quic/captures/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos-client.pcap
       docker cp emqx:/tmp/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos-emqx.pcap ./results/quic/captures/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos-emqx.pcap
 
+      # Parar tcpdump em quic_test
+      docker exec --user root quic_test bash -c "
+         pkill -9 tcpdump && \
+         kill -9 \$(cat /tmp/tcpdump-quic-test-$x-$loss.pid)
+      "
+
+      # Parar tcpdump em emqx
+      docker exec --user root emqx bash -c "
+         pkill -9 tcpdump && \
+         kill -9 \$(cat /tmp/tcpdump-emqx-$x-$loss.pid)
+      "
 
       docker --user root emqx bash -c "
          rm -r /tmp/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos-emqx.pcap
@@ -202,14 +223,14 @@ for (( x=1; x<=$runs; x++ )); do
          rm -r log_* && \
          rm -r ./msquic_lttng* && \
          rm -r ./tmp/SslKeyLogFile_cb && \
-         lttng destroy -a && \
       " 
+      # lttng destroy -a && \
 
       docker exec --user root emqx bash -c "kill -9 \$(cat /tmp/tcpdump-emqx-$x-$loss.pid)"
-      docker exec quic_test bash -c "kill -9 \$(cat /tmp/tcpdump-quic-test-$x-$loss.pid)"
-
+      docker exec --user root quic_test bash -c "kill -9 \$(cat /tmp/tcpdump-quic-test-$x-$loss.pid)"
 
       sleep 5
+      echo "Teste $x concluído"
 done
 
 # Clean up tc

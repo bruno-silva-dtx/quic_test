@@ -343,6 +343,13 @@ quic_load_sdk_config(BOOLEAN Unsecure)
 
 	conf_quic *node = &conf_node;
 
+	// Disable MTU
+	Settings.IsSet.MtuDiscoverySearchCompleteTimeoutUs = TRUE;
+	Settings.MtuDiscoverySearchCompleteTimeoutUs = 0;
+
+	Settings.IsSet.MtuDiscoveryMissingProbeCount = TRUE;
+	Settings.MtuDiscoveryMissingProbeCount = 0;
+
 	if (!node) {
 		Settings.IsSet.IdleTimeoutMs       = TRUE;
 		Settings.IdleTimeoutMs             = 90 * 1000;

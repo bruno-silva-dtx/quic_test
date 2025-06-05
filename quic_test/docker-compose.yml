@@ -1,0 +1,38 @@
+version: '3'
+services:
+  emqx:
+    image: emqx/emqx:5.7.2
+    user: root
+    container_name: emqx
+    cap_add:
+      - NET_ADMIN
+      - SYS_TIME
+    networks:
+      emqx-bridge:
+        aliases:
+          - broker.emqx.io
+    ports:
+      - "1883:1883"
+      - "8083:8083"
+      - "8084:8084"
+      - "8883:8883"
+      - "18083:18083"
+      - "14567:14567/udp"
+    environment:
+      - EMQX_LISTENERS__QUIC__DEFAULT__keyfile=/opt/emqx/data/certs/key.pem
+      - EMQX_LISTENERS__QUIC__DEFAULT__certfile=/opt/emqx/data/certs/cert.pem
+      - EMQX_LISTENERS__QUIC__DEFAULT__ENABLED=true
+    volumes:
+      - ./emqx_confs:/opt/emqx/data/configs
+    deploy:
+      resources:
+        limits:
+          memory: 2G   # Limite máximo de memória
+          cpus: "1.5"  # Limite de CPU
+        reservations:
+          memory: 1G   # Memória mínima reservada
+          cpus: "0.5"  # CPU mínima reservada
+
+networks:
+  emqx-bridge:
+    driver: bridge

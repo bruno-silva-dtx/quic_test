@@ -1,0 +1,11 @@
+```mermaid
+sequenceDiagram
+total_send124
+send_total_emqx62
+send_total_client62
+send_sucess_emqx_client62
+send_sucess_client_emqx62
+loss_emqx_client0
+loss_client_emqx0
+tota_sucess_send62
+total_loss_send0

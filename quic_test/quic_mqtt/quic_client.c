@@ -300,7 +300,6 @@ int
 main(int argc, char **argv)
 {
 	int rc;
-
 	printf("Main");
 	fprintf(stderr, "Dentro do for.\n");
 

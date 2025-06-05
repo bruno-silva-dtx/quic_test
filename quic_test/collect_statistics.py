@@ -99,23 +99,23 @@ def generate_mermaid(emqx_packets, client_packets,filename, local_diagram):
     send_fail_total = 0
 
 
-    #print(diff_packets)
+    ##print(diff_packets)
     # Total send sucess packets
     send_sucess_total = len(inter_join_packets)
-    print("Sucesso no interjoin:",send_sucess_total)
+    ##print("Sucesso no interjoin:",send_sucess_total)
 
 
 
     # in case de compare packets layer by layer                          
-    # print("Tamanho do Interjoin",len(inter_join_packets))
-    # print("Diff Packetslayer_data",diff_packets)
+    # ##print("Tamanho do Interjoin",len(inter_join_packets))
+    # ##print("Diff Packetslayer_data",diff_packets)
     # # TOP 10 diff packets
     
 
 
         
     top_diff_packets = sorted(diff_packets.items(), key=lambda x: x[1], reverse=True)[:10]
-    print("Top Diff Packets",top_diff_packets)   
+    ##print("Top Diff Packets",top_diff_packets)   
 
     all_packets = sorted(emqx_packets + client_packets, key=lambda pkt: pkt.timestamp)
 
@@ -193,12 +193,15 @@ def analyze_pcap_files(directory, output_file, local_diagram=""):
             print(f"Analisando {base_name}")
 
 
-
-            emqx_packets , total_bytes_emqx , msg_confir = extract_quic_packets(files["emqx"], "EMQX")
-            client_packets , total_bytes_client , _ = extract_quic_packets(files["client"], "Cliente")
+            try:
+                emqx_packets , total_bytes_emqx , msg_confir = extract_quic_packets(files["emqx"], "EMQX")
+                client_packets , total_bytes_client , _ = extract_quic_packets(files["client"], "Cliente")
+            except Exception as e:
+                print(f"Erro ao processar {base_name}: {e}")
+                continue
 
             total_packets, send_total_emqx, send_total_client, send_success_emqx_to_client, send_success_client_to_emqx, loss_emqx_client, loss_client_emqx = generate_mermaid(emqx_packets, client_packets, f"{base_name}-diagram.md", local_diagram)
-            print(f"Interseção de pacotes: {send_total_emqx}")
+            #print(f"Interseção de pacotes: {send_total_emqx}")
             print(f"Pacotes enviados Cliente: {send_total_client}")
             print(f"Pacotes entregues Cliente -> EMQX: {send_success_client_to_emqx}")
             print(f"Pacotes perdidos Cliente -> EMQX: {loss_client_emqx}")
@@ -225,9 +228,9 @@ def analyze_pcap_files(directory, output_file, local_diagram=""):
     df.to_csv(output_file, index=False)  # Alterado para salvar como CSV
 
 def main():
-    directory = "results_multi_stream/quic/captures/"
+    directory = "results/quic/captures/"
     output_file = "quic_analysis.csv"
-    local_diagram = "results_multi_stream/quic/captures/"
+    local_diagram = "results/quic/captures/"
     analyze_pcap_files(directory, output_file, local_diagram)
     print(f"Resultados salvos em {output_file}")
 

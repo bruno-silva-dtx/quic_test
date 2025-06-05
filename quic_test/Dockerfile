@@ -34,27 +34,27 @@ RUN apt-get install sudo -y && \
     apt-get install -y \
     libssl-dev \
     libnng-dev 
-
+# ----------- Instalar o LogWrapper -----------
 # Instale o dotnet
-RUN apt-get update && \
-    apt-get install -y wget && \
-    wget https://dot.net/v1/dotnet-install.sh && \
-    bash dotnet-install.sh --channel 6.0 --install-dir /usr/share/dotnet && \
-    ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
+#RUN apt-get update && \
+#    apt-get install -y wget && \
+#    wget https://dot.net/v1/dotnet-install.sh && \
+#    bash dotnet-install.sh --channel 6.0 --install-dir /usr/share/dotnet && \
+#    ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
 
 # Instale o powershella
-RUN wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb && \
-    dpkg -i packages-microsoft-prod.deb && \
-    apt-get update && \
-    add-apt-repository universe && \
-    apt-get install -y powershell
-
-# Instale de lttng
- RUN apt-get update && \
-    apt-get install -y software-properties-common && \
-    add-apt-repository ppa:lttng/stable-2.13 && \
-    apt-get update && \
-    apt-get install -y liblttng-ust-dev lttng-tools
+#RUN wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb && \
+#    dpkg -i packages-microsoft-prod.deb && \
+#    apt-get update && \
+#    add-apt-repository universe && \
+#    apt-get install -y powershell
+#
+## Instale de lttng
+# RUN apt-get update && \
+#    apt-get install -y software-properties-common && \
+#    add-apt-repository ppa:lttng/stable-2.13 && \
+#    apt-get update && \
+#    apt-get install -y liblttng-ust-dev lttng-tools
 
 RUN apt-get update && apt-get install -y libwolfssl-dev
 
@@ -65,13 +65,15 @@ RUN git clone https://github.com/emqx/NanoSDK.git /root/NanoSDK && \
 
 COPY quic_api.c /root/NanoSDK/src/supplemental/quic
 
-# Build the clog2text e o msquic
-RUN cd /root/NanoSDK/extern/msquic && \
-    git submodule update --init submodules/clog && \
-    dotnet build submodules/clog/src/clog2text/clog2text_lttng/ -c Release
 
+# ----------- Instalar o LogWrapper -----------
+# Build the clog2text e o msquic
+#RUN cd /root/NanoSDK/extern/msquic && \
+#    git submodule update --init submodules/clog && \
+#    dotnet build submodules/clog/src/clog2text/clog2text_lttng/ -c Release
+#
 # Prepare the machine for the test
-RUN pwsh ./root/NanoSDK/extern/msquic/scripts/prepare-machine.ps1 -ForTest -Tls openssl -Force -InitSubmodules
+#RUN pwsh ./root/NanoSDK/extern/msquic/scripts/prepare-machine.ps1 -ForTest -Tls openssl -Force -InitSubmodules
 
 # Contruir o msquic
 RUN cd /root/NanoSDK/extern/msquic && \
