@@ -1,0 +1,33 @@
+  version: '3'
+
+  services:
+    emqx:
+      image: emqx/emqx:latest
+      # environment:
+      # - "EMQX_LISTENER__SSL__EXTERNAL__CERTFILE=etc/certs/emqx/emqx.pem"
+      # - "EMQX_LISTENER__SSL__EXTERNAL__CACERTFILE=etc/certs/myCA.pem"
+      # - "EMQX_LISTENER__SSL__EXTERNAL__KEYFILE=etc/certs/emqx/emqx.key"
+      # - "EMQX_NAME=emqx"
+      # - "EMQX_HOST=node1.emqx.io"
+      # - "EMQX_CLUSTER__DISCOVERY_STRATEGY=static"
+      # - "EMQX_CLUSTER__STATIC__SEEDS=[emqx@node1.emqx.io, emqx@node2.emqx.io]"
+      ports:
+        - "8883:8883"
+        - "1883:1883"
+        - "8083:8083"
+        - "8084:8084"
+        - "18083:18083"
+        - "1884:1884/udp"
+
+      networks:
+        emqx-bridge:
+          aliases:
+          - broker.emqx.io
+      
+      volumes:
+       - ./emqx_confs:/opt/emqx/data/configs
+
+
+  networks:
+    emqx-bridge:
+      driver: bridge
