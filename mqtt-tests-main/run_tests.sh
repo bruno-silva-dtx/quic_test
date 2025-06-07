@@ -93,13 +93,14 @@ docker build -f Dockerfile -t mqtt-pub:0.1 .
 x=1
 while [ $x -le $runs ]
 do
+    echo "Running test $x of $runs with loss $loss, delay $delay, number of packets $number_of_packets, size of packets $size_of_packets, and message interval $msg_interval"
     sudo tcpdump -U -i $veth port 1883 -w ./results/tcp/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval.pcap &
     sleep 5
-    docker run --network=mqtt-tests_emqx-bridge -it mqtt-pub:0.1 -b broker.emqx.io -t tcp -n $number_of_packets -s $size_of_packets -i $msg_interval
+    docker run --network=mqtt-tests-main_emqx-bridge -it mqtt-pub:0.1 -b broker.emqx.io -t tcp -n $number_of_packets -s $size_of_packets -i $msg_interval
     pid=$(ps -e | pgrep tcpdump)  
     sleep 5
     sudo kill -2 $pid
-    x=$(( $x + 1 ))
+    x=$(( $x + 1 ))   
 done
 
 x=1
@@ -107,7 +108,7 @@ while [ $x -le $runs ]
 do
     sudo tcpdump -U -i $veth port 8883 -w ./results/tls/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval.pcap &
     sleep 5
-    docker run --network=mqtt-tests_emqx-bridge -it mqtt-pub:0.1 -b broker.emqx.io -t tls -n $number_of_packets -s $size_of_packets -i $msg_interval
+    docker run --network=mqtt-tests-main_emqx-bridge -it mqtt-pub:0.1 -b broker.emqx.io -t tls -n $number_of_packets -s $size_of_packets -i $msg_interval
     pid=$(ps -e | pgrep tcpdump)  
     sleep 5
     sudo kill -2 $pid
@@ -119,7 +120,7 @@ while [ $x -le $runs ]
 do
     sudo tcpdump -U -i $veth port 8083 -w ./results/ws/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval.pcap &
     sleep 5
-    docker run --network=mqtt-tests_emqx-bridge -it mqtt-pub:0.1 -b broker.emqx.io -t ws -n $number_of_packets -s $size_of_packets -i $msg_interval
+    docker run --network=mqtt-tests-main_emqx-bridge -it mqtt-pub:0.1 -b broker.emqx.io -t ws -n $number_of_packets -s $size_of_packets -i $msg_interval
     pid=$(ps -e | pgrep tcpdump)  
     sleep 5
     sudo kill -2 $pid
@@ -131,7 +132,7 @@ while [ $x -le $runs ]
 do
     sudo tcpdump -U -i $veth port 8084 -w ./results/wss/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval.pcap &
     sleep 5
-    docker run --network=mqtt-tests_emqx-bridge -it mqtt-pub:0.1 -b broker.emqx.io -t wss -n $number_of_packets -s $size_of_packets -i $msg_interval
+    docker run --network=mqtt-tests-main_emqx-bridge -it mqtt-pub:0.1 -b broker.emqx.io -t wss -n $number_of_packets -s $size_of_packets -i $msg_interval
     pid=$(ps -e | pgrep tcpdump)  
     sleep 5
     sudo kill -2 $pid
