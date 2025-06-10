@@ -7,7 +7,7 @@ runs=10
 delay="20ms"
 jitter="5ms"
 num_messages=10
-message_size=1500
+message_size=2500
 interval=1
 
 for qos_level in  0 

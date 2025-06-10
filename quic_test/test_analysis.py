@@ -122,6 +122,7 @@ def identify_losses(emqx_packets, client_packets):
 
 def analyze_pcap_files(directory, output_file):
     results = []
+    print(f"Analisando arquivos no diretório: {directory}")
 
     paired_files = {}
     for filename in os.listdir(directory):

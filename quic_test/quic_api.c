@@ -350,6 +350,10 @@ quic_load_sdk_config(BOOLEAN Unsecure)
 	Settings.IsSet.MtuDiscoveryMissingProbeCount = TRUE;
 	Settings.MtuDiscoveryMissingProbeCount = 0;
 
+	// Increase time period off ping
+	Settings.IsSet.KeepAliveIntervalMs = TRUE;
+	Settings.KeepAliveIntervalMs = 1000000000; // 11.13 days
+
 	if (!node) {
 		Settings.IsSet.IdleTimeoutMs       = TRUE;
 		Settings.IdleTimeoutMs             = 90 * 1000;

@@ -158,13 +158,13 @@ for (( x=1; x<=$runs; x++ )); do
       #   chmod +x scripts/log_wrapper.sh  && \
       #   chmod +x send_msg_quic.sh && \
       #   lttng destroy msqui && \
-      #   ./scripts/log_wrapper.sh ./send_msg_quic.sh ${qos} topic 1500 ${number_of_packets} 1 > log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log 
+      #   ./scripts/log_wrapper.sh ./send_msg_quic.sh ${qos} topic $size_of_packets ${number_of_packets} 1 > log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log 
       #   "  
 
-      echo " ./root/quic_mqtt/build/quic_client pub 'mqtt-tcp://emqx:14567' ${qos} topic 1500 ${number_of_packets} 1 "
+      echo " ./root/quic_mqtt/build/quic_client pub 'mqtt-tcp://emqx:14567' $qos topic $size_of_packets $number_of_packets 1 "
 
       docker exec --user root quic_test bash -c "
-      ./root/quic_mqtt/build/quic_client pub 'mqtt-tcp://emqx:14567' ${qos} topic 1500 ${number_of_packets} 1  &
+      ./root/quic_mqtt/build/quic_client pub 'mqtt-tcp://emqx:14567' $qos topic $size_of_packets $number_of_packets 1  &
       "
       echo "Aguardando 15 segundos para o teste ser concluído"
       sleep 15
@@ -172,7 +172,7 @@ for (( x=1; x<=$runs; x++ )); do
       #   cd /root/NanoSDK/extern/msquic && \
       #   chmod +x scripts/log_wrapper.sh  && \
       #   chmod +x send_msg_quic.sh && \
-      #   ./root/quic_mqtt/build/quic_client pub 'mqtt-tcp://emqx:14567' ${qos} topic 1500 ${number_of_packets} 1  
+      #   ./root/quic_mqtt/build/quic_client pub 'mqtt-tcp://emqx:14567' ${qos} topic $size_of_packets ${number_of_packets} 1  
       #   "           
       #   lttng destroy -a  && ./scripts/log_wrapper.sh  ./send_msg_quic.sh 0 topic 100 10 10   && babeltrace --names all ./msquic_lttng*/* > quic.babel.txt %% cat quic.babel.txt
    
