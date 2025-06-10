@@ -3,37 +3,17 @@ import os
 import pandas as pd
 import pyshark
 import nest_asyncio
+nest_asyncio.apply()
 
-def process_pcap(pcap_file):
-    pcap_flow = rdpcap(pcap_file)
-    ip_len_sum = 0
-    n_packets = 0
-    for session in pcap_flow.sessions():
-        packet_lists = pcap_flow.sessions()[session]
-        n_packets += len(packet_lists)
-        for packet in packet_lists:
-             # packet.show()
-            ip_len_sum += packet.getlayer('IP').len
-    return n_packets, ip_len_sum
 
-def process_pcap_v2(pcap_file):
+def process_pcap(pcap_file_path):
     n_packets = 0
     total_bytes = 0
-    print("Processing pcap file:", pcap_file)
-
-    try:
-        with pyshark.FileCapture(pcap_file, display_filter='ip') as pcap:
-            print(f"-------> Reading {pyshark.FileCapture(pcap_file, display_filter='ip')}")
-            for packet in pcap:
-                print(f"---------------> Processing packet {n_packets + 1}: {packet}")
-                total_bytes += int(packet.length)
-                n_packets += 1
+    with pyshark.FileCapture(pcap_file_path, display_filter='ip') as cap:
+        for packet in cap:
             total_bytes += int(packet.length)
-            print(f"-------> Processed {n_packets} packets, total bytes: {total_bytes}")
-    except Exception as e:
-        print(f"Error reading ----------- {pcap_file}: {e}")
+            n_packets += 1
     return n_packets, total_bytes
-
 
 def get_errors(pcap_file):
     pcap_errors = pyshark.FileCapture(pcap_file, display_filter='tcp.analysis.flags')
@@ -72,8 +52,8 @@ if __name__ == '__main__':
         for file in files:
             if 'pcap' in file:
                 pcap_file = './results/{}/{}'.format(transport, file)
-                pcap = pyshark.FileCapture(pcap_file,  display_filter='ip')
-                n_packets, ip_len_sum = (process_pcap_v2(pcap_file=pcap_file))
+                print("Processing pcap file:", pcap_file)
+                n_packets, ip_len_sum =  process_pcap(pcap_file)
                 print("n_packets: ", n_packets, "\tip_len_sum: ", ip_len_sum)
                 print('File: ', pcap_file)
                 error_n_packets, error_ip_len_sum = get_errors(pcap_file=pcap_file)

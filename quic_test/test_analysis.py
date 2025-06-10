@@ -1,10 +1,13 @@
 
 from dataclasses import dataclass
+import hashlib
 import pyshark
 import pandas as pd
 import os
+import argparse
+import json
 
-# Structure to hold packet information
+# Estrutura de dados para armazenar informações do pacote
 @dataclass
 class Packet:
     id: str
@@ -12,26 +15,30 @@ class Packet:
     dst_ip: str
     timestamp: float
     
-
 def extract_quic_packets(pcap_file: str, role: str):
     cap = pyshark.FileCapture(pcap_file, display_filter='quic')
     packets = []
     total_bytes = 0
-    msg_confir = 0
+    total_packets = 0
     for packet in cap:
+        total_packets += 1
         total_bytes += int(packet.length)
         layer_data = {}
-        if(role != "EMQX"):
-            for layer in packet.layers:
-                if   layer.layer_name != "quic":  # Ignorar a camada frame
-                    for field in layer._all_fields.values():
-                        layer_data[layer.layer_name] = {
-                                field.name: field.show 
-                            for field in layer._all_fields.values() 
-                                if field.name not in ["udp.time_relative", "udp.time_delta"]
-                    }
-        
-        # Building a unique identifier for the packet
+        hash_func = hashlib.sha256()
+      
+        for layer in packet.layers:
+            if   layer.layer_name == "quic":  # Ignorar a camada frame
+                pass  
+            else:
+                for field in layer._all_fields.values():
+                    layer_data[layer.layer_name] = {
+                            field.name: field.show 
+                        for field in layer._all_fields.values() 
+                            if field.name not in ["udp.time_relative", "udp.time_delta"]
+                }
+        hash_func.update(json.dumps(layer_data, sort_keys=True).encode())
+        id_hex = hash_func.hexdigest()
+        # Criar o ID do pacote para comparação  
         pkt = Packet(
             id=layer_data,
             src_ip=packet.ip.src,
@@ -41,12 +48,11 @@ def extract_quic_packets(pcap_file: str, role: str):
         packets.append(pkt)
 
     cap.close()
-    return packets , total_bytes , msg_confir
+    return packets , total_bytes , total_packets
 
 
-def generate_mermaid(emqx_packets, client_packets,filename, local_diagram):
-    sequence = ["```mermaid", "sequenceDiagram"]
-    
+def identify_losses(emqx_packets, client_packets):
+   
     # Sequence of packets
     send_success_client_to_emqx = 0
     send_success_emqx_to_client = 0
@@ -67,7 +73,7 @@ def generate_mermaid(emqx_packets, client_packets,filename, local_diagram):
     send_sucess_total = 0
     send_fail_total = 0
 
-    for pkt_emqx in emqx_packets:
+    for pkt_emqx in emqx_packets:        
         for pkt_client in client_packets:
             if pkt_emqx.id == pkt_client.id:
                 inter_join_packets.append(pkt_emqx)
@@ -92,7 +98,6 @@ def generate_mermaid(emqx_packets, client_packets,filename, local_diagram):
     send_sucess_total = len(inter_join_packets)
 
     top_diff_packets = sorted(diff_packets.items(), key=lambda x: x[1], reverse=True)[:10]
-    ##print("Top Diff Packets",top_diff_packets)   
 
     all_packets = sorted(emqx_packets + client_packets, key=lambda pkt: pkt.timestamp)
 
@@ -100,19 +105,6 @@ def generate_mermaid(emqx_packets, client_packets,filename, local_diagram):
 
     assert len(all_packets) == total_packets
     
-    #for pkt in all_packets:
-    #     if pkt in inter_join_packets:
-    #         if pkt.src_ip == "172.18.0.3":
-    #             sequence.append(f' Cliente->>EMQX: QUIC Packet {pkt.id} (Entregue)')
-    #         else:
-    #             sequence.append(f' EMQX->>Cliente: QUIC Packet {pkt.id} (Entregue)')
-    #     else:
-    #         if pkt.src_ip == "172.18.0.3":
-    #             sequence.append(f' Cliente--xEMQX: QUIC Packet {pkt.id} (Perda)')
-    #         else:
-    #             sequence.append(f' EMQX--xCliente: QUIC Packet {pkt.id} (Perda)')
-    #sequence.append("```")
-
     pacote_perdido = None
 
     for pkt in emqx_packets:
@@ -126,33 +118,17 @@ def generate_mermaid(emqx_packets, client_packets,filename, local_diagram):
         else:
             loss_client_emqx += 1
 
-    
-    sequence.append("total_send" + str(total_packets))
-    sequence.append("send_total_emqx" + str(send_total_emqx))
-    sequence.append("send_total_client" + str(send_total_client))
-    sequence.append("send_sucess_emqx_client" + str(send_success_emqx_to_client))
-    sequence.append("send_sucess_client_emqx" + str(send_success_client_to_emqx))
-    sequence.append("loss_emqx_client" + str(loss_emqx_client))
-    sequence.append("loss_client_emqx" + str(loss_client_emqx))
-    sequence.append("tota_sucess_send" + str(send_sucess_total))
-    sequence.append("total_loss_send" + str(send_fail_total))
+    return send_total_emqx, send_total_client, send_success_emqx_to_client, send_success_client_to_emqx, loss_emqx_client, loss_client_emqx
 
-    filename_final = local_diagram + filename
-    with open(filename_final, "w") as file:
-        for line in sequence:
-            file.write(line + "\n")
-    
-    return total_packets, send_total_emqx, send_total_client, send_success_emqx_to_client, send_success_client_to_emqx, loss_emqx_client, loss_client_emqx
-
-def analyze_pcap_files(directory, output_file, local_diagram=""):
+def analyze_pcap_files(directory, output_file):
     results = []
-    
+
     paired_files = {}
     for filename in os.listdir(directory):
         if filename.endswith(".pcap"):
             base_name = "-".join(filename.split("-")[:-1])
             role = "client" if "client" in filename else "emqx"
-            
+
             if base_name not in paired_files:
                 paired_files[base_name] = {}
             paired_files[base_name][role] = os.path.join(directory, filename)
@@ -165,22 +141,19 @@ def analyze_pcap_files(directory, output_file, local_diagram=""):
             num_msgs = parts[7]
             msg_interval = parts[5]
             qos = parts[13]
-            print(f"Analisando {base_name}")
-
-
+            
             try:
-                emqx_packets , total_bytes_emqx , msg_confir = extract_quic_packets(files["emqx"], "EMQX")
-                client_packets , total_bytes_client , _ = extract_quic_packets(files["client"], "Cliente")
+                emqx_packets = extract_quic_packets(files["emqx"], "EMQX")
+                print(f"Processando arquivos: {files['emqx']} e {files['client']}")
+                client_packets , total_bytes , total_packets = extract_quic_packets(files["client"], "Cliente")
+                print(f"Total de bytes: {total_bytes}, Total de pacotes: {total_packets}")
             except Exception as e:
-                print(f"Erro ao processar {base_name}: {e}")
+                print(f"Erro ao processar os arquivos {files['emqx']} e {files['client']}: {e}")
                 continue
 
-            total_packets, send_total_emqx, send_total_client, send_success_emqx_to_client, send_success_client_to_emqx, loss_emqx_client, loss_client_emqx = generate_mermaid(emqx_packets, client_packets, f"{base_name}-diagram.md", local_diagram)
-            #print(f"Interseção de pacotes: {send_total_emqx}")
-            print(f"Pacotes enviados Cliente: {send_total_client}")
-            print(f"Pacotes entregues Cliente -> EMQX: {send_success_client_to_emqx}")
-            print(f"Pacotes perdidos Cliente -> EMQX: {loss_client_emqx}")
+            send_total_emqx, send_total_client, send_success_emqx_to_client, send_success_client_to_emqx, loss_emqx_client, loss_client_emqx = identify_losses(emqx_packets[0], client_packets)
 
+            
             results.append({
                 "Run_X": run_x,
                 "Loss": loss,
@@ -188,26 +161,30 @@ def analyze_pcap_files(directory, output_file, local_diagram=""):
                 "Message_Interval": msg_interval,
                 "QoS": qos,
                 "Total_Packets": total_packets,
-                "Total_Packets_Client": send_total_client,
-                "Total_Packets_EMQX": send_total_emqx,
-                "Total_send_success_client_to_emqx": send_success_client_to_emqx,
-                "Total_send_success_emqx_to_client": send_success_emqx_to_client,
+                "Total_Bytes": total_bytes,
                 "Total_loss_client_emqx": loss_client_emqx,
                 "Total_loss_emqx_client": loss_emqx_client,
-                "Total_bytes_emqx": total_bytes_emqx,
-                "Total_bytes_client": total_bytes_client,
-                "Total_msg_confirmadas x/100": msg_confir,
             })
     
     df = pd.DataFrame(results)
     df.to_csv(output_file, index=False)  # Alterado para salvar como CSV
 
+
 def main():
-    directory = "results/quic/captures/"
-    output_file = "quic_analysis.csv"
-    local_diagram = "results/quic/captures/"
-    analyze_pcap_files(directory, output_file, local_diagram)
-    print(f"Resultados salvos em {output_file}")
+    parser = argparse.ArgumentParser(description="Análise de capturas QUIC.")
+    parser.add_argument(
+        "-d", "--directory",
+        default="results/quic/captures/",
+        help="Diretório contendo os arquivos .pcap"
+    )
+    parser.add_argument(
+        "-o", "--output",
+        default="quic_analysis.csv",
+        help="Nome do arquivo CSV de saída"
+    )
+    args = parser.parse_args()
+
+    analyze_pcap_files(args.directory, args.output)
 
 if __name__ == "__main__":
     main()

@@ -1,3 +1,0 @@
-Run_X,Loss,Number_of_Msg,Message_Interval,QoS,Total_Packets,Total_Packets_Client,Total_Packets_EMQX,Total_send_success_client_to_emqx,Total_send_success_emqx_to_client,Total_loss_client_emqx,Total_loss_emqx_client,Total_bytes_emqx,Total_bytes_client,Total_msg_confirmadas x/100
-1,0%,100,20ms,1,1052,526,526,526,526,0,0,213906,213906,0
-1,0%,100,20ms,2,1848,924,924,924,924,0,0,246457,246457,0

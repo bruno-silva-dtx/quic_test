@@ -140,7 +140,7 @@
 -kernel net_ticktime 120
 -env ERL_CRASH_DUMP_BYTES 104857600
 -env ERL_CRASH_DUMP_SECONDS 30
--env ERL_CRASH_DUMP /opt/emqx/log/erl_crash.2025.06.05.10.42.02.dump
+-env ERL_CRASH_DUMP /opt/emqx/log/erl_crash.2025.06.09.11.31.54.dump
 +e 262144
 +zdbbl 8192
 +Q 1048576
