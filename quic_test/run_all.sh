@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Valores de taxa de perda de pacotes (em %)
-loss_values=(0)
+loss_values=(25)
 # Configurações fixas   0.1 1 5 10 25
 runs=10
 delay="20ms"
 jitter="5ms"
-num_messages=10
+num_messages=100
 message_size=2500
 interval=1
 

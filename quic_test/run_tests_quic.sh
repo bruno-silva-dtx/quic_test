@@ -130,7 +130,7 @@ for (( x=1; x<=$runs; x++ )); do
       echo "Correndo teste $x"
       echo "Executando o tcmdump no quic_test"
       # Iniciar tcpdump em quic_test
-      docker exec --user root quic_test bash -c "
+      docker exec --user root -it quic_test bash -c "
          cd /tmp && \
          tcpdump -U -i eth0 port 14567 -w /tmp/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos-client.pcap &
          echo \$! > /tmp/tcpdump-quic-test-$x-$loss.pid
@@ -139,7 +139,7 @@ for (( x=1; x<=$runs; x++ )); do
       echo "Executando o tcpdump no emqx"
 
       # Iniciar tcpdump em emqx
-      docker exec --user root emqx bash -c "
+      docker exec --user root -it emqx bash -c "
          tcpdump -U -i eth0 port 14567 -w /tmp/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos-emqx.pcap &
          echo \$! > /tmp/tcpdump-emqx-$x-$loss.pid
       "
@@ -147,7 +147,7 @@ for (( x=1; x<=$runs; x++ )); do
       echo "Espere 5 segundos para o tcpdump"
       sleep 5
 
-      docker exec quic_test bash -c "
+      docker exec -it quic_test bash -c "
          apt install sudo -y && \
          apt full-upgrade -y && \
          apt autoremove
@@ -161,13 +161,15 @@ for (( x=1; x<=$runs; x++ )); do
       #   ./scripts/log_wrapper.sh ./send_msg_quic.sh ${qos} topic $size_of_packets ${number_of_packets} 1 > log_tracer_${loss}_${delay}_${number_of_packets}_${msg_interval}_${qos}_${x}.log 
       #   "  
 
-      echo " ./root/quic_mqtt/build/quic_client pub 'mqtt-tcp://emqx:14567' $qos topic $size_of_packets $number_of_packets 1 "
+      echo " ./root/quic_mqtt/build/quic_client pub 'mqtt-tcp://emqx:14567' $qos topic $size_of_packets $number_of_packets $msg_interval "
 
-      docker exec --user root quic_test bash -c "
-      ./root/quic_mqtt/build/quic_client pub 'mqtt-tcp://emqx:14567' $qos topic $size_of_packets $number_of_packets 1  &
+      docker exec -it quic_test bash -c "
+      echo '/root/quic_mqtt/build/quic_client pub 'mqtt-tcp://emqx:14567' $qos topic $size_of_packets $number_of_packets $msg_interval' && \
+      ./root/quic_mqtt/build/quic_client pub 'mqtt-tcp://emqx:14567' $qos topic $size_of_packets $number_of_packets $msg_interval
       "
-      echo "Aguardando 15 segundos para o teste ser concluído"
       sleep 15
+      echo "Aguardando 15 segundos para o teste ser concluído"
+
       #docker exec --user root quic_test bash -c "
       #   cd /root/NanoSDK/extern/msquic && \
       #   chmod +x scripts/log_wrapper.sh  && \

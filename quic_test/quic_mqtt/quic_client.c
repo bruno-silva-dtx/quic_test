@@ -59,9 +59,9 @@ conf_quic config_user = {
 		.verify_peer = true,
 		.set_fail = true,
 	},
-	.multi_stream = true,
+	.multi_stream = false,
 	.qos_first  = true,
-	.qkeepalive = 10,
+	.qkeepalive = 1000,
 	.qconnect_timeout = 60,
 	.qdiscon_timeout = 30,
 	.qidle_timeout = 30,
@@ -255,17 +255,18 @@ client(int type, const char *url, const char *qos, const char *topic, const char
 					nng_thread *thr;
 					nng_thread_create(&thr, sendmsg_func, &sock);
 			#endif	
-			sleep(atoi(msg_intervalo));
+			nng_msleep(atoi(msg_intervalo));
 		}
 		break;
 	default:
 		printf("Unknown command.\n");
 	}
-	nng_msleep(atoi(msg_intervalo));
-
-
-
+	//nng_msleep(atoi(msg_intervalo));
+	fprintf(stderr, "Closing socket...\n");
+	// Close the socket
+	
 	nng_close(sock);
+	printf("Socket Closed\n");
 	fprintf(stderr, "Done.\n");
 
 	return (0);
@@ -300,6 +301,7 @@ int
 main(int argc, char **argv)
 {
 	int rc;
+
 	printf("Main");
 	fprintf(stderr, "Dentro do for.\n");
 
