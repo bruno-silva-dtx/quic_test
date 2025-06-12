@@ -130,7 +130,7 @@ for (( x=1; x<=$runs; x++ )); do
       echo "Correndo teste $x"
       echo "Executando o tcmdump no quic_test"
       # Iniciar tcpdump em quic_test
-      docker exec --user root -it quic_test bash -c "
+      docker exec --user root quic_test bash -c "
          cd /tmp && \
          tcpdump -U -i eth0 port 14567 -w /tmp/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos-client.pcap &
          echo \$! > /tmp/tcpdump-quic-test-$x-$loss.pid
@@ -139,7 +139,7 @@ for (( x=1; x<=$runs; x++ )); do
       echo "Executando o tcpdump no emqx"
 
       # Iniciar tcpdump em emqx
-      docker exec --user root -it emqx bash -c "
+      docker exec --user root emqx bash -c "
          tcpdump -U -i eth0 port 14567 -w /tmp/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos-emqx.pcap &
          echo \$! > /tmp/tcpdump-emqx-$x-$loss.pid
       "
@@ -147,7 +147,7 @@ for (( x=1; x<=$runs; x++ )); do
       echo "Espere 5 segundos para o tcpdump"
       sleep 5
 
-      docker exec -it quic_test bash -c "
+      docker exec quic_test bash -c "
          apt install sudo -y && \
          apt full-upgrade -y && \
          apt autoremove
@@ -205,6 +205,9 @@ for (( x=1; x<=$runs; x++ )); do
       docker cp quic_test:/tmp/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos-client.pcap ./results/quic/captures/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos-client.pcap
       docker cp emqx:/tmp/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos-emqx.pcap ./results/quic/captures/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos-emqx.pcap
 
+      docker cp quic_test:/root/run-client.pcap ./results/quic/captures/run-client-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos.pcap
+      docker cp emqx:/root/run-emqx.pcap ./results/quic/captures/run-emqx-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos.pcap
+
       # Parar tcpdump em quic_test
       docker exec --user root quic_test bash -c "
          pkill -9 tcpdump && \
@@ -212,15 +215,15 @@ for (( x=1; x<=$runs; x++ )); do
       "
 
       # Parar tcpdump em emqx
-      docker exec --user root emqx bash -c "
+      docker exec --user root -it emqx bash -c "
          pkill -9 tcpdump && \
          kill -9 \$(cat /tmp/tcpdump-emqx-$x-$loss.pid)
       "
 
-      docker --user root emqx bash -c "
+      docker --user root -it emqx bash -c "
          rm -r /tmp/run-$x-loss-$loss-delay-$delay-n-$number_of_packets-s-$size_of_packets-i-$msg_interval-q-$qos-emqx.pcap
       "
-      docker exec quic_test bash -c "
+      docker exec -it quic_test bash -c "
          cd /root/NanoSDK/extern/msquic && \
          rm -r log_* && \
          rm -r ./msquic_lttng* && \
@@ -228,8 +231,8 @@ for (( x=1; x<=$runs; x++ )); do
       " 
       # lttng destroy -a && \
 
-      docker exec --user root emqx bash -c "kill -9 \$(cat /tmp/tcpdump-emqx-$x-$loss.pid)"
-      docker exec --user root quic_test bash -c "kill -9 \$(cat /tmp/tcpdump-quic-test-$x-$loss.pid)"
+      docker exec --user root -it emqx bash -c "kill -9 \$(cat /tmp/tcpdump-emqx-$x-$loss.pid)"
+      docker exec --user root -it quic_test bash -c "kill -9 \$(cat /tmp/tcpdump-quic-test-$x-$loss.pid)"
 
       sleep 5
       echo "Teste $x concluído"

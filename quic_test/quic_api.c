@@ -343,22 +343,13 @@ quic_load_sdk_config(BOOLEAN Unsecure)
 
 	conf_quic *node = &conf_node;
 
-	// Disable MTU
-	Settings.IsSet.MtuDiscoverySearchCompleteTimeoutUs = TRUE;
-	Settings.MtuDiscoverySearchCompleteTimeoutUs = 0;
-
-	Settings.IsSet.MtuDiscoveryMissingProbeCount = TRUE;
-	Settings.MtuDiscoveryMissingProbeCount = 0;
-
-	// Increase time period off ping
-	Settings.IsSet.KeepAliveIntervalMs = TRUE;
-	Settings.KeepAliveIntervalMs = 1000000000; // 11.13 days
-
+	
 	if (!node) {
 		Settings.IsSet.IdleTimeoutMs       = TRUE;
 		Settings.IdleTimeoutMs             = 90 * 1000;
+		// Increase time period off ping
 		Settings.IsSet.KeepAliveIntervalMs = TRUE;
-		Settings.KeepAliveIntervalMs       = 60 * 1000;
+		Settings.KeepAliveIntervalMs = 1000000000; // 11.13 days
 		goto there;
 	}
 	// Configures the client's idle timeout.
@@ -372,36 +363,48 @@ quic_load_sdk_config(BOOLEAN Unsecure)
 		Settings.IsSet.HandshakeIdleTimeoutMs = TRUE;
 		Settings.HandshakeIdleTimeoutMs =
 		    node->qconnect_timeout * 1000;
-	}
-	if (node->qdiscon_timeout != 0) {
-		Settings.IsSet.DisconnectTimeoutMs = TRUE;
+		}
+		if (node->qdiscon_timeout != 0) {
+			Settings.IsSet.DisconnectTimeoutMs = TRUE;
 		Settings.DisconnectTimeoutMs       = node->qdiscon_timeout * 1000;
 	}
-
+	
 	Settings.IsSet.KeepAliveIntervalMs = TRUE;
 	Settings.KeepAliveIntervalMs       = node->qkeepalive * 1000;
-
+	
 	// Limitar o numero de stream
 	//Settings.IsSet.PeerBidiStreamCount = TRUE;
 	//Settings.PeerBidiStreamCount = 1;  //--> 1 stream bidirecional
-
+	
 	//Settings.IsSet.PeerUnidiStreamCount = TRUE;
 	//Settings.PeerUnidiStreamCount = 1;  //--> 1 stream unidirecional
-
-
-
+	
+	
+	
 	switch (node->qcongestion_control)
 	{
-	case QUIC_CONGESTION_CONTROL_ALGORITHM_CUBIC:
+		case QUIC_CONGESTION_CONTROL_ALGORITHM_CUBIC:
 		Settings.IsSet.CongestionControlAlgorithm = TRUE;
 		Settings.CongestionControlAlgorithm       = QUIC_CONGESTION_CONTROL_ALGORITHM_CUBIC;
 		break;
-
-	default:
+		
+		default:
 		log_warn("unsupport congestion control algorithm, use default cubic!");
 		break;
 	}
 
+	//<----------------------- QUIC SETTINGS ----------------------------> 
+	// Disable MTU
+	Settings.IsSet.MtuDiscoverySearchCompleteTimeoutUs = TRUE;
+	Settings.MtuDiscoverySearchCompleteTimeoutUs = 0;
+
+	Settings.IsSet.MtuDiscoveryMissingProbeCount = TRUE;
+	Settings.MtuDiscoveryMissingProbeCount = 0;
+
+	// Increase time period off ping
+	Settings.IsSet.KeepAliveIntervalMs = TRUE;
+	Settings.KeepAliveIntervalMs = 1000000000; // 11.13 days
+	
 there:
 
 	// Configures a default client configuration, optionally disabling
